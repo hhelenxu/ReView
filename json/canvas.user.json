@@ -1,0 +1,19 @@
+{
+    "id": 1349,
+    "name": "Jeremy Petranka",
+    "created_at": "2016-04-21T15:39:11-04:00",
+    "sortable_name": "Petranka, Jeremy",
+    "short_name": "Jeremy Petranka",
+    "sis_user_id": "0374087",
+    "integration_id": null,
+    "sis_import_id": 46,
+    "login_id": "0374087",
+    "avatar_url": "https://www.fuqua.duke.edu/shared/images/pics/fac_staff/lg/fs_jmp31.jpg",
+    "email": "jeremy.petranka@duke.edu",
+    "locale": null,
+    "permissions": {
+        "can_update_name": false,
+        "can_update_avatar": true,
+        "limit_parent_app_web_access": false
+    }
+}

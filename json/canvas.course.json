@@ -1,0 +1,54 @@
+{
+    "id": 461,
+    "name": "MQM Testing",
+    "account_id": 39,
+    "uuid": "pehG4ABDbOSw6vDe6cdY4bQ6p5pV5jRqXBK2IR4C",
+    "start_at": "2017-06-07T15:37:00Z",
+    "grading_standard_id": null,
+    "is_public": false,
+    "created_at": "2017-06-07T14:32:27Z",
+    "course_code": "mqmtest",
+    "default_view": "feed",
+    "root_account_id": 1,
+    "enrollment_term_id": 1,
+    "license": "private",
+    "grade_passback_setting": null,
+    "end_at": null,
+    "public_syllabus": false,
+    "public_syllabus_to_auth": false,
+    "storage_quota_mb": 500,
+    "is_public_to_auth_users": false,
+    "homeroom_course": false,
+    "course_color": null,
+    "hide_final_grades": false,
+    "apply_assignment_group_weights": false,
+    "calendar": {
+        "ics": "https://fuqua.instructure.com/feeds/calendars/course_pehG4ABDbOSw6vDe6cdY4bQ6p5pV5jRqXBK2IR4C.ics"
+    },
+    "time_zone": "America/New_York",
+    "blueprint": false,
+    "template": false,
+    "sis_course_id": null,
+    "sis_import_id": null,
+    "integration_id": null,
+    "enrollments": [
+        {
+            "type": "teacher",
+            "role": "Course Manager",
+            "role_id": 25,
+            "user_id": 199,
+            "enrollment_state": "active",
+            "limit_privileges_to_course_section": false
+        },
+        {
+            "type": "student",
+            "role": "StudentEnrollment",
+            "role_id": 3,
+            "user_id": 199,
+            "enrollment_state": "active",
+            "limit_privileges_to_course_section": false
+        }
+    ],
+    "workflow_state": "available",
+    "restrict_enrollments_to_course_dates": false
+}

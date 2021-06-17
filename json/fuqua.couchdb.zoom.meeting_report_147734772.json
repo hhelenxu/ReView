@@ -1,0 +1,2744 @@
+{
+  "_id": "zoom_meeting_147734772",
+  "_rev": "1-dbffd9fa74f1f0ea597d13273534a9a3",
+  "3/28/2020": [
+    {
+      "duration": 5809,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5809,
+          "leave_time": "2020-03-28T14:27:53Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-03-28T12:51:04Z"
+        }
+      ],
+      "leave_time": "2020-03-28T14:27:53Z",
+      "name": "Amani Johnson-Singh-Barnett (apj14)",
+      "day": "3/28/2020",
+      "join_time": "2020-03-28T12:51:04Z"
+    },
+    {
+      "duration": 5797,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5797,
+          "leave_time": "2020-03-28T14:27:54Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-03-28T12:51:17Z"
+        }
+      ],
+      "leave_time": "2020-03-28T14:27:54Z",
+      "name": "Justin DiVenuta (jld92)",
+      "day": "3/28/2020",
+      "join_time": "2020-03-28T12:51:17Z"
+    },
+    {
+      "duration": 5675,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 186,
+          "leave_time": "2020-03-28T12:55:12Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-03-28T12:52:06Z"
+        },
+        {
+          "duration": 5489,
+          "leave_time": "2020-03-28T14:27:50Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-03-28T12:56:21Z"
+        }
+      ],
+      "leave_time": "2020-03-28T14:27:50Z",
+      "name": "16178660345",
+      "day": "3/28/2020",
+      "join_time": "2020-03-28T12:52:06Z"
+    },
+    {
+      "duration": 5543,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5543,
+          "leave_time": "2020-03-28T14:27:54Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-03-28T12:55:31Z"
+        }
+      ],
+      "leave_time": "2020-03-28T14:27:54Z",
+      "name": "Austin Mueke (alm152)",
+      "day": "3/28/2020",
+      "join_time": "2020-03-28T12:55:31Z"
+    },
+    {
+      "duration": 5524,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5524,
+          "leave_time": "2020-03-28T14:27:54Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-03-28T12:55:50Z"
+        }
+      ],
+      "leave_time": "2020-03-28T14:27:54Z",
+      "name": "Charro May Bauzon (cbr15)",
+      "day": "3/28/2020",
+      "join_time": "2020-03-28T12:55:50Z"
+    },
+    {
+      "duration": 586,
+      "user_email": "gowang@duke.edu",
+      "sessions": [
+        {
+          "duration": 343,
+          "leave_time": "2020-03-28T13:01:35Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-03-28T12:55:52Z"
+        },
+        {
+          "duration": 243,
+          "leave_time": "2020-03-28T14:27:55Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-03-28T14:23:52Z"
+        }
+      ],
+      "leave_time": "2020-03-28T14:27:55Z",
+      "name": "Gordon Wang",
+      "day": "3/28/2020",
+      "join_time": "2020-03-28T12:55:52Z"
+    },
+    {
+      "duration": 5417,
+      "user_email": "ss1103@duke.edu",
+      "sessions": [
+        {
+          "duration": 5417,
+          "leave_time": "2020-03-28T14:27:54Z",
+          "attentiveness": "",
+          "id": "zCkr3uw2RUSN5b_iPzCnww",
+          "join_time": "2020-03-28T12:57:37Z"
+        }
+      ],
+      "leave_time": "2020-03-28T14:27:54Z",
+      "name": "Samuel Song (ss1103)",
+      "day": "3/28/2020",
+      "join_time": "2020-03-28T12:57:37Z"
+    },
+    {
+      "duration": 5417,
+      "user_email": "mattiaciollaro@gmail.com",
+      "sessions": [
+        {
+          "duration": 5417,
+          "leave_time": "2020-03-28T14:27:54Z",
+          "attentiveness": "",
+          "id": "yGLrPUxmSqeNCFYzNl8oXA",
+          "join_time": "2020-03-28T12:57:37Z"
+        }
+      ],
+      "leave_time": "2020-03-28T14:27:54Z",
+      "name": "Mattia Ciollaro",
+      "day": "3/28/2020",
+      "join_time": "2020-03-28T12:57:37Z"
+    },
+    {
+      "duration": 5393,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5393,
+          "leave_time": "2020-03-28T14:27:46Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-03-28T12:57:53Z"
+        }
+      ],
+      "leave_time": "2020-03-28T14:27:46Z",
+      "name": "Jessica Boham (jmb248)",
+      "day": "3/28/2020",
+      "join_time": "2020-03-28T12:57:53Z"
+    },
+    {
+      "duration": 5373,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5373,
+          "leave_time": "2020-03-28T14:27:55Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-03-28T12:58:22Z"
+        }
+      ],
+      "leave_time": "2020-03-28T14:27:55Z",
+      "name": "David Cohen (dc330)",
+      "day": "3/28/2020",
+      "join_time": "2020-03-28T12:58:22Z"
+    },
+    {
+      "duration": 5364,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5364,
+          "leave_time": "2020-03-28T14:27:52Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-03-28T12:58:28Z"
+        }
+      ],
+      "leave_time": "2020-03-28T14:27:52Z",
+      "name": "Iryna Kotenko (ik69)",
+      "day": "3/28/2020",
+      "join_time": "2020-03-28T12:58:28Z"
+    },
+    {
+      "duration": 5320,
+      "user_email": "adriana_paola_fernandez@hotmail.com",
+      "sessions": [
+        {
+          "duration": 5320,
+          "leave_time": "2020-03-28T14:27:49Z",
+          "attentiveness": "",
+          "id": "OVaPDHLxTc2hEgxSm2gmDA",
+          "join_time": "2020-03-28T12:59:09Z"
+        }
+      ],
+      "leave_time": "2020-03-28T14:27:49Z",
+      "name": "Adriana Fernandez (apf23)",
+      "day": "3/28/2020",
+      "join_time": "2020-03-28T12:59:09Z"
+    },
+    {
+      "duration": 5295,
+      "user_email": "nk221@duke.edu",
+      "sessions": [
+        {
+          "duration": 5295,
+          "leave_time": "2020-03-28T14:27:44Z",
+          "attentiveness": "",
+          "id": "j1rUJqRmQNqRZbzWTE-IXQ",
+          "join_time": "2020-03-28T12:59:29Z"
+        }
+      ],
+      "leave_time": "2020-03-28T14:27:44Z",
+      "name": "Neil Koul (nk221)",
+      "day": "3/28/2020",
+      "join_time": "2020-03-28T12:59:29Z"
+    },
+    {
+      "duration": 5292,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5292,
+          "leave_time": "2020-03-28T14:27:49Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-03-28T12:59:37Z"
+        }
+      ],
+      "leave_time": "2020-03-28T14:27:49Z",
+      "name": "Pamela Romero Cruz (pr76)",
+      "day": "3/28/2020",
+      "join_time": "2020-03-28T12:59:37Z"
+    },
+    {
+      "duration": 5285,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5285,
+          "leave_time": "2020-03-28T14:27:51Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-03-28T12:59:46Z"
+        }
+      ],
+      "leave_time": "2020-03-28T14:27:51Z",
+      "name": "Clifton Davis (crd44)",
+      "day": "3/28/2020",
+      "join_time": "2020-03-28T12:59:46Z"
+    },
+    {
+      "duration": 5270,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5270,
+          "leave_time": "2020-03-28T14:27:44Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-03-28T12:59:54Z"
+        }
+      ],
+      "leave_time": "2020-03-28T14:27:44Z",
+      "name": "Stewart Caldwell (swc33)",
+      "day": "3/28/2020",
+      "join_time": "2020-03-28T12:59:54Z"
+    },
+    {
+      "duration": 5273,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5273,
+          "leave_time": "2020-03-28T14:27:52Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-03-28T12:59:59Z"
+        }
+      ],
+      "leave_time": "2020-03-28T14:27:52Z",
+      "name": "Arnold Garcia (asg51)",
+      "day": "3/28/2020",
+      "join_time": "2020-03-28T12:59:59Z"
+    },
+    {
+      "duration": 5145,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5145,
+          "leave_time": "2020-03-28T14:25:50Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-03-28T13:00:05Z"
+        }
+      ],
+      "leave_time": "2020-03-28T14:25:50Z",
+      "name": "Gabriel Li (xl329)",
+      "day": "3/28/2020",
+      "join_time": "2020-03-28T13:00:05Z"
+    },
+    {
+      "duration": 5246,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5246,
+          "leave_time": "2020-03-28T14:27:53Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-03-28T13:00:27Z"
+        }
+      ],
+      "leave_time": "2020-03-28T14:27:53Z",
+      "name": "Saurav Ajmera (sa408)",
+      "day": "3/28/2020",
+      "join_time": "2020-03-28T13:00:27Z"
+    },
+    {
+      "duration": 5237,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5237,
+          "leave_time": "2020-03-28T14:27:53Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-03-28T13:00:36Z"
+        }
+      ],
+      "leave_time": "2020-03-28T14:27:53Z",
+      "name": "Alex Cheng (xc156)",
+      "day": "3/28/2020",
+      "join_time": "2020-03-28T13:00:36Z"
+    },
+    {
+      "duration": 5211,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5211,
+          "leave_time": "2020-03-28T14:27:39Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-03-28T13:00:48Z"
+        }
+      ],
+      "leave_time": "2020-03-28T14:27:39Z",
+      "name": "Aaron Pulsipher (amp125)",
+      "day": "3/28/2020",
+      "join_time": "2020-03-28T13:00:48Z"
+    },
+    {
+      "duration": 4387,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4387,
+          "leave_time": "2020-03-28T14:15:48Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-03-28T13:02:41Z"
+        }
+      ],
+      "leave_time": "2020-03-28T14:15:48Z",
+      "name": "Carolyn Gales-Woods (cbg20)",
+      "day": "3/28/2020",
+      "join_time": "2020-03-28T13:02:41Z"
+    },
+    {
+      "duration": 5094,
+      "user_email": "romarieh@outlook.com",
+      "sessions": [
+        {
+          "duration": 5094,
+          "leave_time": "2020-03-28T14:27:51Z",
+          "attentiveness": "",
+          "id": "mb9daOh-RcOQjTHfoDbr6g",
+          "join_time": "2020-03-28T13:02:57Z"
+        }
+      ],
+      "leave_time": "2020-03-28T14:27:51Z",
+      "name": "Rose Darensberg (rmd55)",
+      "day": "3/28/2020",
+      "join_time": "2020-03-28T13:02:57Z"
+    },
+    {
+      "duration": 4881,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4881,
+          "leave_time": "2020-03-28T14:27:45Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-03-28T13:06:24Z"
+        }
+      ],
+      "leave_time": "2020-03-28T14:27:45Z",
+      "name": "Sreeram Makam (spm50)",
+      "day": "3/28/2020",
+      "join_time": "2020-03-28T13:06:24Z"
+    },
+    {
+      "duration": 22,
+      "user_email": "chi.zhang623@duke.edu",
+      "sessions": [
+        {
+          "duration": 22,
+          "leave_time": "2020-03-28T14:17:12Z",
+          "attentiveness": "",
+          "id": "YZD12wZOTb6sZ4NOODWsMw",
+          "join_time": "2020-03-28T14:16:50Z"
+        }
+      ],
+      "leave_time": "2020-03-28T14:17:12Z",
+      "name": "Chi Zhang (cz156)",
+      "day": "3/28/2020",
+      "join_time": "2020-03-28T14:16:50Z"
+    }
+  ],
+  "3/14/2020": [
+    {
+      "duration": 78,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 78,
+          "leave_time": "2020-03-14T12:52:49Z",
+          "attentiveness": "",
+          "id": "_JAvAfiNTnCWQsF1npRdkg",
+          "join_time": "2020-03-14T12:51:31Z"
+        }
+      ],
+      "leave_time": "2020-03-14T12:52:49Z",
+      "name": "Mattia Ciollaro (mc629)",
+      "day": "3/14/2020",
+      "join_time": "2020-03-14T12:51:31Z"
+    },
+    {
+      "duration": 5006,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5006,
+          "leave_time": "2020-03-14T14:15:39Z",
+          "attentiveness": "",
+          "id": "9OWrwAoESsajeazVi9Jg1g",
+          "join_time": "2020-03-14T12:52:13Z"
+        }
+      ],
+      "leave_time": "2020-03-14T14:15:39Z",
+      "name": "Gabriel Li (xl329)",
+      "day": "3/14/2020",
+      "join_time": "2020-03-14T12:52:13Z"
+    },
+    {
+      "duration": 5106,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5106,
+          "leave_time": "2020-03-14T14:19:26Z",
+          "attentiveness": "",
+          "id": "LKbD4QCNRFe-kpVphnE2Ww",
+          "join_time": "2020-03-14T12:54:20Z"
+        }
+      ],
+      "leave_time": "2020-03-14T14:19:26Z",
+      "name": "Carolyn Gales-Woods (cbg20)",
+      "day": "3/14/2020",
+      "join_time": "2020-03-14T12:54:20Z"
+    },
+    {
+      "duration": 5056,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5056,
+          "leave_time": "2020-03-14T14:19:25Z",
+          "attentiveness": "",
+          "id": "QuGPHBdqTwC35UCKDCG-1A",
+          "join_time": "2020-03-14T12:55:09Z"
+        }
+      ],
+      "leave_time": "2020-03-14T14:19:25Z",
+      "name": "Justin DiVenuta (jld92)",
+      "day": "3/14/2020",
+      "join_time": "2020-03-14T12:55:09Z"
+    },
+    {
+      "duration": 4998,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 3367,
+          "leave_time": "2020-03-14T13:51:37Z",
+          "attentiveness": "",
+          "id": "0BSQ2JGNQ1SfivYS7WnwvA",
+          "join_time": "2020-03-14T12:55:30Z"
+        },
+        {
+          "duration": 1631,
+          "leave_time": "2020-03-14T14:19:26Z",
+          "attentiveness": "",
+          "id": "menAATacQu-St2hT284UtQ",
+          "join_time": "2020-03-14T13:52:15Z"
+        }
+      ],
+      "leave_time": "2020-03-14T14:19:26Z",
+      "name": "Amani Johnson-Singh-Barnett (apj14)",
+      "day": "3/14/2020",
+      "join_time": "2020-03-14T12:55:30Z"
+    },
+    {
+      "duration": 5028,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5028,
+          "leave_time": "2020-03-14T14:19:19Z",
+          "attentiveness": "",
+          "id": "8Hfbp-UoSaaE7gA_HCWcaw",
+          "join_time": "2020-03-14T12:55:31Z"
+        }
+      ],
+      "leave_time": "2020-03-14T14:19:19Z",
+      "name": "Robert von Jess (rv93)",
+      "day": "3/14/2020",
+      "join_time": "2020-03-14T12:55:31Z"
+    },
+    {
+      "duration": 4976,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 14,
+          "leave_time": "2020-03-14T12:56:02Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-03-14T12:55:48Z"
+        },
+        {
+          "duration": 4962,
+          "leave_time": "2020-03-14T14:19:24Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-03-14T12:56:42Z"
+        }
+      ],
+      "leave_time": "2020-03-14T14:19:24Z",
+      "name": "16178660345",
+      "day": "3/14/2020",
+      "join_time": "2020-03-14T12:55:48Z"
+    },
+    {
+      "duration": 4974,
+      "user_email": "ss1103@duke.edu",
+      "sessions": [
+        {
+          "duration": 4974,
+          "leave_time": "2020-03-14T14:19:04Z",
+          "attentiveness": "",
+          "id": "zCkr3uw2RUSN5b_iPzCnww",
+          "join_time": "2020-03-14T12:56:10Z"
+        }
+      ],
+      "leave_time": "2020-03-14T14:19:04Z",
+      "name": "Samuel Song (ss1103)",
+      "day": "3/14/2020",
+      "join_time": "2020-03-14T12:56:10Z"
+    },
+    {
+      "duration": 285,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 285,
+          "leave_time": "2020-03-14T13:01:09Z",
+          "attentiveness": "",
+          "id": "jpJw7Y_bR6y4ThpRnOufXg",
+          "join_time": "2020-03-14T12:56:24Z"
+        }
+      ],
+      "leave_time": "2020-03-14T13:01:09Z",
+      "name": "Gordon Wang (gowang)",
+      "day": "3/14/2020",
+      "join_time": "2020-03-14T12:56:24Z"
+    },
+    {
+      "duration": 4876,
+      "user_email": "mattiaciollaro@gmail.com",
+      "sessions": [
+        {
+          "duration": 4876,
+          "leave_time": "2020-03-14T14:19:26Z",
+          "attentiveness": "",
+          "id": "yGLrPUxmSqeNCFYzNl8oXA",
+          "join_time": "2020-03-14T12:58:10Z"
+        }
+      ],
+      "leave_time": "2020-03-14T14:19:26Z",
+      "name": "Mattia Ciollaro",
+      "day": "3/14/2020",
+      "join_time": "2020-03-14T12:58:10Z"
+    },
+    {
+      "duration": 4857,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4857,
+          "leave_time": "2020-03-14T14:19:26Z",
+          "attentiveness": "",
+          "id": "kDTM0XgJTpy-EeMkAJWumw",
+          "join_time": "2020-03-14T12:58:29Z"
+        }
+      ],
+      "leave_time": "2020-03-14T14:19:26Z",
+      "name": "Charro May Bauzon (cbr15)",
+      "day": "3/14/2020",
+      "join_time": "2020-03-14T12:58:29Z"
+    },
+    {
+      "duration": 4837,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4837,
+          "leave_time": "2020-03-14T14:19:22Z",
+          "attentiveness": "",
+          "id": "YhIiWjIcQdq-stAh9AJZmw",
+          "join_time": "2020-03-14T12:58:45Z"
+        }
+      ],
+      "leave_time": "2020-03-14T14:19:22Z",
+      "name": "Clifton Davis (crd44)",
+      "day": "3/14/2020",
+      "join_time": "2020-03-14T12:58:45Z"
+    },
+    {
+      "duration": 4826,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4826,
+          "leave_time": "2020-03-14T14:19:25Z",
+          "attentiveness": "",
+          "id": "HiclbrDGRAWJZTnSGvzHWQ",
+          "join_time": "2020-03-14T12:58:59Z"
+        }
+      ],
+      "leave_time": "2020-03-14T14:19:25Z",
+      "name": "Iryna Kotenko (ik69)",
+      "day": "3/14/2020",
+      "join_time": "2020-03-14T12:58:59Z"
+    },
+    {
+      "duration": 4758,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4758,
+          "leave_time": "2020-03-14T14:19:24Z",
+          "attentiveness": "",
+          "id": "VOQxfgpWRtSbfKpdzO58dQ",
+          "join_time": "2020-03-14T13:00:06Z"
+        }
+      ],
+      "leave_time": "2020-03-14T14:19:24Z",
+      "name": "Lauren Long (cll73)",
+      "day": "3/14/2020",
+      "join_time": "2020-03-14T13:00:06Z"
+    },
+    {
+      "duration": 4733,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4733,
+          "leave_time": "2020-03-14T14:19:24Z",
+          "attentiveness": "",
+          "id": "OSMWbWLuQqGOiMUIACkbDA",
+          "join_time": "2020-03-14T13:00:31Z"
+        }
+      ],
+      "leave_time": "2020-03-14T14:19:24Z",
+      "name": "Alex Cheng (xc156)",
+      "day": "3/14/2020",
+      "join_time": "2020-03-14T13:00:31Z"
+    },
+    {
+      "duration": 4657,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4657,
+          "leave_time": "2020-03-14T14:19:22Z",
+          "attentiveness": "",
+          "id": "dIXcZ_YmQKidokk4vZmUbw",
+          "join_time": "2020-03-14T13:01:45Z"
+        }
+      ],
+      "leave_time": "2020-03-14T14:19:22Z",
+      "name": "Saurav Ajmera (sa408)",
+      "day": "3/14/2020",
+      "join_time": "2020-03-14T13:01:45Z"
+    },
+    {
+      "duration": 4646,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4646,
+          "leave_time": "2020-03-14T14:19:23Z",
+          "attentiveness": "",
+          "id": "9nPBQuTSRg2HJcjV0TWipw",
+          "join_time": "2020-03-14T13:01:57Z"
+        }
+      ],
+      "leave_time": "2020-03-14T14:19:23Z",
+      "name": "Sreeram Makam (spm50)",
+      "day": "3/14/2020",
+      "join_time": "2020-03-14T13:01:57Z"
+    },
+    {
+      "duration": 4626,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4626,
+          "leave_time": "2020-03-14T14:19:25Z",
+          "attentiveness": "",
+          "id": "wxAKE0bJTsuEw2oEmxbdUQ",
+          "join_time": "2020-03-14T13:02:19Z"
+        }
+      ],
+      "leave_time": "2020-03-14T14:19:25Z",
+      "name": "Stewart Caldwell (swc33)",
+      "day": "3/14/2020",
+      "join_time": "2020-03-14T13:02:19Z"
+    },
+    {
+      "duration": 4582,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4582,
+          "leave_time": "2020-03-14T14:19:20Z",
+          "attentiveness": "",
+          "id": "gGBlJZ1kSBWuBhDYBiW30A",
+          "join_time": "2020-03-14T13:02:58Z"
+        }
+      ],
+      "leave_time": "2020-03-14T14:19:20Z",
+      "name": "David Cohen (dc330)",
+      "day": "3/14/2020",
+      "join_time": "2020-03-14T13:02:58Z"
+    },
+    {
+      "duration": 4555,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4555,
+          "leave_time": "2020-03-14T14:19:23Z",
+          "attentiveness": "",
+          "id": "yFradFxIQq6HaVdgz4bcLA",
+          "join_time": "2020-03-14T13:03:28Z"
+        }
+      ],
+      "leave_time": "2020-03-14T14:19:23Z",
+      "name": "Jessica Boham (jmb248)",
+      "day": "3/14/2020",
+      "join_time": "2020-03-14T13:03:28Z"
+    },
+    {
+      "duration": 4329,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4329,
+          "leave_time": "2020-03-14T14:19:04Z",
+          "attentiveness": "",
+          "id": "Vgz9Hqz1TxKo0u7qEZSkhg",
+          "join_time": "2020-03-14T13:06:55Z"
+        }
+      ],
+      "leave_time": "2020-03-14T14:19:04Z",
+      "name": "Adriana Fernandez (apf23)",
+      "day": "3/14/2020",
+      "join_time": "2020-03-14T13:06:55Z"
+    },
+    {
+      "duration": 4265,
+      "user_email": "pr76@duke.edu",
+      "sessions": [
+        {
+          "duration": 4265,
+          "leave_time": "2020-03-14T14:19:21Z",
+          "attentiveness": "",
+          "id": "_jQFt0OsQueOkoe1jGrz3Q",
+          "join_time": "2020-03-14T13:08:16Z"
+        }
+      ],
+      "leave_time": "2020-03-14T14:19:21Z",
+      "name": "Pamela Romero Cruz (pr76)",
+      "day": "3/14/2020",
+      "join_time": "2020-03-14T13:08:16Z"
+    },
+    {
+      "duration": 4056,
+      "user_email": "nk221@duke.edu",
+      "sessions": [
+        {
+          "duration": 4056,
+          "leave_time": "2020-03-14T14:19:19Z",
+          "attentiveness": "",
+          "id": "j1rUJqRmQNqRZbzWTE-IXQ",
+          "join_time": "2020-03-14T13:11:43Z"
+        }
+      ],
+      "leave_time": "2020-03-14T14:19:19Z",
+      "name": "Neil Koul (nk221)",
+      "day": "3/14/2020",
+      "join_time": "2020-03-14T13:11:43Z"
+    },
+    {
+      "duration": 67,
+      "user_email": "yiyun.diao@outlook.com",
+      "sessions": [
+        {
+          "duration": 67,
+          "leave_time": "2020-03-14T13:39:18Z",
+          "attentiveness": "",
+          "id": "LlL3C8GtSZOy9vjZSVcPRw",
+          "join_time": "2020-03-14T13:38:11Z"
+        }
+      ],
+      "leave_time": "2020-03-14T13:39:18Z",
+      "name": "Yiyun Diao (yd128)",
+      "day": "3/14/2020",
+      "join_time": "2020-03-14T13:38:11Z"
+    }
+  ],
+  "2/29/2020": [
+    {
+      "duration": 5824,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5824,
+          "leave_time": "2020-02-29T15:25:36Z",
+          "attentiveness": "",
+          "id": "E_pzL8eaSB-BCMf-fb1zMg",
+          "join_time": "2020-02-29T13:48:32Z"
+        }
+      ],
+      "leave_time": "2020-02-29T15:25:36Z",
+      "name": "Aaron Pulsipher",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T13:48:32Z"
+    },
+    {
+      "duration": 5775,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5775,
+          "leave_time": "2020-02-29T15:25:31Z",
+          "attentiveness": "",
+          "id": "u3A3SlT2S4e7tCboE9NbHQ",
+          "join_time": "2020-02-29T13:49:16Z"
+        }
+      ],
+      "leave_time": "2020-02-29T15:25:31Z",
+      "name": "Carolyn Gales-Woods",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T13:49:16Z"
+    },
+    {
+      "duration": 5639,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5639,
+          "leave_time": "2020-02-29T15:25:31Z",
+          "attentiveness": "",
+          "id": "PNwFVP9HSuCnKVIx-fOc6w",
+          "join_time": "2020-02-29T13:51:32Z"
+        }
+      ],
+      "leave_time": "2020-02-29T15:25:31Z",
+      "name": "Justin DiVenuta",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T13:51:32Z"
+    },
+    {
+      "duration": 5543,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5543,
+          "leave_time": "2020-02-29T15:25:35Z",
+          "attentiveness": "",
+          "id": "IvTypDlYSmWA3H2APibByQ",
+          "join_time": "2020-02-29T13:53:12Z"
+        }
+      ],
+      "leave_time": "2020-02-29T15:25:35Z",
+      "name": "Amani",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T13:53:12Z"
+    },
+    {
+      "duration": 5518,
+      "user_email": "ss1103@duke.edu",
+      "sessions": [
+        {
+          "duration": 5518,
+          "leave_time": "2020-02-29T15:25:33Z",
+          "attentiveness": "",
+          "id": "zCkr3uw2RUSN5b_iPzCnww",
+          "join_time": "2020-02-29T13:53:35Z"
+        }
+      ],
+      "leave_time": "2020-02-29T15:25:33Z",
+      "name": "Samuel Song",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T13:53:35Z"
+    },
+    {
+      "duration": 864,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 404,
+          "leave_time": "2020-02-29T14:00:47Z",
+          "attentiveness": "",
+          "id": "-vbz0moSSU6SeIfdiYpHeQ",
+          "join_time": "2020-02-29T13:54:03Z"
+        },
+        {
+          "duration": 460,
+          "leave_time": "2020-02-29T15:25:30Z",
+          "attentiveness": "",
+          "id": "qKgazk71TqGeD8i_WD9WfA",
+          "join_time": "2020-02-29T15:17:50Z"
+        }
+      ],
+      "leave_time": "2020-02-29T15:25:30Z",
+      "name": "Gordon",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T13:54:03Z"
+    },
+    {
+      "duration": 5451,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5451,
+          "leave_time": "2020-02-29T15:25:31Z",
+          "attentiveness": "",
+          "id": "-JsfPsCJRJ-p2naqbOvU8A",
+          "join_time": "2020-02-29T13:54:40Z"
+        }
+      ],
+      "leave_time": "2020-02-29T15:25:31Z",
+      "name": "Sree Makam",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T13:54:40Z"
+    },
+    {
+      "duration": 5423,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5423,
+          "leave_time": "2020-02-29T15:25:31Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-02-29T13:55:08Z"
+        }
+      ],
+      "leave_time": "2020-02-29T15:25:31Z",
+      "name": "16178660345",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T13:55:08Z"
+    },
+    {
+      "duration": 4085,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 549,
+          "leave_time": "2020-02-29T14:05:28Z",
+          "attentiveness": "",
+          "id": "FDfrgi3lTC61L3Txa_FyyQ",
+          "join_time": "2020-02-29T13:56:19Z"
+        },
+        {
+          "duration": 3536,
+          "leave_time": "2020-02-29T15:21:48Z",
+          "attentiveness": "",
+          "id": "BttyDHN4QmujBg2KZOk3KA",
+          "join_time": "2020-02-29T14:22:52Z"
+        }
+      ],
+      "leave_time": "2020-02-29T15:21:48Z",
+      "name": "Adriana Fernandez",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T13:56:19Z"
+    },
+    {
+      "duration": 5305,
+      "user_email": "mattiaciollaro@gmail.com",
+      "sessions": [
+        {
+          "duration": 5305,
+          "leave_time": "2020-02-29T15:25:42Z",
+          "attentiveness": "",
+          "id": "yGLrPUxmSqeNCFYzNl8oXA",
+          "join_time": "2020-02-29T13:57:17Z"
+        }
+      ],
+      "leave_time": "2020-02-29T15:25:42Z",
+      "name": "Mattia Ciollaro",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T13:57:17Z"
+    },
+    {
+      "duration": 5259,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5259,
+          "leave_time": "2020-02-29T15:25:39Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-02-29T13:58:00Z"
+        }
+      ],
+      "leave_time": "2020-02-29T15:25:39Z",
+      "name": "Neil Koul",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T13:58:00Z"
+    },
+    {
+      "duration": 5222,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5222,
+          "leave_time": "2020-02-29T15:25:39Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-02-29T13:58:37Z"
+        }
+      ],
+      "leave_time": "2020-02-29T15:25:39Z",
+      "name": "17049754813",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T13:58:37Z"
+    },
+    {
+      "duration": 5170,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5170,
+          "leave_time": "2020-02-29T15:25:42Z",
+          "attentiveness": "",
+          "id": "_wqqidoCT8SYREg924DPzA",
+          "join_time": "2020-02-29T13:59:32Z"
+        }
+      ],
+      "leave_time": "2020-02-29T15:25:42Z",
+      "name": "charro may bauzon",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T13:59:32Z"
+    },
+    {
+      "duration": 5065,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5065,
+          "leave_time": "2020-02-29T15:25:31Z",
+          "attentiveness": "",
+          "id": "L1H7qwxuR561fEF-5HXBRw",
+          "join_time": "2020-02-29T14:01:06Z"
+        }
+      ],
+      "leave_time": "2020-02-29T15:25:31Z",
+      "name": "Stewart Caldwell",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T14:01:06Z"
+    },
+    {
+      "duration": 4682,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4682,
+          "leave_time": "2020-02-29T15:19:31Z",
+          "attentiveness": "",
+          "id": "yPpwwugVSJi7hoWj7YvtjA",
+          "join_time": "2020-02-29T14:01:29Z"
+        }
+      ],
+      "leave_time": "2020-02-29T15:19:31Z",
+      "name": "Gabriel.Li",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T14:01:29Z"
+    },
+    {
+      "duration": 5021,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5021,
+          "leave_time": "2020-02-29T15:25:29Z",
+          "attentiveness": "",
+          "id": "S0ObtEmGQleNecPTlJd-AQ",
+          "join_time": "2020-02-29T14:01:48Z"
+        }
+      ],
+      "leave_time": "2020-02-29T15:25:29Z",
+      "name": "Saurav Ajmera",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T14:01:48Z"
+    },
+    {
+      "duration": 4945,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4945,
+          "leave_time": "2020-02-29T15:25:31Z",
+          "attentiveness": "",
+          "id": "YclsEk9rQ0WW0OaO-2ajsw",
+          "join_time": "2020-02-29T14:03:06Z"
+        }
+      ],
+      "leave_time": "2020-02-29T15:25:31Z",
+      "name": "Pamela Romero Cruz",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T14:03:06Z"
+    },
+    {
+      "duration": 4947,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4947,
+          "leave_time": "2020-02-29T15:25:43Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-02-29T14:03:16Z"
+        }
+      ],
+      "leave_time": "2020-02-29T15:25:43Z",
+      "name": "alex cheng",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T14:03:16Z"
+    },
+    {
+      "duration": 4927,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4927,
+          "leave_time": "2020-02-29T15:25:36Z",
+          "attentiveness": "",
+          "id": "XLBQEKiXQEC_uBViz73mWQ",
+          "join_time": "2020-02-29T14:03:29Z"
+        }
+      ],
+      "leave_time": "2020-02-29T15:25:36Z",
+      "name": "Clifton Davis",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T14:03:29Z"
+    },
+    {
+      "duration": 4881,
+      "user_email": "arnaldo.garcia@duke.edu",
+      "sessions": [
+        {
+          "duration": 4881,
+          "leave_time": "2020-02-29T15:25:41Z",
+          "attentiveness": "",
+          "id": "egbmHNFIT52nqLND7qj6nQ",
+          "join_time": "2020-02-29T14:04:20Z"
+        }
+      ],
+      "leave_time": "2020-02-29T15:25:41Z",
+      "name": "Arnaldo Garcia",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T14:04:20Z"
+    },
+    {
+      "duration": 384,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 153,
+          "leave_time": "2020-02-29T14:07:15Z",
+          "attentiveness": "",
+          "id": "2w1D4hJDTvWtwpGyYvlNzA",
+          "join_time": "2020-02-29T14:04:42Z"
+        },
+        {
+          "duration": 231,
+          "leave_time": "2020-02-29T14:17:49Z",
+          "attentiveness": "",
+          "id": "2nTVGdosQ7ixOTf9tT2fXQ",
+          "join_time": "2020-02-29T14:13:58Z"
+        }
+      ],
+      "leave_time": "2020-02-29T14:17:49Z",
+      "name": "Zhiwen Xu",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T14:04:42Z"
+    },
+    {
+      "duration": 4795,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4795,
+          "leave_time": "2020-02-29T15:25:38Z",
+          "attentiveness": "",
+          "id": "WMqw1cPIRGKzNTrW5bxZVg",
+          "join_time": "2020-02-29T14:05:43Z"
+        }
+      ],
+      "leave_time": "2020-02-29T15:25:38Z",
+      "name": "Luki Mueke Austin",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T14:05:43Z"
+    },
+    {
+      "duration": 4727,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4727,
+          "leave_time": "2020-02-29T15:25:35Z",
+          "attentiveness": "",
+          "id": "SqRt6ulwSuSkNwdc7SIDkw",
+          "join_time": "2020-02-29T14:06:48Z"
+        }
+      ],
+      "leave_time": "2020-02-29T15:25:35Z",
+      "name": "Iryna",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T14:06:48Z"
+    },
+    {
+      "duration": 4697,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4697,
+          "leave_time": "2020-02-29T15:25:42Z",
+          "attentiveness": "",
+          "id": "naV-baYhQXuEmbu6ZmwP3w",
+          "join_time": "2020-02-29T14:07:25Z"
+        }
+      ],
+      "leave_time": "2020-02-29T15:25:42Z",
+      "name": "david cohen",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T14:07:25Z"
+    },
+    {
+      "duration": 3707,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 3707,
+          "leave_time": "2020-02-29T15:25:33Z",
+          "attentiveness": "",
+          "id": "tzJ9Lpe-SMaPtdecOPtf0g",
+          "join_time": "2020-02-29T14:23:46Z"
+        }
+      ],
+      "leave_time": "2020-02-29T15:25:33Z",
+      "name": "Rosie",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T14:23:46Z"
+    },
+    {
+      "duration": 193,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 193,
+          "leave_time": "2020-02-29T14:31:13Z",
+          "attentiveness": "",
+          "id": "yOrwT_a8Shu9qRFgyw08EQ",
+          "join_time": "2020-02-29T14:28:00Z"
+        }
+      ],
+      "leave_time": "2020-02-29T14:31:13Z",
+      "name": "Sudipta",
+      "day": "2/29/2020",
+      "join_time": "2020-02-29T14:28:00Z"
+    }
+  ],
+  "4/11/2020": [
+    {
+      "duration": 5828,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5828,
+          "leave_time": "2020-04-11T14:26:42Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-04-11T12:49:34Z"
+        }
+      ],
+      "leave_time": "2020-04-11T14:26:42Z",
+      "name": "David Cohen (dc330)",
+      "day": "4/11/2020",
+      "join_time": "2020-04-11T12:49:34Z"
+    },
+    {
+      "duration": 2354,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 451,
+          "leave_time": "2020-04-11T12:58:18Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-04-11T12:50:47Z"
+        },
+        {
+          "duration": 1110,
+          "leave_time": "2020-04-11T13:17:19Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-04-11T12:58:49Z"
+        },
+        {
+          "duration": 793,
+          "leave_time": "2020-04-11T14:26:51Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-04-11T14:13:38Z"
+        }
+      ],
+      "leave_time": "2020-04-11T14:26:51Z",
+      "name": "Matthew McPeak (mcpeak)",
+      "day": "4/11/2020",
+      "join_time": "2020-04-11T12:50:47Z"
+    },
+    {
+      "duration": 5753,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5753,
+          "leave_time": "2020-04-11T14:26:45Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-04-11T12:50:52Z"
+        }
+      ],
+      "leave_time": "2020-04-11T14:26:45Z",
+      "name": "Carolyn Gales-Woods (cbg20)",
+      "day": "4/11/2020",
+      "join_time": "2020-04-11T12:50:52Z"
+    },
+    {
+      "duration": 5709,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5709,
+          "leave_time": "2020-04-11T14:26:45Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-04-11T12:51:36Z"
+        }
+      ],
+      "leave_time": "2020-04-11T14:26:45Z",
+      "name": "Amani Johnson-Singh-Barnett (apj14)",
+      "day": "4/11/2020",
+      "join_time": "2020-04-11T12:51:36Z"
+    },
+    {
+      "duration": 5610,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5610,
+          "leave_time": "2020-04-11T14:26:42Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-04-11T12:53:12Z"
+        }
+      ],
+      "leave_time": "2020-04-11T14:26:42Z",
+      "name": "Justin DiVenuta (jld92)",
+      "day": "4/11/2020",
+      "join_time": "2020-04-11T12:53:12Z"
+    },
+    {
+      "duration": 5106,
+      "user_email": "adriana_paola_fernandez@hotmail.com",
+      "sessions": [
+        {
+          "duration": 16,
+          "leave_time": "2020-04-11T12:53:53Z",
+          "attentiveness": "",
+          "id": "OVaPDHLxTc2hEgxSm2gmDA",
+          "join_time": "2020-04-11T12:53:37Z"
+        },
+        {
+          "duration": 1721,
+          "leave_time": "2020-04-11T13:26:37Z",
+          "attentiveness": "",
+          "id": "OVaPDHLxTc2hEgxSm2gmDA",
+          "join_time": "2020-04-11T12:57:56Z"
+        },
+        {
+          "duration": 3369,
+          "leave_time": "2020-04-11T14:26:43Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-04-11T13:30:34Z"
+        }
+      ],
+      "leave_time": "2020-04-11T14:26:43Z",
+      "name": "Adriana Fernandez (apf23)",
+      "day": "4/11/2020",
+      "join_time": "2020-04-11T12:53:37Z"
+    },
+    {
+      "duration": 5167,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 580,
+          "leave_time": "2020-04-11T13:03:23Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-04-11T12:53:43Z"
+        },
+        {
+          "duration": 4587,
+          "leave_time": "2020-04-11T14:26:46Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-04-11T13:10:19Z"
+        }
+      ],
+      "leave_time": "2020-04-11T14:26:46Z",
+      "name": "Austin Mueke (alm152)",
+      "day": "4/11/2020",
+      "join_time": "2020-04-11T12:53:43Z"
+    },
+    {
+      "duration": 5447,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5447,
+          "leave_time": "2020-04-11T14:26:43Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-04-11T12:55:56Z"
+        }
+      ],
+      "leave_time": "2020-04-11T14:26:43Z",
+      "name": "16178660345",
+      "day": "4/11/2020",
+      "join_time": "2020-04-11T12:55:56Z"
+    },
+    {
+      "duration": 5421,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5421,
+          "leave_time": "2020-04-11T14:26:47Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-04-11T12:56:26Z"
+        }
+      ],
+      "leave_time": "2020-04-11T14:26:47Z",
+      "name": "Alex Cheng (xc156)",
+      "day": "4/11/2020",
+      "join_time": "2020-04-11T12:56:26Z"
+    },
+    {
+      "duration": 5352,
+      "user_email": "Sreeram.makam@duke.edu",
+      "sessions": [
+        {
+          "duration": 5352,
+          "leave_time": "2020-04-11T14:26:44Z",
+          "attentiveness": "",
+          "id": "-HncrqusTWKsoW7QxVgaTw",
+          "join_time": "2020-04-11T12:57:32Z"
+        }
+      ],
+      "leave_time": "2020-04-11T14:26:44Z",
+      "name": "Sreeram Makam (spm50)",
+      "day": "4/11/2020",
+      "join_time": "2020-04-11T12:57:32Z"
+    },
+    {
+      "duration": 5298,
+      "user_email": "mattiaciollaro@gmail.com",
+      "sessions": [
+        {
+          "duration": 5298,
+          "leave_time": "2020-04-11T14:26:46Z",
+          "attentiveness": "",
+          "id": "yGLrPUxmSqeNCFYzNl8oXA",
+          "join_time": "2020-04-11T12:58:28Z"
+        }
+      ],
+      "leave_time": "2020-04-11T14:26:46Z",
+      "name": "Mattia Ciollaro",
+      "day": "4/11/2020",
+      "join_time": "2020-04-11T12:58:28Z"
+    },
+    {
+      "duration": 4959,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4959,
+          "leave_time": "2020-04-11T14:21:27Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-04-11T12:58:48Z"
+        }
+      ],
+      "leave_time": "2020-04-11T14:21:27Z",
+      "name": "Gabriel Li (xl329)",
+      "day": "4/11/2020",
+      "join_time": "2020-04-11T12:58:48Z"
+    },
+    {
+      "duration": 5240,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5240,
+          "leave_time": "2020-04-11T14:26:38Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-04-11T12:59:18Z"
+        }
+      ],
+      "leave_time": "2020-04-11T14:26:38Z",
+      "name": "Robert von Jess (rv93)",
+      "day": "4/11/2020",
+      "join_time": "2020-04-11T12:59:18Z"
+    },
+    {
+      "duration": 5228,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5228,
+          "leave_time": "2020-04-11T14:26:44Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-04-11T12:59:36Z"
+        }
+      ],
+      "leave_time": "2020-04-11T14:26:44Z",
+      "name": "Clifton Davis (crd44)",
+      "day": "4/11/2020",
+      "join_time": "2020-04-11T12:59:36Z"
+    },
+    {
+      "duration": 5182,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5182,
+          "leave_time": "2020-04-11T14:26:44Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-04-11T13:00:22Z"
+        }
+      ],
+      "leave_time": "2020-04-11T14:26:44Z",
+      "name": "Saurav Ajmera (sa408)",
+      "day": "4/11/2020",
+      "join_time": "2020-04-11T13:00:22Z"
+    },
+    {
+      "duration": 5162,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5162,
+          "leave_time": "2020-04-11T14:26:41Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-04-11T13:00:39Z"
+        }
+      ],
+      "leave_time": "2020-04-11T14:26:41Z",
+      "name": "Iryna Kotenko (ik69)",
+      "day": "4/11/2020",
+      "join_time": "2020-04-11T13:00:39Z"
+    },
+    {
+      "duration": 5163,
+      "user_email": "pr76@duke.edu",
+      "sessions": [
+        {
+          "duration": 5163,
+          "leave_time": "2020-04-11T14:26:43Z",
+          "attentiveness": "",
+          "id": "_jQFt0OsQueOkoe1jGrz3Q",
+          "join_time": "2020-04-11T13:00:40Z"
+        }
+      ],
+      "leave_time": "2020-04-11T14:26:43Z",
+      "name": "Pamela Romero Cruz (pr76)",
+      "day": "4/11/2020",
+      "join_time": "2020-04-11T13:00:40Z"
+    },
+    {
+      "duration": 5116,
+      "user_email": "nk221@duke.edu",
+      "sessions": [
+        {
+          "duration": 5116,
+          "leave_time": "2020-04-11T14:26:41Z",
+          "attentiveness": "",
+          "id": "j1rUJqRmQNqRZbzWTE-IXQ",
+          "join_time": "2020-04-11T13:01:25Z"
+        }
+      ],
+      "leave_time": "2020-04-11T14:26:41Z",
+      "name": "Neil Koul (nk221)",
+      "day": "4/11/2020",
+      "join_time": "2020-04-11T13:01:25Z"
+    },
+    {
+      "duration": 5026,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5026,
+          "leave_time": "2020-04-11T14:26:45Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-04-11T13:02:59Z"
+        }
+      ],
+      "leave_time": "2020-04-11T14:26:45Z",
+      "name": "Aaron Pulsipher (amp125)",
+      "day": "4/11/2020",
+      "join_time": "2020-04-11T13:02:59Z"
+    },
+    {
+      "duration": 4962,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4962,
+          "leave_time": "2020-04-11T14:26:45Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-04-11T13:04:03Z"
+        }
+      ],
+      "leave_time": "2020-04-11T14:26:45Z",
+      "name": "Charro May Bauzon (cbr15)",
+      "day": "4/11/2020",
+      "join_time": "2020-04-11T13:04:03Z"
+    },
+    {
+      "duration": 4918,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4918,
+          "leave_time": "2020-04-11T14:26:46Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-04-11T13:04:48Z"
+        }
+      ],
+      "leave_time": "2020-04-11T14:26:46Z",
+      "name": "Stewart Caldwell (swc33)",
+      "day": "4/11/2020",
+      "join_time": "2020-04-11T13:04:48Z"
+    },
+    {
+      "duration": 4888,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4888,
+          "leave_time": "2020-04-11T14:26:41Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-04-11T13:05:13Z"
+        }
+      ],
+      "leave_time": "2020-04-11T14:26:41Z",
+      "name": "Jessica Boham (jmb248)",
+      "day": "4/11/2020",
+      "join_time": "2020-04-11T13:05:13Z"
+    },
+    {
+      "duration": 3713,
+      "user_email": "romarieh@outlook.com",
+      "sessions": [
+        {
+          "duration": 3713,
+          "leave_time": "2020-04-11T14:26:46Z",
+          "attentiveness": "",
+          "id": "mb9daOh-RcOQjTHfoDbr6g",
+          "join_time": "2020-04-11T13:24:53Z"
+        }
+      ],
+      "leave_time": "2020-04-11T14:26:46Z",
+      "name": "Rose Darensberg (rmd55)",
+      "day": "4/11/2020",
+      "join_time": "2020-04-11T13:24:53Z"
+    },
+    {
+      "duration": 2846,
+      "user_email": "ss1103@duke.edu",
+      "sessions": [
+        {
+          "duration": 2846,
+          "leave_time": "2020-04-11T14:26:43Z",
+          "attentiveness": "",
+          "id": "zCkr3uw2RUSN5b_iPzCnww",
+          "join_time": "2020-04-11T13:39:17Z"
+        }
+      ],
+      "leave_time": "2020-04-11T14:26:43Z",
+      "name": "Samuel Song (ss1103)",
+      "day": "4/11/2020",
+      "join_time": "2020-04-11T13:39:17Z"
+    }
+  ],
+  "id": "zoom_meeting_147734772",
+  "2/1/2020": [
+    {
+      "duration": 6588,
+      "user_email": "ss1103@duke.edu",
+      "sessions": [
+        {
+          "duration": 6588,
+          "leave_time": "2020-02-01T15:23:29Z",
+          "attentiveness": "",
+          "id": "zCkr3uw2RUSN5b_iPzCnww",
+          "join_time": "2020-02-01T13:33:41Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:23:29Z",
+      "name": "Samuel Song",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T13:33:41Z"
+    },
+    {
+      "duration": 6003,
+      "user_email": "arnaldo.garcia@duke.edu",
+      "sessions": [
+        {
+          "duration": 6003,
+          "leave_time": "2020-02-01T15:23:40Z",
+          "attentiveness": "",
+          "id": "egbmHNFIT52nqLND7qj6nQ",
+          "join_time": "2020-02-01T13:43:37Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:23:40Z",
+      "name": "Arnaldo Garcia",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T13:43:37Z"
+    },
+    {
+      "duration": 5708,
+      "user_email": "mcpeak@duke.edu",
+      "sessions": [
+        {
+          "duration": 5708,
+          "leave_time": "2020-02-01T15:23:40Z",
+          "attentiveness": "",
+          "id": "Ky7_a09cQbWVg0kwQ4zUNQ",
+          "join_time": "2020-02-01T13:48:32Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:23:40Z",
+      "name": "Matt McPeak",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T13:48:32Z"
+    },
+    {
+      "duration": 5597,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5597,
+          "leave_time": "2020-02-01T15:23:26Z",
+          "attentiveness": "",
+          "id": "Qv76fAxZRPWFy-TrGJJ3uw",
+          "join_time": "2020-02-01T13:50:09Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:23:26Z",
+      "name": "Justin DiVenuta",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T13:50:09Z"
+    },
+    {
+      "duration": 5367,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5367,
+          "leave_time": "2020-02-01T15:23:23Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-02-01T13:53:56Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:23:23Z",
+      "name": "16178660345",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T13:53:56Z"
+    },
+    {
+      "duration": 5354,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5354,
+          "leave_time": "2020-02-01T15:23:26Z",
+          "attentiveness": "",
+          "id": "WeTuzNXnSJOJo0HuP2nFfQ",
+          "join_time": "2020-02-01T13:54:12Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:23:26Z",
+      "name": "Carolyn Gales-Woods",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T13:54:12Z"
+    },
+    {
+      "duration": 5363,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5363,
+          "leave_time": "2020-02-01T15:23:39Z",
+          "attentiveness": "",
+          "id": "b4BqUfEATmmDLVFltqkIlQ",
+          "join_time": "2020-02-01T13:54:16Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:23:39Z",
+      "name": "charro may bauzon",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T13:54:16Z"
+    },
+    {
+      "duration": 5247,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 3566,
+          "leave_time": "2020-02-01T14:54:32Z",
+          "attentiveness": "",
+          "id": "xJ3NfEpoSDmF6SlRVuSdRQ",
+          "join_time": "2020-02-01T13:55:06Z"
+        },
+        {
+          "duration": 1681,
+          "leave_time": "2020-02-01T15:23:34Z",
+          "attentiveness": "",
+          "id": "fYbUvS--TVqGtEhgKWuvGQ",
+          "join_time": "2020-02-01T14:55:33Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:23:34Z",
+      "name": "Amani",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T13:55:06Z"
+    },
+    {
+      "duration": 5255,
+      "user_email": "mattiaciollaro@gmail.com",
+      "sessions": [
+        {
+          "duration": 5255,
+          "leave_time": "2020-02-01T15:23:40Z",
+          "attentiveness": "",
+          "id": "yGLrPUxmSqeNCFYzNl8oXA",
+          "join_time": "2020-02-01T13:56:05Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:23:40Z",
+      "name": "Mattia Ciollaro",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T13:56:05Z"
+    },
+    {
+      "duration": 5172,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5172,
+          "leave_time": "2020-02-01T15:23:28Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-02-01T13:57:16Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:23:28Z",
+      "name": "Neil Koul",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T13:57:16Z"
+    },
+    {
+      "duration": 5138,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5138,
+          "leave_time": "2020-02-01T15:23:25Z",
+          "attentiveness": "",
+          "id": "GVS6IU6dRL-fZBrsbA5Hyg",
+          "join_time": "2020-02-01T13:57:47Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:23:25Z",
+      "name": "Stewart Caldwell",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T13:57:47Z"
+    },
+    {
+      "duration": 5115,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5115,
+          "leave_time": "2020-02-01T15:23:27Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-02-01T13:58:12Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:23:27Z",
+      "name": "17049754813",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T13:58:12Z"
+    },
+    {
+      "duration": 5105,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5105,
+          "leave_time": "2020-02-01T15:23:27Z",
+          "attentiveness": "",
+          "id": "HE4pnzEZT3muDSF002S2Ig",
+          "join_time": "2020-02-01T13:58:22Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:23:27Z",
+      "name": "Sree Makam",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T13:58:22Z"
+    },
+    {
+      "duration": 5099,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5099,
+          "leave_time": "2020-02-01T15:23:40Z",
+          "attentiveness": "",
+          "id": "_5WocskHQ9ySEgrbLT1GXg",
+          "join_time": "2020-02-01T13:58:41Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:23:40Z",
+      "name": "Luki Mueke Austin",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T13:58:41Z"
+    },
+    {
+      "duration": 5072,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 356,
+          "leave_time": "2020-02-01T14:04:37Z",
+          "attentiveness": "",
+          "id": "Y5jLzNsKRPSdWFFkUJsS4A",
+          "join_time": "2020-02-01T13:58:41Z"
+        },
+        {
+          "duration": 4716,
+          "leave_time": "2020-02-01T15:23:32Z",
+          "attentiveness": "",
+          "id": "Y5jLzNsKRPSdWFFkUJsS4A",
+          "join_time": "2020-02-01T14:04:56Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:23:32Z",
+      "name": "Adriana Fernandez",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T13:58:41Z"
+    },
+    {
+      "duration": 5006,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5006,
+          "leave_time": "2020-02-01T15:23:24Z",
+          "attentiveness": "",
+          "id": "LzQ5CXWJSpSujh3vkgoNiw",
+          "join_time": "2020-02-01T13:59:58Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:23:24Z",
+      "name": "dcohen",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T13:59:58Z"
+    },
+    {
+      "duration": 5009,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4246,
+          "leave_time": "2020-02-01T15:10:56Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-02-01T14:00:10Z"
+        },
+        {
+          "duration": 763,
+          "leave_time": "2020-02-01T15:23:40Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-02-01T15:10:57Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:23:40Z",
+      "name": "alex cheng",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T14:00:10Z"
+    },
+    {
+      "duration": 4992,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4992,
+          "leave_time": "2020-02-01T15:23:33Z",
+          "attentiveness": "",
+          "id": "bwl_TCz-T9Sh2HuNRrugBg",
+          "join_time": "2020-02-01T14:00:21Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:23:33Z",
+      "name": "Clifton Davis",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T14:00:21Z"
+    },
+    {
+      "duration": 4692,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4692,
+          "leave_time": "2020-02-01T15:18:43Z",
+          "attentiveness": "",
+          "id": "MKRAa1reSJeQXx1oTKynKA",
+          "join_time": "2020-02-01T14:00:31Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:18:43Z",
+      "name": "Gabriel.Li",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T14:00:31Z"
+    },
+    {
+      "duration": 4950,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4950,
+          "leave_time": "2020-02-01T15:23:20Z",
+          "attentiveness": "",
+          "id": "KKibVS7LR5Oflv-2pv2PgQ",
+          "join_time": "2020-02-01T14:00:50Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:23:20Z",
+      "name": "Robert von Jess",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T14:00:50Z"
+    },
+    {
+      "duration": 4930,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4930,
+          "leave_time": "2020-02-01T15:23:27Z",
+          "attentiveness": "",
+          "id": "AhvR2yzcTEejAbDWz4eIag",
+          "join_time": "2020-02-01T14:01:17Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:23:27Z",
+      "name": "Saurav Ajmera",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T14:01:17Z"
+    },
+    {
+      "duration": 4922,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4922,
+          "leave_time": "2020-02-01T15:23:26Z",
+          "attentiveness": "",
+          "id": "dwzJMrQOQF2G5ABDV1p8fg",
+          "join_time": "2020-02-01T14:01:24Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:23:26Z",
+      "name": "Aaron Pulsipher",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T14:01:24Z"
+    },
+    {
+      "duration": 4900,
+      "user_email": "romarieh@outlook.com",
+      "sessions": [
+        {
+          "duration": 4900,
+          "leave_time": "2020-02-01T15:23:31Z",
+          "attentiveness": "",
+          "id": "mb9daOh-RcOQjTHfoDbr6g",
+          "join_time": "2020-02-01T14:01:51Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:23:31Z",
+      "name": "Rose Darensberg",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T14:01:51Z"
+    },
+    {
+      "duration": 4830,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4830,
+          "leave_time": "2020-02-01T15:23:32Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-02-01T14:03:02Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:23:32Z",
+      "name": "16784728186",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T14:03:02Z"
+    },
+    {
+      "duration": 4612,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4612,
+          "leave_time": "2020-02-01T15:23:26Z",
+          "attentiveness": "",
+          "id": "G4lm368zSbWWlrwGuE-mtA",
+          "join_time": "2020-02-01T14:06:34Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:23:26Z",
+      "name": "Jessica Boham",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T14:06:34Z"
+    },
+    {
+      "duration": 3937,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 2658,
+          "leave_time": "2020-02-01T14:52:41Z",
+          "attentiveness": "",
+          "id": "H2X5uOTxTei0uBGr9Jw0Fg",
+          "join_time": "2020-02-01T14:08:23Z"
+        },
+        {
+          "duration": 1279,
+          "leave_time": "2020-02-01T15:14:43Z",
+          "attentiveness": "",
+          "id": "SDkWYtHZRg2KAkjJFyfT0w",
+          "join_time": "2020-02-01T14:53:24Z"
+        }
+      ],
+      "leave_time": "2020-02-01T15:14:43Z",
+      "name": "Irina",
+      "day": "2/1/2020",
+      "join_time": "2020-02-01T14:08:23Z"
+    }
+  ],
+  "2/15/2020": [
+    {
+      "duration": 6407,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 6407,
+          "leave_time": "2020-02-15T15:27:19Z",
+          "attentiveness": "",
+          "id": "9iATJrHPSeGN55u2MyyWbA",
+          "join_time": "2020-02-15T13:40:32Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:27:19Z",
+      "name": "Sree Makam",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T13:40:32Z"
+    },
+    {
+      "duration": 6169,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 6169,
+          "leave_time": "2020-02-15T15:27:15Z",
+          "attentiveness": "",
+          "id": "nBbdQ_ByR-2_-ot9DvvHyw",
+          "join_time": "2020-02-15T13:44:26Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:27:15Z",
+      "name": "Justin DiVenuta",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T13:44:26Z"
+    },
+    {
+      "duration": 4910,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 4910,
+          "leave_time": "2020-02-15T15:06:31Z",
+          "attentiveness": "",
+          "id": "QNSYtaXPROyjV2uDgwxwSQ",
+          "join_time": "2020-02-15T13:44:41Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:06:31Z",
+      "name": "dcohen",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T13:44:41Z"
+    },
+    {
+      "duration": 6108,
+      "user_email": "ss1103@duke.edu",
+      "sessions": [
+        {
+          "duration": 6108,
+          "leave_time": "2020-02-15T15:27:19Z",
+          "attentiveness": "",
+          "id": "zCkr3uw2RUSN5b_iPzCnww",
+          "join_time": "2020-02-15T13:45:31Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:27:19Z",
+      "name": "Samuel Song",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T13:45:31Z"
+    },
+    {
+      "duration": 339,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 339,
+          "leave_time": "2020-02-15T13:57:09Z",
+          "attentiveness": "",
+          "id": "8W1BgZQJRY6rKSNwTRy8Cg",
+          "join_time": "2020-02-15T13:51:30Z"
+        }
+      ],
+      "leave_time": "2020-02-15T13:57:09Z",
+      "name": "Gordon",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T13:51:30Z"
+    },
+    {
+      "duration": 5686,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5686,
+          "leave_time": "2020-02-15T15:27:20Z",
+          "attentiveness": "",
+          "id": "7K5xR0r2TcqjhwmvM9SCRg",
+          "join_time": "2020-02-15T13:52:34Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:27:20Z",
+      "name": "Amani",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T13:52:34Z"
+    },
+    {
+      "duration": 5666,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5666,
+          "leave_time": "2020-02-15T15:27:16Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-02-15T13:52:50Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:27:16Z",
+      "name": "16178660345",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T13:52:50Z"
+    },
+    {
+      "duration": 5595,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5595,
+          "leave_time": "2020-02-15T15:27:27Z",
+          "attentiveness": "",
+          "id": "iVQ_WLGMScax5pGqR_R9iQ",
+          "join_time": "2020-02-15T13:54:12Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:27:27Z",
+      "name": "Luki Mueke Austin",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T13:54:12Z"
+    },
+    {
+      "duration": 5514,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5514,
+          "leave_time": "2020-02-15T15:27:17Z",
+          "attentiveness": "",
+          "id": "s1-IKm8MRS-3G3Kgm5_BuA",
+          "join_time": "2020-02-15T13:55:23Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:27:17Z",
+      "name": "Carolyn Gales-Woods",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T13:55:23Z"
+    },
+    {
+      "duration": 5487,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5487,
+          "leave_time": "2020-02-15T15:27:05Z",
+          "attentiveness": "",
+          "id": "HTN8J1-ZTwWGR77J2MMa6g",
+          "join_time": "2020-02-15T13:55:38Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:27:05Z",
+      "name": "Robert von Jess",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T13:55:38Z"
+    },
+    {
+      "duration": 5472,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5472,
+          "leave_time": "2020-02-15T15:27:13Z",
+          "attentiveness": "",
+          "id": "kO85DKDTR3yr8MFH4tFhnQ",
+          "join_time": "2020-02-15T13:56:01Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:27:13Z",
+      "name": "Gabriel.Li",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T13:56:01Z"
+    },
+    {
+      "duration": 5401,
+      "user_email": "mattiaciollaro@gmail.com",
+      "sessions": [
+        {
+          "duration": 5401,
+          "leave_time": "2020-02-15T15:27:26Z",
+          "attentiveness": "",
+          "id": "yGLrPUxmSqeNCFYzNl8oXA",
+          "join_time": "2020-02-15T13:57:25Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:27:26Z",
+      "name": "Mattia Ciollaro",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T13:57:25Z"
+    },
+    {
+      "duration": 5361,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5361,
+          "leave_time": "2020-02-15T15:27:05Z",
+          "attentiveness": "",
+          "id": "F9owM5mDSoGIroTrcEwh3w",
+          "join_time": "2020-02-15T13:57:44Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:27:05Z",
+      "name": "Adriana Fernandez",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T13:57:44Z"
+    },
+    {
+      "duration": 5352,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 1517,
+          "leave_time": "2020-02-15T14:23:17Z",
+          "attentiveness": "",
+          "id": "MiM5P8pFQOGaaflrHyvQPw",
+          "join_time": "2020-02-15T13:58:00Z"
+        },
+        {
+          "duration": 3835,
+          "leave_time": "2020-02-15T15:27:16Z",
+          "attentiveness": "",
+          "id": "MiM5P8pFQOGaaflrHyvQPw",
+          "join_time": "2020-02-15T14:23:21Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:27:16Z",
+      "name": "Jessica Boham",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T13:58:00Z"
+    },
+    {
+      "duration": 5326,
+      "user_email": "pr76@duke.edu",
+      "sessions": [
+        {
+          "duration": 5326,
+          "leave_time": "2020-02-15T15:27:19Z",
+          "attentiveness": "",
+          "id": "_jQFt0OsQueOkoe1jGrz3Q",
+          "join_time": "2020-02-15T13:58:33Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:27:19Z",
+      "name": "Pamela Romero Cruz",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T13:58:33Z"
+    },
+    {
+      "duration": 5300,
+      "user_email": "romarieh@outlook.com",
+      "sessions": [
+        {
+          "duration": 5300,
+          "leave_time": "2020-02-15T15:27:20Z",
+          "attentiveness": "",
+          "id": "mb9daOh-RcOQjTHfoDbr6g",
+          "join_time": "2020-02-15T13:59:00Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:27:20Z",
+      "name": "Rose Darensberg",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T13:59:00Z"
+    },
+    {
+      "duration": 5285,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5285,
+          "leave_time": "2020-02-15T15:27:21Z",
+          "attentiveness": "",
+          "id": "5X6ep5dsQb26HLDKO4IzHg",
+          "join_time": "2020-02-15T13:59:16Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:27:21Z",
+      "name": "Iryna Kotenko",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T13:59:16Z"
+    },
+    {
+      "duration": 246,
+      "user_email": "dls@fuqua.duke.edu",
+      "sessions": [
+        {
+          "duration": 72,
+          "leave_time": "2020-02-15T14:00:29Z",
+          "attentiveness": "",
+          "id": "Q4ivMqP3TrK8at9kpM91-w",
+          "join_time": "2020-02-15T13:59:17Z"
+        },
+        {
+          "duration": 174,
+          "leave_time": "2020-02-15T15:27:26Z",
+          "attentiveness": "",
+          "id": "Q4ivMqP3TrK8at9kpM91-w",
+          "join_time": "2020-02-15T15:24:32Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:27:26Z",
+      "name": "DLS Support",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T13:59:17Z"
+    },
+    {
+      "duration": 5279,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5279,
+          "leave_time": "2020-02-15T15:27:19Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-02-15T13:59:20Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:27:19Z",
+      "name": "19143188892",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T13:59:20Z"
+    },
+    {
+      "duration": 5274,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5274,
+          "leave_time": "2020-02-15T15:27:16Z",
+          "attentiveness": "",
+          "id": "v9UwyvdITKWhnwH-Rp66Pg",
+          "join_time": "2020-02-15T13:59:22Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:27:16Z",
+      "name": "Saurav Ajmera",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T13:59:22Z"
+    },
+    {
+      "duration": 5268,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5268,
+          "leave_time": "2020-02-15T15:27:22Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-02-15T13:59:34Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:27:22Z",
+      "name": "alex cheng",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T13:59:34Z"
+    },
+    {
+      "duration": 5254,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5254,
+          "leave_time": "2020-02-15T15:27:08Z",
+          "attentiveness": "",
+          "id": "7QS6GjbPQx23c7viOW8v1Q",
+          "join_time": "2020-02-15T13:59:34Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:27:08Z",
+      "name": "Aaron Pulsipher",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T13:59:34Z"
+    },
+    {
+      "duration": 5090,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5090,
+          "leave_time": "2020-02-15T15:24:38Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-02-15T13:59:48Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:24:38Z",
+      "name": "Neil Koul",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T13:59:48Z"
+    },
+    {
+      "duration": 5251,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5251,
+          "leave_time": "2020-02-15T15:27:19Z",
+          "attentiveness": "",
+          "id": "YybrDDn6Td6C-eZ2ooY7pg",
+          "join_time": "2020-02-15T13:59:48Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:27:19Z",
+      "name": "Clifton Davis",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T13:59:48Z"
+    },
+    {
+      "duration": 5237,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5237,
+          "leave_time": "2020-02-15T15:27:19Z",
+          "attentiveness": "",
+          "id": "lr4z3eiZSxmSc9SqBzGLZg",
+          "join_time": "2020-02-15T14:00:02Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:27:19Z",
+      "name": "Stewart Caldwell",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T14:00:02Z"
+    },
+    {
+      "duration": 5051,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5051,
+          "leave_time": "2020-02-15T15:24:39Z",
+          "attentiveness": "",
+          "id": "",
+          "join_time": "2020-02-15T14:00:28Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:24:39Z",
+      "name": "17049754813",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T14:00:28Z"
+    },
+    {
+      "duration": 5199,
+      "user_email": "",
+      "sessions": [
+        {
+          "duration": 5199,
+          "leave_time": "2020-02-15T15:27:27Z",
+          "attentiveness": "",
+          "id": "1vh0Jh6JSd-fuPA4y7rlDA",
+          "join_time": "2020-02-15T14:00:48Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:27:27Z",
+      "name": "charro may bauzon",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T14:00:48Z"
+    },
+    {
+      "duration": 4887,
+      "user_email": "yiyun.diao@outlook.com",
+      "sessions": [
+        {
+          "duration": 4887,
+          "leave_time": "2020-02-15T15:27:26Z",
+          "attentiveness": "",
+          "id": "LlL3C8GtSZOy9vjZSVcPRw",
+          "join_time": "2020-02-15T14:05:59Z"
+        }
+      ],
+      "leave_time": "2020-02-15T15:27:26Z",
+      "name": "Jason Diao",
+      "day": "2/15/2020",
+      "join_time": "2020-02-15T14:05:59Z"
+    }
+  ]
+}

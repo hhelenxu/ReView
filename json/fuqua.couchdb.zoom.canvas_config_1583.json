@@ -1,0 +1,288 @@
+{
+  "_id": "zoom_canvas_config_1583",
+  "_rev": "347-a1a33fdb74d169c466ade83f5a3b939d",
+  "canvasid": "1583",
+  "sessions": [
+    {
+      "description": "",
+      "meetings": [
+        {
+          "settings": {
+            "join_before_host": true,
+            "cn_meeting": false,
+            "watermark": false,
+            "registrants_email_notification": false,
+            "use_pmi": false,
+            "approval_type": 2,
+            "host_video": true,
+            "auto_recording": "cloud",
+            "meeting_authentication": true,
+            "waiting_room": false,
+            "alternative_hosts": "kc113@duke.edu,dll40@duke.edu",
+            "participant_video": true,
+            "authentication_domains": "*.duke.edu,*.dku.edu.cn,*.dukekunshan.edu.cn,*.wxdu.org,*.nescent.org,*.foresthistory.org,*.robertsonscholars.org, *.alban.org",
+            "audio": "both",
+            "in_meeting": false,
+            "mute_upon_entry": true
+          },
+          "timezone": "America/New_York",
+          "type": 3,
+          "title": "Class Meetings ",
+          "agenda": "Your meeting agenda.",
+          "uuid": "EXJoWvClTV2uJYVbXUVxZw==",
+          "host_id": "jITm8uRJQAaPu_dx60v_cQ",
+          "use_teams": false,
+          "password": "Present",
+          "recordings": [
+            {
+              "timezone": "America/New_York",
+              "recording_files": [
+                {
+                  "play_url": "https://duke.zoom.us/rec/play/upV4JOz7rDo3GYDH4wSDBvF8W9S4e_6s1HMb-voNmRq2AHMCM1KuNeFDa2dOn1mW4oE2JAJrZoCDLnY",
+                  "meeting_id": "8+BCPibrRvGtJ5VHNME4Mw==",
+                  "file_type": "MP4",
+                  "recording_type": "shared_screen_with_speaker_view",
+                  "download_url": "https://duke.zoom.us/rec/download/upV4JOz7rDo3GYDH4wSDBvF8W9S4e_6s1HMb-voNmRq2AHMCM1KuNeFDa2dOn1mW4oE2JAJrZoCDLnY",
+                  "id": "71ec5c21-3dbc-4475-85ee-6b5090ee3c31",
+                  "file_size": 184386034,
+                  "recording_start": "2020-08-25T17:24:40Z",
+                  "recording_end": "2020-08-25T19:32:58Z",
+                  "status": "completed"
+                },
+                {
+                  "play_url": "https://duke.zoom.us/rec/play/6JV_I7-pqjs3E9WT5gSDU_J-W9TsKKms2icZ-_ZbzEuyAiRSZ1P1brAWYbGbu-5sdcdiJpXp5H85WSlE",
+                  "meeting_id": "8+BCPibrRvGtJ5VHNME4Mw==",
+                  "file_type": "M4A",
+                  "recording_type": "audio_only",
+                  "download_url": "https://duke.zoom.us/rec/download/6JV_I7-pqjs3E9WT5gSDU_J-W9TsKKms2icZ-_ZbzEuyAiRSZ1P1brAWYbGbu-5sdcdiJpXp5H85WSlE",
+                  "id": "e1bdf140-916f-4a47-8a62-86715f047ada",
+                  "file_size": 11130737,
+                  "recording_start": "2020-08-25T17:24:40Z",
+                  "recording_end": "2020-08-25T19:32:58Z",
+                  "status": "completed"
+                }
+              ],
+              "total_size": 195516771,
+              "recording_count": 2,
+              "type": 3,
+              "uuid": "8+BCPibrRvGtJ5VHNME4Mw==",
+              "host_id": "jITm8uRJQAaPu_dx60v_cQ",
+              "duration": 27,
+              "start_time": "2020-08-25T16:51:17Z",
+              "displaytext": "Introductory Presentations ",
+              "password": "",
+              "account_id": "PggXE1VhSaq_YcEyPQEuFA",
+              "share_url": "https://duke.zoom.us/rec/share/tY9fBInx_HlIXKPRyhzheogEM9jAaaa8gyNMrPEEyx581RMhoUg5mI3I3mv6ZW1h",
+              "publish": true,
+              "host": {
+                "uid": "dll40",
+                "dukeid": "0928665",
+                "id": "jITm8uRJQAaPu_dx60v_cQ",
+                "cn": "Daisy Lovelace",
+                "creds": true,
+                "email": "dll40@duke.edu"
+              },
+              "topic": "Class Meetings ",
+              "id": 92787279591
+            },
+            {
+              "timezone": "America/New_York",
+              "recording_files": [
+                {
+                  "play_url": "https://duke.zoom.us/rec/play/v8d5JLr6rzo3GICQuQSDVPN8W47oJ66s0HNL8_oIyR3kWyMANQX0ZOEXM-ux6hn4aH7BVpUTOn8lY_ER",
+                  "meeting_id": "66SzbimiSki3IhZtPj5wVA==",
+                  "file_type": "M4A",
+                  "recording_type": "audio_only",
+                  "download_url": "https://duke.zoom.us/rec/download/v8d5JLr6rzo3GICQuQSDVPN8W47oJ66s0HNL8_oIyR3kWyMANQX0ZOEXM-ux6hn4aH7BVpUTOn8lY_ER",
+                  "id": "2cdccb11-2d59-4f55-be95-2be9955ba8c3",
+                  "file_size": 9111616,
+                  "recording_start": "2020-09-01T18:30:46Z",
+                  "recording_end": "2020-09-01T18:53:34Z",
+                  "status": "completed"
+                },
+                {
+                  "play_url": "https://duke.zoom.us/rec/play/tMEvJuyrrjo3H4XHswSDU_R-W465Ka2sgHJLrPpcnh23UHELMQb0brQQZ7ao7Gd4wmGhKBpYoytxo8qU",
+                  "meeting_id": "66SzbimiSki3IhZtPj5wVA==",
+                  "file_type": "MP4",
+                  "recording_type": "shared_screen_with_speaker_view",
+                  "download_url": "https://duke.zoom.us/rec/download/tMEvJuyrrjo3H4XHswSDU_R-W465Ka2sgHJLrPpcnh23UHELMQb0brQQZ7ao7Gd4wmGhKBpYoytxo8qU",
+                  "id": "9e2a5301-5ab3-4a27-b476-bcef9abb2318",
+                  "file_size": 89661965,
+                  "recording_start": "2020-09-01T18:30:46Z",
+                  "recording_end": "2020-09-01T18:53:34Z",
+                  "status": "completed"
+                }
+              ],
+              "total_size": 98773581,
+              "recording_count": 2,
+              "type": 3,
+              "uuid": "66SzbimiSki3IhZtPj5wVA==",
+              "host_id": "jITm8uRJQAaPu_dx60v_cQ",
+              "duration": 22,
+              "start_time": "2020-09-01T16:55:47Z",
+              "displaytext": "Impromptu pitches",
+              "password": "",
+              "account_id": "PggXE1VhSaq_YcEyPQEuFA",
+              "restrict_section": false,
+              "share_url": "https://duke.zoom.us/rec/share/u5JOPbvx82JJQY2WyUHtRpYjQ5vbX6a8hCFNqaZfyEtw8d91RRteClzwSuvpE3nD",
+              "publish": true,
+              "host": {
+                "uid": "dll40",
+                "dukeid": "0928665",
+                "id": "jITm8uRJQAaPu_dx60v_cQ",
+                "cn": "Daisy Lovelace",
+                "creds": true,
+                "email": "dll40@duke.edu"
+              },
+              "topic": "Impromptu pitches",
+              "id": 92787279591
+            },
+            {
+              "timezone": "America/New_York",
+              "recording_files": [
+                {
+                  "play_url": "https://duke.zoom.us/rec/play/vcYuc-78qDo3SNWVswSDAKN7W428LPqs1SUf-PULxB63ViILZwavYeQSa-uaz-Y2L4i2UivlVCk76Syi",
+                  "meeting_id": "LtsqxnMmTJKojhz45/+CJQ==",
+                  "file_type": "MP4",
+                  "recording_type": "shared_screen_with_speaker_view",
+                  "download_url": "https://duke.zoom.us/rec/download/vcYuc-78qDo3SNWVswSDAKN7W428LPqs1SUf-PULxB63ViILZwavYeQSa-uaz-Y2L4i2UivlVCk76Syi",
+                  "id": "0b347d61-b103-42e2-a12a-7412668a25b8",
+                  "file_size": 51420,
+                  "recording_start": "2020-08-20T16:15:51Z",
+                  "recording_end": "2020-08-20T16:15:56Z",
+                  "status": "completed"
+                },
+                {
+                  "play_url": "https://duke.zoom.us/rec/play/uMV7Jrqp-zk3ToWRtgSDVvdwW461Kais1CMer6BYyE61BXMGNQfzb-YQM-WDmz8AEIQY7v6RWokChWxG",
+                  "meeting_id": "LtsqxnMmTJKojhz45/+CJQ==",
+                  "file_type": "M4A",
+                  "recording_type": "audio_only",
+                  "download_url": "https://duke.zoom.us/rec/download/uMV7Jrqp-zk3ToWRtgSDVvdwW461Kais1CMer6BYyE61BXMGNQfzb-YQM-WDmz8AEIQY7v6RWokChWxG",
+                  "id": "5afac1e2-da46-4d19-b873-620ece410f35",
+                  "file_size": 33115,
+                  "recording_start": "2020-08-20T16:15:51Z",
+                  "recording_end": "2020-08-20T16:15:56Z",
+                  "status": "completed"
+                }
+              ],
+              "total_size": 84535,
+              "recording_count": 2,
+              "type": 3,
+              "uuid": "LtsqxnMmTJKojhz45/+CJQ==",
+              "host_id": "jITm8uRJQAaPu_dx60v_cQ",
+              "duration": 0,
+              "start_time": "2020-08-20T16:15:49Z",
+              "displaytext": "Recording from 08/20/2020 12:15 PM",
+              "password": "",
+              "account_id": "PggXE1VhSaq_YcEyPQEuFA",
+              "share_url": "https://duke.zoom.us/rec/share/wdBuNqH202ZOYK_K6kHNBvNmXa_HT6a8higc_PcFmhmMcdeGotTY-FkQWjF8bSxy",
+              "publish": true,
+              "host": {
+                "uid": "dll40",
+                "dukeid": "0928665",
+                "id": "jITm8uRJQAaPu_dx60v_cQ",
+                "cn": "Daisy Lovelace",
+                "creds": true,
+                "email": "dll40@duke.edu"
+              },
+              "topic": "Test Class",
+              "id": 92787279591
+            },
+            {
+              "timezone": "America/New_York",
+              "recording_files": [
+                {
+                  "play_url": "https://duke.zoom.us/rec/play/U5h4uTnVPEACdcFzDqUbrRH3ugujOM55aZCE_xgrUBxI8GOEIxGkfsEFQwyYl1sbpppHTOt79K5drDX3.KgjwoFv3bedwAXQt",
+                  "meeting_id": "ny6YK4zjSe26xwRO0uKQcA==",
+                  "file_type": "",
+                  "download_url": "https://duke.zoom.us/rec/download/U5h4uTnVPEACdcFzDqUbrRH3ugujOM55aZCE_xgrUBxI8GOEIxGkfsEFQwyYl1sbpppHTOt79K5drDX3.KgjwoFv3bedwAXQt",
+                  "id": "ef0e76b4-7774-4187-870b-7c5affaeec4a",
+                  "file_size": 0,
+                  "recording_start": "2020-09-08T17:42:14Z",
+                  "recording_end": "",
+                  "status": "processing"
+                }
+              ],
+              "total_size": 0,
+              "recording_count": 0,
+              "type": 3,
+              "uuid": "ny6YK4zjSe26xwRO0uKQcA==",
+              "host_id": "jITm8uRJQAaPu_dx60v_cQ",
+              "duration": 60,
+              "start_time": "2020-09-08T16:55:02Z",
+              "displaytext": "Recording from 09/08/2020 12:55 PM",
+              "password": "",
+              "account_id": "PggXE1VhSaq_YcEyPQEuFA",
+              "restrict_section": false,
+              "share_url": "https://duke.zoom.us/rec/share/DBwFmgpEZVLuXdOSat4IYJG8UJ1-N2yi2Oo5oktweCQo_uWPp3DbOJ3-YplCWRGq.e4c553UvupTD_91F",
+              "publish": true,
+              "host": {
+                "uid": "dll40",
+                "dukeid": "0928665",
+                "id": "jITm8uRJQAaPu_dx60v_cQ",
+                "cn": "Daisy Lovelace",
+                "creds": true,
+                "email": "dll40@duke.edu"
+              },
+              "topic": "Class Meetings ",
+              "id": 92787279591
+            },
+            {
+              "timezone": "America/New_York",
+              "recording_files": [
+                {
+                  "play_url": "https://duke.zoom.us/rec/play/8xHGuzxoq__Lg2V1hVyspmoc9NY109Bp3xMUrOHGRJAL9qEzjZmUNw5Tw_-OPSG3ptlyE2O-bAV6BDIx.Vv_lN7_UHor8WnuB",
+                  "meeting_id": "1OQBx+GbTrq8KjhKx507jQ==",
+                  "file_type": "",
+                  "download_url": "https://duke.zoom.us/rec/download/8xHGuzxoq__Lg2V1hVyspmoc9NY109Bp3xMUrOHGRJAL9qEzjZmUNw5Tw_-OPSG3ptlyE2O-bAV6BDIx.Vv_lN7_UHor8WnuB",
+                  "id": "90243b24-3551-4bdf-af2f-7db6665ee6d8",
+                  "file_size": 0,
+                  "recording_start": "2020-09-15T17:04:23Z",
+                  "recording_end": "",
+                  "status": "processing"
+                }
+              ],
+              "total_size": 0,
+              "recording_count": 0,
+              "type": 3,
+              "uuid": "1OQBx+GbTrq8KjhKx507jQ==",
+              "host_id": "jITm8uRJQAaPu_dx60v_cQ",
+              "duration": 120,
+              "start_time": "2020-09-15T16:56:15Z",
+              "displaytext": "Recording from 09/15/2020 12:56 PM",
+              "password": "",
+              "account_id": "PggXE1VhSaq_YcEyPQEuFA",
+              "share_url": "https://duke.zoom.us/rec/share/39_HRxvVOOyhTS03ysytHYr853TNzl6s1LoM6F_krTA131wMWtUkgBV1j5L-LLtk.RTKiGQlpqsVCiYUD",
+              "publish": true,
+              "host": {
+                "uid": "dll40",
+                "dukeid": "0928665",
+                "id": "jITm8uRJQAaPu_dx60v_cQ",
+                "cn": "Daisy Lovelace",
+                "creds": true,
+                "email": "dll40@duke.edu"
+              },
+              "topic": "PHD Office Hours",
+              "id": 92787279591
+            }
+          ],
+          "host": {
+            "uid": "dll40",
+            "dukeid": "0928665",
+            "id": "jITm8uRJQAaPu_dx60v_cQ",
+            "cn": "Daisy Lovelace",
+            "creds": true,
+            "email": "dll40@duke.edu"
+          },
+          "topic": "Class Meetings ",
+          "id": 92787279591,
+          "encrypted_password": "M2FwTzErcVozUDF1YWhIckVMdlZrQT09"
+        }
+      ],
+      "title": "Class Sessions"
+    }
+  ],
+  "publish_recordings": false,
+  "description": "Zoom links and sessions.",
+  "modified": "2020-09-15T21:01:00.606Z"
+}
