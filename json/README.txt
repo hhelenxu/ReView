@@ -15,3 +15,7 @@ fuqua.couchdb.zoom.credential-0200021.json represents the Zoom oAuth credentials
 fuqua.couchdb.zoom.meeting_report_147734772.json represents an application data file containing the details of Zoom meeting attendance for a particular meeting.   The number "147734772" represents the zoom meeting ID.  We cache the report data for meetings so we don't have to constantly hit the Zoom API to get data we have already pulled when generating reports.  After you build an API-based application-- before you go to production-- you will optimize the application and one thing to consider is the chatter and volume and cost of communicating with APIs.
 
 The files above with "couchdb" in their name are files that I store in a CouchDB database.  The "canvas" files above are direct JSON output from API calls to the Canvas API.
+
+fuqua.couchdb.jobpostings.12e360e8-425c-4cb1-a324-dd13aee80324.json is an unrelated sample JSON file for a different project of mine that we use for student job postings for the Fuqua Volunteer Corps.  Each job posting is a separate file.   It's a simple example.  
+
+
