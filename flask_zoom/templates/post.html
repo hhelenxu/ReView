@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{% block title %} {{ post['title'] }} {% endblock %}</h2>
+    <table class="table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Link to Recording</th>
+            <th>Tags</th>
+            <th>Summary</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ post['created'] }}</td>
+            <td><a href="{{ post['recordingURL'] }}">{{ post['title'] }}</a></td>
+            <td>{{ post['tags'] }}</td>
+            <td>{{ post['summary'] }}</td>
+          </tr>
+        </tbody>
+      </table>
+{% endblock %}
