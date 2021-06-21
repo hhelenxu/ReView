@@ -126,5 +126,5 @@ start_date = "2021-06-01"
 end_date = "2021-06-20"
 videos, transcripts = get_meetings(url, headers, start_date, end_date)
 text = parse_transcripts(transcripts)
-summaries = get_summaries(text, 1)
+summaries = get_summaries(text, 2)
 print(summaries)
