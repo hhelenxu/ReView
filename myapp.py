@@ -3,6 +3,7 @@ def app(environ, start_response):
     data = data + b"Hello, World! This is Joe\n"
     data = data + b"Hello, World! This is Akash\n"
     data = data + b"Hello, World! This is Aarushi\n"
+    data = data + b"Hello, World! This is Alice\n"
     start_response("200 OK", [
     ("Content-Type", "text/plain"),
     ("Content-Length", str(len(data)))
