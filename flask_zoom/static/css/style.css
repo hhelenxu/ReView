@@ -1,6 +1,7 @@
 /* index.html table styles */
 .recordings {
     table-layout: fixed;
+    width: 100%;
 }
 /* Column widths are based on these cells */
 .row-date {

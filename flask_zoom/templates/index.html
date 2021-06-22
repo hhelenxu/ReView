@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1 class="py-3">{% block title %} Recordings for CLASS NAME {% endblock %}</h1>
+    <h1 class="py-3">{% block title %} Recordings for CLASS NAME {% endblock %}</h1> 
     <div class="table-responsive">
-      <table class="recordings table table-hover table-striped">
+      <table id="table_id" class="recordings table table-hover table-striped">
         <thead>
           <tr>
             <th class="row-date">Date</th>
-            <th class="row-recording">Recording</th>
-            <th class="row-tags">Tags</th>
-            <th class="row-summary">Summary</th>
-            <th class="row-edit"></th> <!-- Edit -->
+            <th class="row-recording no-sort">Recording</th>
+            <th class="row-tags no-sort">Tags</th>
+            <th class="row-summary no-sort">Summary</th>
+            <th class="row-edit no-sort"></th> <!-- Edit -->
           </tr>
         </thead>
         <tbody>
@@ -22,7 +22,8 @@
                 <td>{{ post['summary'] }}</td>
                 <td>
                   <a href="{{ url_for('edit', id=post['id']) }}">
-                    <button type="button" class="btn btn-primary btn-sm">Edit</button>
+                    <!-- <button type="button" class="btn btn-primary btn-sm">Edit</button> -->
+                    <span class="fa fa-edit"></span>
                   </a>
                 </td>
               </tr>
