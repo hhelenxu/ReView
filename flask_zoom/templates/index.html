@@ -1,32 +1,33 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} Recordings for CLASS NAME {% endblock %}</h1>
-    {% for post in posts %}
-        <a href="{{ url_for('post', post_id=post['id']) }}">
-            <h2>{{ post['title'] }}</h2>
-        </a>
-        <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Link to Recording</th>
-                <th>Tags</th>
-                <th>Summary</th>
-              </tr>
-            </thead>
-            <tbody>
+    <h1 class="py-3">{% block title %} Recordings for CLASS NAME {% endblock %}</h1>
+    <div class="table-responsive">
+      <table class="recordings table table-hover table-striped">
+        <thead>
+          <tr>
+            <th class="row-date">Date</th>
+            <th class="row-recording">Recording</th>
+            <th class="row-tags">Tags</th>
+            <th class="row-summary">Summary</th>
+            <th class="row-edit"></th> <!-- Edit -->
+          </tr>
+        </thead>
+        <tbody>
+    {% for post in posts %} <!-- to reverse use `for post in posts|reverse` -->
               <tr>
                 <td>{{ post['created'] }}</td>
                 <td><a href="{{ post['recordingURL'] }}">{{ post['title'] }}</a></td>
                 <td>{{ post['tags'] }}</td>
                 <td>{{ post['summary'] }}</td>
+                <td>
+                  <a href="{{ url_for('edit', id=post['id']) }}">
+                    <button type="button" class="btn btn-primary btn-sm">Edit</button>
+                  </a>
+                </td>
               </tr>
-            </tbody>
-          </table>
-        <a href="{{ url_for('edit', id=post['id']) }}">
-            <span class="badge badge-warning">Edit</span>
-        </a>
-        <hr>
     {% endfor %}
+        </tbody>
+      </table>
+    </div>
 {% endblock %}

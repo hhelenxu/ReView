@@ -1,6 +1,20 @@
-h1 {
-    border: 2px #eee solid;
-    color: brown;
-    text-align: center;
-    padding: 10px;
+/* index.html table styles */
+.recordings {
+    table-layout: fixed;
+}
+/* Column widths are based on these cells */
+.row-date {
+    width: 10%;
+}
+.row-recording {
+    width: 16%;
+}
+.row-tags {
+    width: 16%;
+}
+.row-summary {
+    width: 47%;
+}
+.row-edit {
+    width: 6%;
 }
