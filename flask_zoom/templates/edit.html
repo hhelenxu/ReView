@@ -4,7 +4,7 @@
 <h1>{% block title %} Edit "{{ post['title'] }}" {% endblock %}</h1>
 
 <form method="post">
-    <div class="form-group">
+    <div class="form-group py-2">
         <label for="title">Title</label>
         <input type="text" name="title" placeholder="Post title"
                class="form-control"
@@ -12,32 +12,26 @@
         </input>
     </div>
 
-    <div class="form-group">
-        <label for="recordingURL">Recording URL</label>
-        <textarea name="recordingURL" placeholder="Recording URL"
-                  class="form-control">{{ request.form['recordingURL'] or post['recordingURL'] }}</textarea>
-    </div>
-
-    <div class="form-group">
+    <div class="form-group py-2">
         <label for="tags">Tags</label>
-        <textarea name="tags" placeholder="What topics is the lesson about?"
+        <textarea name="tags" placeholder="Topics that the lesson covers"
                   class="form-control">{{ request.form['tags'] or post['tags'] }}</textarea>
     </div>
 
-    <div class="form-group">
+    <div class="form-group py-2">
         <label for="summary">Summary</label>
         <textarea name="summary" placeholder="Brief summary of the lesson"
                   class="form-control">{{ request.form['summary'] or post['summary'] }}</textarea>
     </div>
 
-    <div class="form-group">
+    <div class="form-group py-2">
         <button type="submit" class="btn btn-primary">Save</button>
     </div>
 </form>
 <hr>
 
 <form action="{{ url_for('delete', id=post['id']) }}" method="POST">
-    <input type="submit" value="Delete Post"
+    <input type="submit" value="Delete"
             class="btn btn-danger btn-sm"
             onclick="return confirm('Are you sure you want to delete this post?')">
 </form>
