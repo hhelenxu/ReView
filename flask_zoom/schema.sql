@@ -6,5 +6,6 @@ CREATE TABLE posts (
     title TEXT NOT NULL,
     recordingURL TEXT NOT NULL,
     tags TEXT NOT NULL,
-    summary TEXT NOT NULL
+    summary TEXT NOT NULL,
+    transcription TEXT NOT NULL
 )

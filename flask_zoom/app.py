@@ -38,13 +38,14 @@ def create():
         recordingURL = request.form['recordingURL']
         tags = request.form['tags']
         summary = request.form['summary']
+        transcription = request.form['transcription']
 
         if not title:
             flash('Title is required!')
         else:
             conn = get_db_connection()
-            conn.execute('INSERT INTO posts (title, recordingURL, tags, summary) VALUES (?, ?, ?, ?)',
-                         (title, recordingURL, tags, summary))
+            conn.execute('INSERT INTO posts (title, recordingURL, tags, summary, transcription) VALUES (?, ?, ?, ?, ?)',
+                         (title, recordingURL, tags, summary, transcription))
             conn.commit()
             conn.close()
             return redirect(url_for('index'))
@@ -59,14 +60,15 @@ def edit(id):
         title = request.form['title']
         tags = request.form['tags']
         summary = request.form['summary']
+        transcription = request.form['transcription']
 
         if not title:
             flash('Title is required!')
         else:
             conn = get_db_connection()
-            conn.execute('UPDATE posts SET title = ?, tags = ?, summary = ?'
+            conn.execute('UPDATE posts SET title = ?, tags = ?, summary = ?, transcription = ?'
                          ' WHERE id = ?',
-                         (title, tags, summary, id))
+                         (title, tags, summary, transcription, id))
             conn.commit()
             conn.close()
             return redirect(url_for('index'))
