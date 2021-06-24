@@ -13,30 +13,18 @@ import psycopg2
 # USER = "testuser1.zoom@gmail.com"
 TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOm51bGwsImlzcyI6ImRfNi1wakk3UzE2XzR4UnFmX2tUMkEiLCJleHAiOjE2NTY1MjI2MDAsImlhdCI6MTYyNDM4MTgyNH0.77eiLsaVRHaMItC5x38bBpQsX3NPxnmwQpM-52U6fg4"
 
-def get_users(headers):
+def get_users(conn, cur, headers):
     url = "https://api.zoom.us/v2/users"
     response = requests.get(url=url, headers=headers)
     json = response.json()
 
-    # connect to database
-    conn = psycopg2.connect("dbname='zoom_app' user='hzx' password='password'")
-    cur = conn.cursor()
-
-    users = []
     for u in json["users"]:
-        temp = {}
-        temp["name"] = u["first_name"] + " " + u["last_name"]
-        temp["id"] = u["id"]
-        temp["email"] = u["email"]
-        users.append(temp)
-
         # add to database
-        cur.execute("INSERT INTO users (name, id, email) VALUES (%s , %s, %s) ON CONFLICT (id) DO NOTHING", (temp["name"], temp["id"], temp["email"]))
+        cur.execute("INSERT INTO users (name, id, email) VALUES (%s , %s, %s) ON CONFLICT (id) DO NOTHING", (u["first_name"]+" "+u["last_name"], u["id"], u["email"]))
         conn.commit()
-    return users
 
 
-def get_meetings(user, headers, start=None, end=None):
+def get_meetings(conn, cur, user, headers, start=None, end=None):
     # get meetings
     url = "https://api.zoom.us/v2/users/" + user + "/recordings"
     if start != None and end != None:
@@ -48,54 +36,33 @@ def get_meetings(user, headers, start=None, end=None):
     response = requests.request("GET", url, headers=headers)
     json = response.json()
 
-    # connect to database
-    conn = psycopg2.connect("dbname='zoom_app' user='hzx' password='password'")
-    cur = conn.cursor()
-
     # get useful info
-    info = {}
     for meeting in json["meetings"]:
-        info[meeting["uuid"]] = {}
-        info[meeting["uuid"]]["topic"] = meeting["topic"]
-        info[meeting["uuid"]]["start_time"] = meeting["start_time"]
+        transcript_link = ""
         for file in meeting["recording_files"]:
             if file["file_type"] == "MP4":
-                info[meeting["uuid"]]["video"] = file["play_url"]
+                video_link = file["play_url"]
             elif file["file_type"] == "TRANSCRIPT":
-                info[meeting["uuid"]]["transcript"] = file["download_url"]
-        if "transcript" not in info[meeting["uuid"]]:
-            info[meeting["uuid"]]["transcript"] = ""
+                transcript_link = file["download_url"]
+        text = parse_transcripts(transcript_link)
 
         # add to database
-        cur.execute("INSERT INTO recordings(id, topic, start_time, video, transcript) VALUES (%s, %s, %s, %s, %s) ON CONFLICT (id) DO NOTHING", (meeting["uuid"], meeting["topic"], meeting["start_time"], info[meeting["uuid"]]["video"], info[meeting["uuid"]]["transcript"]))
+        cur.execute("INSERT INTO recordings(id, topic, start_time, video, transcript, text) VALUES (%s, %s, %s, %s, %s, %s) ON CONFLICT (id) DO NOTHING", (meeting["uuid"], meeting["topic"], meeting["start_time"], video_link, transcript_link, text))
         conn.commit()
-    return info
 
 
-def parse_transcripts(info):
-    # connect to database
-    conn = psycopg2.connect("dbname='zoom_app' user='hzx' password='password'")
-    cur = conn.cursor()
+def parse_transcripts(transcript_link):
+    # get transcript text
+    if transcript_link == "":
+        return ""
+    t_url = transcript_link+"?access_token="+TOKEN
+    t_response = requests.request("GET", t_url)
 
-    for meeting_id, d in info.items():
-        # if transcript does not exist
-        if d["transcript"] == "":
-            d["text"] = ""
-            continue
-
-        # get transcript text
-        t_url = d["transcript"]+"?access_token="+TOKEN
-        t_response = requests.request("GET", t_url)
-
-        # process transcripts to remove unnecessary info (time, speaker)
-        lines = []
-        for string in t_response.text.split(": ")[1:]:
-            lines.append(string.split("\r")[0])
-        d["text"] = " ".join(lines)
-
-        # add to recordings table in database
-        cur.execute("UPDATE recordings SET text = %s where id = %s", (d["text"], meeting_id))
-        conn.commit()
+    # process transcripts to remove unnecessary info (time, speaker)
+    lines = []
+    for string in t_response.text.split(": ")[1:]:
+        lines.append(string.split("\r")[0])
+    return " ".join(lines)
 
 
 # summarize
@@ -136,7 +103,6 @@ def build_similarity_matrix(sentences, stop_words):
                 continue
             similarity_matrix[idx1][idx2] = sentence_similarity(
                 sentences[idx1], sentences[idx2], stop_words)
-
     return similarity_matrix
 
 
@@ -170,37 +136,51 @@ def generate_summary(text, top_n=5):
     return summarized
 
 
-def get_summaries(info, num_sentences=3):
-    # connect to database
-    conn = psycopg2.connect("dbname='zoom_app' user='hzx' password='password'")
-    cur = conn.cursor()
+def get_summaries(conn, cur, num_sentences=3):
+    cur.execute("SELECT * FROM recordings")
+    recordings = cur.fetchall()
+    for recording in recordings:
+        # check if summary already exists in database
+        cur.execute("SELECT EXISTS(SELECT summary FROM recordings WHERE id=%s AND summary IS NULL)", (recording[0],))
+        if cur.fetchone()[0]:
+            # add to recordings table in database
+            cur.execute("UPDATE recordings SET summary = %s where id = %s", (generate_summary(recording[5], num_sentences), recording[0]))
+            conn.commit()
 
-    for meeting_id, d in info.items():
-        d["summary"] = generate_summary(d["text"], num_sentences)
 
-        # add to recordings table in database
-        cur.execute("UPDATE recordings SET summary = %s where id = %s", (d["summary"], meeting_id))
-        conn.commit()
+# connect to database
+conn = psycopg2.connect("dbname='zoom_app' user='hzx' password='password'")
+cur = conn.cursor()
 
+# get users
 headers = {
     'Authorization': "Bearer " + TOKEN,
 }
-users = get_users(headers)
+get_users(conn, cur, headers)
 
-start_date = "2021-06-01"
-end_date = "2021-06-23"
-num_sentences = 1
-
-print(users[3]["email"]) # verify test user 1
+# get user "test user 1"
+cur.execute("SELECT email FROM users WHERE name='Test User1'")
+user = cur.fetchone()[0]
+print(user)
 print()
 
-info = get_meetings(users[3]["email"], headers, start_date, end_date)
-parse_transcripts(info)
-get_summaries(info, num_sentences)
+start_date = "2021-06-01"
+end_date = "2021-06-17"
+num_sentences = 1
+    
+# get meetings and summarize transcripts
+get_meetings(conn, cur, user, headers, start_date, end_date)
+get_summaries(conn, cur, num_sentences)
 
-for meeting_id, d in info.items():
-    print(d["topic"])
-    print(d["start_time"])
-    print(d["video"])
-    print(d["summary"])
+# print info
+cur.execute("SELECT * FROM recordings")
+for recording in cur.fetchall():
+    print(recording[0]) # meeting id
+    print(recording[1]) # topic
+    print(recording[2]) # start time and date
+    print(recording[3]) # video link
+    print(recording[6]) # summary
     print()
+
+cur.close()
+conn.close()
