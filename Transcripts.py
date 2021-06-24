@@ -8,14 +8,20 @@ from nltk.tokenize import sent_tokenize
 # nltk.download('punkt')
 import numpy as np
 import networkx as nx
+import psycopg2
 
-USER = "testuser1.zoom@gmail.com"
+# USER = "testuser1.zoom@gmail.com"
 TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOm51bGwsImlzcyI6ImRfNi1wakk3UzE2XzR4UnFmX2tUMkEiLCJleHAiOjE2NTY1MjI2MDAsImlhdCI6MTYyNDM4MTgyNH0.77eiLsaVRHaMItC5x38bBpQsX3NPxnmwQpM-52U6fg4"
 
 def get_users(headers):
     url = "https://api.zoom.us/v2/users"
     response = requests.get(url=url, headers=headers)
     json = response.json()
+
+    # connect to database
+    conn = psycopg2.connect("dbname='zoom_app' user='hzx' password='password'")
+    cur = conn.cursor()
+
     users = []
     for u in json["users"]:
         temp = {}
@@ -23,6 +29,10 @@ def get_users(headers):
         temp["id"] = u["id"]
         temp["email"] = u["email"]
         users.append(temp)
+
+        # add to database
+        cur.execute("INSERT INTO users (name, id, email) VALUES (%s , %s, %s) ON CONFLICT (id) DO NOTHING", (temp["name"], temp["id"], temp["email"]))
+        conn.commit()
     return users
 
 
@@ -38,6 +48,10 @@ def get_meetings(user, headers, start=None, end=None):
     response = requests.request("GET", url, headers=headers)
     json = response.json()
 
+    # connect to database
+    conn = psycopg2.connect("dbname='zoom_app' user='hzx' password='password'")
+    cur = conn.cursor()
+
     # get useful info
     info = {}
     for meeting in json["meetings"]:
@@ -49,13 +63,23 @@ def get_meetings(user, headers, start=None, end=None):
                 info[meeting["uuid"]]["video"] = file["play_url"]
             elif file["file_type"] == "TRANSCRIPT":
                 info[meeting["uuid"]]["transcript"] = file["download_url"]
+        if "transcript" not in info[meeting["uuid"]]:
+            info[meeting["uuid"]]["transcript"] = ""
+
+        # add to database
+        cur.execute("INSERT INTO recordings(id, topic, start_time, video, transcript) VALUES (%s, %s, %s, %s, %s) ON CONFLICT (id) DO NOTHING", (meeting["uuid"], meeting["topic"], meeting["start_time"], info[meeting["uuid"]]["video"], info[meeting["uuid"]]["transcript"]))
+        conn.commit()
     return info
 
 
 def parse_transcripts(info):
+    # connect to database
+    conn = psycopg2.connect("dbname='zoom_app' user='hzx' password='password'")
+    cur = conn.cursor()
+
     for meeting_id, d in info.items():
         # if transcript does not exist
-        if "transcript" not in d:
+        if d["transcript"] == "":
             d["text"] = ""
             continue
 
@@ -68,6 +92,10 @@ def parse_transcripts(info):
         for string in t_response.text.split(": ")[1:]:
             lines.append(string.split("\r")[0])
         d["text"] = " ".join(lines)
+
+        # add to recordings table in database
+        cur.execute("UPDATE recordings SET text = %s where id = %s", (d["text"], meeting_id))
+        conn.commit()
 
 
 # summarize
@@ -143,23 +171,25 @@ def generate_summary(text, top_n=5):
 
 
 def get_summaries(info, num_sentences=3):
+    # connect to database
+    conn = psycopg2.connect("dbname='zoom_app' user='hzx' password='password'")
+    cur = conn.cursor()
+
     for meeting_id, d in info.items():
         d["summary"] = generate_summary(d["text"], num_sentences)
 
+        # add to recordings table in database
+        cur.execute("UPDATE recordings SET summary = %s where id = %s", (d["summary"], meeting_id))
+        conn.commit()
 
 headers = {
     'Authorization': "Bearer " + TOKEN,
 }
 users = get_users(headers)
 
-# url = "https://api.zoom.us/v2/users/" + USER + "/recordings"
-# headers = {
-#     'Authorization': "Bearer " + TOKEN,
-#     'content-type': "application/json"
-# }
 start_date = "2021-06-01"
-end_date = "2021-06-20"
-num_sentences = 2
+end_date = "2021-06-23"
+num_sentences = 1
 
 print(users[3]["email"]) # verify test user 1
 print()
