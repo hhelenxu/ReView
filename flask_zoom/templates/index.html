@@ -16,7 +16,8 @@
     {% for post in posts %} <!-- to reverse use `for post in posts|reverse` -->
               <tr>
                 <td>{{ post['created'] }}</td>
-                <td><a href="{{ post['recordingURL'] }}">{{ post['title'] }}</a></td>
+                <!-- <td><a href="{{ post['recordingURL'] }}">{{ post['title'] }}</a></td> -->
+                <td><a href="{{ url_for('post', post_id=post['id']) }}">{{ post['title'] }}</a></td>
                 <td>{{ post['tags'] }}</td>
                 <td>{{ post['summary'] }}</td>
                 <td>
