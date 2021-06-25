@@ -17,7 +17,7 @@ def get_post(post_id):
     return post
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your secret key'  # used to secure sessions, which allow Flask to remember information from one request to another
+app.config['SECRET_KEY'] = 'NlcPJLmeyeXMn4KpISh0hGQ3cWQIQbbnE0WwfpeZxjiftirfP2sCNI0GA6P96kCP'  # used to secure sessions, which allow Flask to remember information from one request to another
 
 @app.route('/')
 def index():
@@ -38,13 +38,14 @@ def create():
         recordingURL = request.form['recordingURL']
         tags = request.form['tags']
         summary = request.form['summary']
+        transcription = request.form['transcription']
 
         if not title:
             flash('Title is required!')
         else:
             conn = get_db_connection()
-            conn.execute('INSERT INTO posts (title, recordingURL, tags, summary) VALUES (?, ?, ?, ?)',
-                         (title, recordingURL, tags, summary))
+            conn.execute('INSERT INTO posts (title, recordingURL, tags, summary, transcription) VALUES (?, ?, ?, ?, ?)',
+                         (title, recordingURL, tags, summary, transcription))
             conn.commit()
             conn.close()
             return redirect(url_for('index'))
@@ -57,17 +58,17 @@ def edit(id):
 
     if request.method == 'POST':
         title = request.form['title']
-        recordingURL = request.form['recordingURL']
         tags = request.form['tags']
         summary = request.form['summary']
+        transcription = request.form['transcription']
 
         if not title:
             flash('Title is required!')
         else:
             conn = get_db_connection()
-            conn.execute('UPDATE posts SET title = ?, recordingURL = ?, tags = ?, summary = ?'
+            conn.execute('UPDATE posts SET title = ?, tags = ?, summary = ?, transcription = ?'
                          ' WHERE id = ?',
-                         (title, recordingURL, tags, summary, id))
+                         (title, tags, summary, transcription, id))
             conn.commit()
             conn.close()
             return redirect(url_for('index'))

@@ -1,21 +1,38 @@
+/* navbar background */
+.navbar {
+    background-color: #272B84 !important;
+}
+
+/* link behavior */
+table a {
+    text-decoration: none;
+}
+table a:hover {
+    text-decoration: underline;
+}
+
 /* index.html table styles */
+th {
+    border-top: 1px solid #ddd;
+}
 .recordings {
     table-layout: fixed;
     width: 100%;
+    /* border-top: 1px solid #ddd; */
 }
 /* Column widths are based on these cells */
-.row-date {
+.col-date {
     width: 10%;
 }
-.row-recording {
+.col-recording {
     width: 16%;
 }
-.row-tags {
+.col-tags {
     width: 16%;
 }
-.row-summary {
+.col-summary {
     width: 47%;
 }
-.row-edit {
+.col-edit {
     width: 6%;
 }
