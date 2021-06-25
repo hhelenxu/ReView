@@ -11,6 +11,7 @@ import networkx as nx
 import psycopg2
 
 # USER = "testuser1.zoom@gmail.com"
+# move to config/secrets file
 TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOm51bGwsImlzcyI6ImRfNi1wakk3UzE2XzR4UnFmX2tUMkEiLCJleHAiOjE2NTY1MjI2MDAsImlhdCI6MTYyNDM4MTgyNH0.77eiLsaVRHaMItC5x38bBpQsX3NPxnmwQpM-52U6fg4"
 
 def get_users(conn, cur, headers):
@@ -141,8 +142,9 @@ def get_summaries(conn, cur, num_sentences=3):
     recordings = cur.fetchall()
     for recording in recordings:
         # check if summary already exists in database
-        cur.execute("SELECT EXISTS(SELECT summary FROM recordings WHERE id=%s AND summary IS NULL)", (recording[0],))
-        if cur.fetchone()[0]:
+        # cur.execute("SELECT EXISTS(SELECT summary FROM recordings WHERE id=%s AND summary IS NULL)", (recording[0],))
+        if recording[6] == None:
+        # if cur.fetchone()[0]:
             # add to recordings table in database
             cur.execute("UPDATE recordings SET summary = %s where id = %s", (generate_summary(recording[5], num_sentences), recording[0]))
             conn.commit()

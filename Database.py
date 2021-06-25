@@ -13,9 +13,9 @@ cur = conn.cursor()
 try:
     cur.execute("""
     CREATE TABLE IF NOT EXISTS users (
-        name varchar(100),
-        id varchar(500) UNIQUE,
-        email varchar(100) UNIQUE
+        name varchar,
+        id varchar UNIQUE,
+        email varchar UNIQUE
     );
     """)
     conn.commit()
@@ -25,15 +25,16 @@ except:
 
 # create zoom recordings table
 try:
+    # text type
     cur.execute("""
     CREATE TABLE IF NOT EXISTS recordings (
-        id varchar(1000) UNIQUE,
-        topic varchar(100),
-        start_time varchar(50),
-        video varchar(1000),
-        transcript varchar(1000),
+        id varchar UNIQUE,
+        topic varchar,
+        start_time varchar,
+        video varchar,
+        transcript varchar,
         text varchar,
-        summary varchar(1000)
+        summary varchar
     );
     """)
     conn.commit()
