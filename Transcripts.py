@@ -9,10 +9,11 @@ from nltk.tokenize import sent_tokenize
 import numpy as np
 import networkx as nx
 import psycopg2
+import databaseconfig as dbconfig
+import zoomconfig
 
-# USER = "testuser1.zoom@gmail.com"
-# move to config/secrets file
-TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOm51bGwsImlzcyI6ImRfNi1wakk3UzE2XzR4UnFmX2tUMkEiLCJleHAiOjE2NTY1MjI2MDAsImlhdCI6MTYyNDM4MTgyNH0.77eiLsaVRHaMItC5x38bBpQsX3NPxnmwQpM-52U6fg4"
+name = "Test User1" # "testuser1.zoom@gmail.com"
+# TOKEN stored in zoomconfig file (hidden by .gitignore)
 
 def get_users(conn, cur, headers):
     url = "https://api.zoom.us/v2/users"
@@ -56,7 +57,7 @@ def parse_transcripts(transcript_link):
     # get transcript text
     if transcript_link == "":
         return ""
-    t_url = transcript_link+"?access_token="+TOKEN
+    t_url = transcript_link+"?access_token="+zoomconfig.TOKEN
     t_response = requests.request("GET", t_url)
 
     # process transcripts to remove unnecessary info (time, speaker)
@@ -139,35 +140,32 @@ def generate_summary(text, top_n=5):
 
 def get_summaries(conn, cur, num_sentences=3):
     cur.execute("SELECT * FROM recordings")
-    recordings = cur.fetchall()
-    for recording in recordings:
+    for recording in cur.fetchall():
         # check if summary already exists in database
-        # cur.execute("SELECT EXISTS(SELECT summary FROM recordings WHERE id=%s AND summary IS NULL)", (recording[0],))
         if recording[6] == None:
-        # if cur.fetchone()[0]:
             # add to recordings table in database
             cur.execute("UPDATE recordings SET summary = %s where id = %s", (generate_summary(recording[5], num_sentences), recording[0]))
             conn.commit()
 
 
 # connect to database
-conn = psycopg2.connect("dbname='zoom_app' user='hzx' password='password'")
+conn = psycopg2.connect("dbname={} user={} password={}".format(dbconfig.database["db"], dbconfig.database["user"], dbconfig.database["password"]))
 cur = conn.cursor()
 
 # get users
 headers = {
-    'Authorization': "Bearer " + TOKEN,
+    'Authorization': "Bearer " + zoomconfig.TOKEN,
 }
 get_users(conn, cur, headers)
 
 # get user "test user 1"
-cur.execute("SELECT email FROM users WHERE name='Test User1'")
+cur.execute("SELECT email FROM users WHERE name=%s", (name,))
 user = cur.fetchone()[0]
 print(user)
 print()
 
 start_date = "2021-06-01"
-end_date = "2021-06-17"
+end_date = "2021-06-25"
 num_sentences = 1
     
 # get meetings and summarize transcripts
