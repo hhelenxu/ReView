@@ -28,7 +28,7 @@ th {
     /* border-top: 1px solid #ddd; */
 }
 /* Column widths are based on these cells */
-/* .col-date {
+.col-date {
     width: 10%;
 }
 .col-recording {
@@ -42,4 +42,4 @@ th {
 }
 .col-edit {
     width: 6%;
-} */
+}
