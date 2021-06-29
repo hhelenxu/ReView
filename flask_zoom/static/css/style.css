@@ -25,7 +25,6 @@ th {
 }
 .recordings {
     table-layout: fixed;
-    /* border-top: 1px solid #ddd; */
 }
 /* Column widths are based on these cells */
 /* .col-date {
@@ -39,7 +38,10 @@ th {
 }
 .col-summary {
     width: 47%;
-}
+} */
 .col-edit {
     width: 6%;
-} */
+}
+.td-edit {
+    float: right;
+}

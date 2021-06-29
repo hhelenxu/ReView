@@ -1,16 +1,15 @@
-import sqlite3
 from flask import Flask, render_template, request, url_for, flash, redirect
 from werkzeug.exceptions import abort
 
-# imports for zoom integration
+# imports for zoom integration + database
 import requests
 import nltk
 from nltk.corpus import stopwords
 from nltk.cluster.util import cosine_distance
 from nltk.tokenize import sent_tokenize
-nltk.download('stopwords')
-nltk.download('cosine_distance')
-nltk.download('punkt')
+# nltk.download('stopwords')
+# nltk.download('cosine_distance')
+# nltk.download('punkt')
 import numpy as np
 import networkx as nx
 import psycopg2
@@ -196,8 +195,8 @@ def index():
     print()
 
     start_date = "2021-06-16"
-    end_date = "2021-06-17"
-    num_sentences = 1
+    end_date = "2021-06-25"
+    num_sentences = 3
         
     # get meetings and summarize transcripts
     print("Getting meetings")
@@ -229,26 +228,27 @@ def recording(recording_id):
     recording = get_recording(recording_id)
     return render_template('recording.html', recording=recording)
 
-@app.route('/create', methods=('GET', 'POST'))
-def create():
-    if request.method == 'POST':
-        title = request.form['title']
-        recordingURL = request.form['recordingURL']
-        tags = request.form['tags']
-        summary = request.form['summary']
-        transcription = request.form['transcription']
+# create route is not in use and incorrect
+# @app.route('/create', methods=('GET', 'POST'))
+# def create():
+#     if request.method == 'POST':
+#         title = request.form['title']
+#         recordingURL = request.form['recordingURL']
+#         tags = request.form['tags']
+#         summary = request.form['summary']
+#         transcription = request.form['transcription']
 
-        if not title:
-            flash('Title is required!')
-        else:
-            conn = get_db_connection()
-            conn.execute('INSERT INTO posts (title, recordingURL, tags, summary, transcription) VALUES (?, ?, ?, ?, ?)',
-                         (title, recordingURL, tags, summary, transcription))
-            conn.commit()
-            conn.close()
-            return redirect(url_for('index'))
+#         if not title:
+#             flash('Title is required!')
+#         else:
+#             conn = get_db_connection()
+#             conn.execute('INSERT INTO posts (title, recordingURL, tags, summary, transcription) VALUES (?, ?, ?, ?, ?)',
+#                          (title, recordingURL, tags, summary, transcription))
+#             conn.commit()
+#             conn.close()
+#             return redirect(url_for('index'))
 
-    return render_template('create.html')
+#     return render_template('create.html')
 
 @app.route('/<string:recording_id>/edit', methods=('GET', 'POST'))
 def edit(recording_id):
@@ -264,12 +264,9 @@ def edit(recording_id):
             flash('Title is required!')
         else:
             conn = get_db_connection()
-            # conn.execute('UPDATE posts SET title = ?, tags = ?, summary = ?, transcription = ?'
-            #              ' WHERE id = ?',
-            #              (title, tags, summary, transcription, id))
-            conn.execute('UPDATE posts SET title = ?, summary = ?, transcription = ?'
-                         ' WHERE id = ?',
-                         (title, summary, transcription, id))
+            cur = conn.cursor()
+            cur.execute('UPDATE recordings SET topic = %s, summary = %s, text = %s where id = %s', (title, summary, transcription, recording_id))
+            cur.close()
             conn.commit()
             conn.close()
             return redirect(url_for('index'))
@@ -277,11 +274,13 @@ def edit(recording_id):
     return render_template('edit.html', recording=recording)
 
 @app.route('/<string:recording_id>/delete', methods=('POST',))
-def delete(id):
-    recording = get_recording(id)
+def delete(recording_id):
+    recording = get_recording(recording_id)
     conn = get_db_connection()
-    conn.execute('DELETE FROM posts WHERE id = ?', (id,))
+    cur = conn.cursor()
+    cur.execute('DELETE FROM recordings where id = %s', (recording_id,))
+    cur.close()
     conn.commit()
     conn.close()
-    flash('"{}" was successfully deleted!'.format(post['title']))
+    flash('"{}" was successfully deleted!'.format(recording[1]))
     return redirect(url_for('index'))
