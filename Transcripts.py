@@ -48,8 +48,12 @@ def get_meetings(conn, cur, user, headers, start=None, end=None):
                 transcript_link = file["download_url"]
         text = parse_transcripts(transcript_link)
 
+        # create list of tokens for text search
+        cur.execute("SELECT to_tsvector(%s)", (text,))
+        tokens = cur.fetchone()[0]
+
         # add to database
-        cur.execute("INSERT INTO recordings(id, topic, start_time, video, transcript, text) VALUES (%s, %s, %s, %s, %s, %s) ON CONFLICT (id) DO NOTHING", (meeting["uuid"], meeting["topic"], meeting["start_time"], video_link, transcript_link, text))
+        cur.execute("INSERT INTO recordings(id, topic, start_time, video, transcript, text, tokens) VALUES (%s, %s, %s, %s, %s, %s, %s) ON CONFLICT (id) DO NOTHING", (meeting["uuid"], meeting["topic"], meeting["start_time"], video_link, transcript_link, text, tokens))
         conn.commit()
 
 
@@ -148,6 +152,29 @@ def get_summaries(conn, cur, num_sentences=3):
             conn.commit()
 
 
+def search(conn, cur, words):
+    words = words.split()
+
+    # search for phrase
+    phrase = " <-> ".join(words)
+    cur.execute("SELECT id FROM recordings WHERE tokens @@ to_tsquery(%s)", (phrase,)) 
+    results = cur.fetchall()
+    if len(results) > 0: # if results found
+        return results
+
+    # search for all words
+    and_search = " & ".join(words)
+    cur.execute("SELECT id FROM recordings WHERE tokens @@ to_tsquery(%s)", (and_search,)) 
+    results = cur.fetchall()
+    if len(results) > 0: # if results found
+        return results
+
+    # search for any word
+    or_search = " | ".join(words)
+    cur.execute("SELECT id FROM recordings WHERE tokens @@ to_tsquery(%s)", (or_search,)) 
+    return cur.fetchall()
+
+
 # connect to database
 conn = psycopg2.connect("dbname={} user={} password={}".format(dbconfig.database["db"], dbconfig.database["user"], dbconfig.database["password"]))
 cur = conn.cursor()
@@ -179,8 +206,17 @@ for recording in cur.fetchall():
     print(recording[1]) # topic
     print(recording[2]) # start time and date
     print(recording[3]) # video link
+    # print(recording[4]) # transcript link
+    # print(recording[5]) # processed text of transcript
     print(recording[6]) # summary
+    # print(recording[7]) # token
     print()
+
+# search for phrase in transcript
+search_phrase = "zoom app"
+search_results = search(conn, cur, search_phrase)
+print('Search results for "{}":'.format(search_phrase))
+print(search_results)
 
 cur.close()
 conn.close()

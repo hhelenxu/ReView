@@ -34,7 +34,8 @@ try:
         video varchar,
         transcript varchar,
         text varchar,
-        summary varchar
+        summary varchar,
+        tokens tsvector
     );
     """)
     conn.commit()
