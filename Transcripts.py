@@ -27,7 +27,7 @@ def get_users(conn, cur, headers):
         conn.commit()
 
 
-def get_meetings(conn, cur, user, headers, start=None, end=None):
+def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1):
     # get meetings
     url = "https://api.zoom.us/v2/users/" + user + "/recordings"
     if start != None and end != None:
@@ -41,6 +41,11 @@ def get_meetings(conn, cur, user, headers, start=None, end=None):
 
     # get useful info
     for meeting in json["meetings"]:
+        cur.execute("SELECT EXISTS(SELECT id FROM recordings WHERE id=%s)", (meeting["uuid"],))
+        # if recording already exists in database
+        if cur.fetchone()[0]:
+            continue
+
         transcript_link = ""
         for file in meeting["recording_files"]:
             if file["file_type"] == "MP4":
@@ -48,7 +53,6 @@ def get_meetings(conn, cur, user, headers, start=None, end=None):
             elif file["file_type"] == "TRANSCRIPT":
                 transcript_link = file["download_url"]
 
-        # *** make more efficient by checking if text/tokens/keywords exist first
         text = parse_transcripts(transcript_link)
 
         # create list of tokens for text search
@@ -58,8 +62,11 @@ def get_meetings(conn, cur, user, headers, start=None, end=None):
         # calculate keywords for tags
         keywords = find_keywords(text)
 
+        # generate summary
+        summary = generate_summary(text, num_sentences)
+
         # add to database
-        cur.execute("INSERT INTO recordings(id, topic, start_time, video, transcript, text, tokens, tags) VALUES (%s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT (id) DO NOTHING", (meeting["uuid"], meeting["topic"], meeting["start_time"], video_link, transcript_link, text, tokens, keywords))
+        cur.execute("INSERT INTO recordings(id, topic, start_time, video, transcript, text, tokens, tags, summary) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT (id) DO NOTHING", (meeting["uuid"], meeting["topic"], meeting["start_time"], video_link, transcript_link, text, tokens, keywords, summary))
         conn.commit()
 
 
@@ -155,14 +162,14 @@ def generate_summary(text, top_n=5):
     return summarized
 
 
-def get_summaries(conn, cur, num_sentences=3):
-    cur.execute("SELECT * FROM recordings")
-    for recording in cur.fetchall():
-        # check if summary already exists in database
-        if recording[6] == None:
-            # add to recordings table in database
-            cur.execute("UPDATE recordings SET summary = %s where id = %s", (generate_summary(recording[5], num_sentences), recording[0]))
-            conn.commit()
+# def get_summaries(conn, cur, num_sentences=3):
+#     cur.execute("SELECT * FROM recordings")
+#     for recording in cur.fetchall():
+#         # check if summary already exists in database
+#         if recording[6] == None:
+#             # add to recordings table in database
+#             cur.execute("UPDATE recordings SET summary = %s where id = %s", (generate_summary(recording[5], num_sentences), recording[0]))
+#             conn.commit()
 
 
 def search(conn, cur, words):
@@ -209,8 +216,8 @@ end_date = "2021-06-25"
 num_sentences = 1
     
 # get meetings and summarize transcripts
-get_meetings(conn, cur, user, headers, start_date, end_date)
-get_summaries(conn, cur, num_sentences)
+get_meetings(conn, cur, user, headers, start_date, end_date, num_sentences)
+# get_summaries(conn, cur, num_sentences)
 
 # print info
 cur.execute("SELECT * FROM recordings")
