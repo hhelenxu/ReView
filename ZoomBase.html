@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>ZoomBase Test Site</title>
+        <title>Mirage/ZoomBase Test Site</title>
         <meta charset="UTF-8"> <!--Tells the browser what type of characters can be displayed-->
         <meta name="description" content="Free Web tutorials"> <!--Write what the website is about-->
         <meta name="keywords" content="HTML, CSS, JavaScript"> <!--Helps with SEO on the google search page-->
         <meta name="author" content="Benjamin Asomani"> <!--Your name-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--Allows the site to have a mobile interface-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     </head>
     <body>
         <div id="page title"> <!--"div"s categorize code into blocks. The id allows for references to that block of code-->
-            <title>ZoomBase</title>
-            <h1>ZoomBase</h1>
+            <title>Mirage/ZoomBase</title>
+            <h1>Mirage/ZoomBase</h1>
         </div>
             <h2><caption>Class Name</caption></h2> <!--<caption></caption> tags allow you to name tables-->
             <br />
@@ -33,27 +35,91 @@
                     </tbody>
                     <!--<thead>, <tbody>, and <tfoot> tags are used like <div> tags are used-->
                 </table>
-        <div>
-            <div style = "background-color:grey; width: 150px; height: 150px; text-align: center; align-content: middle; margin: auto">
-                Card 1
-            </div>
-            <br/>
-            <div style = "background-color:grey; width: 150px; height: 150px; text-align: center; align-content: middle; margin: auto;">
-                Card 2
-            </div>
-            <br/>
-            <div style = "background-color:grey; width: 150px; height: 150px; text-align: center; align-content: middle; margin: auto;">
-                Card 3
-            </div>
-            <br/>
-            <div style = "background-color:grey; width: 150px; height: 150px; text-align: center; align-content: middle; margin: initial;">
-                Card 4
-            </div>
-            <br/>
-            <div style = "background-color:grey; width: 150px; height: 150px; text-align: center; align-content: middle; position: absolute;">
-                Card 5
-            </div>
-        </div>
+<!-- Container  -->
+<div class="container">
+    <!-- Div with section and active -->
+    <div class="section one active"></div>
+    <!-- All another div with section  -->
+    <div class="section two"></div>
+    <div class="section three"></div>
+    <div class="section four"></div>
+</div>
+
+<div id="card">
+    <style>
         
+        
+        html { font-size: 22px; }
+        body { padding: 3rem; }
+
+        .card {
+        border-radius: 1rem;
+        border-color: #adadad;
+        border-width: 2px;
+        background-color: #fdfdfd;
+        color: rgb(0, 0, 0);
+        padding: 1.15rem;
+        height: 4rem;
+        
+        }
+
+        .cards {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+        
+        .card:hover {
+        /* .card { */
+                border-radius: 1rem;
+                border-color: #f30d0d;
+                border-width: 3px;
+                background-color: #5f0000;
+                color: rgb(255, 139, 139);
+                padding: 1.3rem;
+                height: 4.5rem;
+        }
+</style>
+<div class="cards">
+    <style>
+        a:link {
+          color: rgb(0, 0, 0);
+          background-color: transparent;
+          text-decoration: none;
+        }
+        a:visited {
+          color: rgb(212, 0, 240);
+          background-color: transparent;
+          text-decoration: none;
+        }
+        a:hover {
+          color: rgb(100, 100, 100);
+          background-color: transparent;
+          text-decoration: underline;
+        }
+        a:active {
+          color: rgb(255, 255, 255);
+          background-color: transparent;
+          text-decoration: underline;
+        }
+    </style>
+    <div class="card"><a href="https://google.com">One</a></div>
+    <div class="card"><a href="https://google.com">Two</a></div>
+    <div class="card"><a href="https://google.com">Three</a></div>
+    <div class="card"><a href="https://google.com">Four</a></div>
+    <div class="card"><a href="https://google.com">Five</a></div>
+    <div class="card"><a href="https://google.com">Six</a></div>
+    <div class="card"><a href="https://google.com">Seven</a></div>
+    <div class="card"><a href="https://google.com">Eight</a></div>
+    <div class="card"><a href="https://google.com">Nine</a></div>
+    <div class="card"><a href="https://google.com">Ten</a></div>
+    <div class="card"><a href="https://google.com">Eleven</a></div>
+    <div class="card"><a href="https://google.com">Twelve</a></div>
+  </div>
+</div>
     </body>
 </html>
+
+
