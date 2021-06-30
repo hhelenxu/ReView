@@ -35,7 +35,8 @@ try:
         transcript varchar,
         text varchar,
         summary varchar,
-        tokens tsvector
+        tokens tsvector,
+        tags text array
     );
     """)
     conn.commit()

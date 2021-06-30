@@ -11,6 +11,7 @@ import networkx as nx
 import psycopg2
 import databaseconfig as dbconfig
 import zoomconfig
+from rake_nltk import Rake
 
 name = "Test User1" # "testuser1.zoom@gmail.com"
 # TOKEN stored in zoomconfig file (hidden by .gitignore)
@@ -46,14 +47,19 @@ def get_meetings(conn, cur, user, headers, start=None, end=None):
                 video_link = file["play_url"]
             elif file["file_type"] == "TRANSCRIPT":
                 transcript_link = file["download_url"]
+
+        # *** make more efficient by checking if text/tokens/keywords exist first
         text = parse_transcripts(transcript_link)
 
         # create list of tokens for text search
         cur.execute("SELECT to_tsvector(%s)", (text,))
         tokens = cur.fetchone()[0]
 
+        # calculate keywords for tags
+        keywords = find_keywords(text)
+
         # add to database
-        cur.execute("INSERT INTO recordings(id, topic, start_time, video, transcript, text, tokens) VALUES (%s, %s, %s, %s, %s, %s, %s) ON CONFLICT (id) DO NOTHING", (meeting["uuid"], meeting["topic"], meeting["start_time"], video_link, transcript_link, text, tokens))
+        cur.execute("INSERT INTO recordings(id, topic, start_time, video, transcript, text, tokens, tags) VALUES (%s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT (id) DO NOTHING", (meeting["uuid"], meeting["topic"], meeting["start_time"], video_link, transcript_link, text, tokens, keywords))
         conn.commit()
 
 
@@ -69,6 +75,13 @@ def parse_transcripts(transcript_link):
     for string in t_response.text.split(": ")[1:]:
         lines.append(string.split("\r")[0])
     return " ".join(lines)
+
+
+# get keywords using Rapid Automatic Keyword Extraction algorithm
+def find_keywords(text):
+    r = Rake(min_length=1, max_length=3)
+    r.extract_keywords_from_text(text)
+    return r.get_ranked_phrases()[:5]
 
 
 # summarize
@@ -210,6 +223,7 @@ for recording in cur.fetchall():
     # print(recording[5]) # processed text of transcript
     print(recording[6]) # summary
     # print(recording[7]) # token
+    print(recording[8]) # tags
     print()
 
 # search for phrase in transcript
