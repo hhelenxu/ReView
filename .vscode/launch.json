@@ -5,10 +5,24 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Launch Chrome",
+            "request": "launch",
+            "type": "pwa-chrome",
+            "url": "http://localhost:8080",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "name": "Launch Chrome",
+            "request": "launch",
+            "type": "pwa-chrome",
+            "url": "http://localhost:8080",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
             "type": "pwa-msedge",
             "request": "launch",
-            "name": "Open Mirage.html",
-            "file": "/Users/Eagleyes2040/Mirage.html"
+            "name": "Open ZoomBase.html",
+            "file": "/Users/Eagleyes2040/zoom-app/ZoomBase.html"
         }
     ]
 }

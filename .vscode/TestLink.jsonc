@@ -21,7 +21,7 @@
         {
             "type": "pwa-msedge",
             "request": "launch",
-            "name": "Open Mirage.html",
+            "name": "Open HypotheticalZoomLink.html",
             "file": "/Users/Eagleyes2040/zoom-app/HypotheticalZoomLink.html"
         }
     ]
