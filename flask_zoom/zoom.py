@@ -217,7 +217,7 @@ print()
 today = date.today().strftime("%Y-%m-%d")
 start_date = "2021-06-01"
 end_date = today
-num_sentences = 1
+num_sentences = 3
     
 # get meetings and summarize transcripts
 get_meetings(conn, cur, user, headers, start_date, end_date, num_sentences)

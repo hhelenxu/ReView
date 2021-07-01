@@ -55,7 +55,9 @@ def edit(recording_id):
         # tags = request.form['tags']
         summary = request.form['summary']
         transcription = request.form['transcription']
-        tags = request.form['tags']
+        tags = "{" + request.form['tags'] + "}"
+        # newTags = request.form['newTags']
+        # print(tags, newTags)
 
         if not title:
             flash('Title is required!')

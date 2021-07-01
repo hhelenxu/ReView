@@ -11,11 +11,10 @@
                value="{{ request.form['title'] or recording[1] }}">
         </input>
     </div>
-
+    
     <div class="form-group py-2">
         <label for="tags">Tags</label>
-        <textarea name="tags" placeholder="Tags"
-                  class="form-control">{{ request.form['tags'] or "{" + ", ".join(recording[8]) + "}" }}</textarea>
+        <input name="tags" type="text" value="{{ request.form['tags'] or ", ".join(recording[8]) }}" data-role="tagsinput" placeholder="Add tags" class="form-control" />
     </div>
 
     <div class="form-group py-2">
@@ -26,7 +25,7 @@
 
     <div class="form-group py-2">
         <label for="transcription">Transcription</label>
-        <textarea name="transcription" placeholder="Transcription"
+        <textarea name="transcription" placeholder="Transcription" rows="10"
                   class="form-control">{{ request.form['transcription'] or recording[5] }}</textarea>
     </div>
 
