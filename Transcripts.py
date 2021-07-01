@@ -66,7 +66,7 @@ def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1
         summary = generate_summary(text, num_sentences)
 
         # add to database
-        cur.execute("INSERT INTO recordings(id, topic, start_time, video, transcript, text, tokens, tags, summary) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT (id) DO NOTHING", (meeting["uuid"], meeting["topic"], meeting["start_time"], video_link, transcript_link, text, tokens, keywords, summary))
+        cur.execute("INSERT INTO recordings(id, topic, start_time, video, transcript, text, tokens, tags, summary, visible) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, TRUE) ON CONFLICT (id) DO NOTHING", (meeting["uuid"], meeting["topic"], meeting["start_time"], video_link, transcript_link, text, tokens, keywords, summary))
         conn.commit()
 
 
@@ -194,6 +194,10 @@ def search(conn, cur, words):
     cur.execute("SELECT id FROM recordings WHERE tokens @@ to_tsquery(%s)", (or_search,)) 
     return cur.fetchall()
 
+def change_visibility(conn, cur, meeting_id, visible='FALSE'):
+    cur.execute("UPDATE recordings SET visible=%s WHERE id=%s", (visible, meeting_id))
+    conn.commit()
+     
 
 # connect to database
 conn = psycopg2.connect("dbname={} user={} password={}".format(dbconfig.database["db"], dbconfig.database["user"], dbconfig.database["password"]))
@@ -212,25 +216,30 @@ print(user)
 print()
 
 start_date = "2021-06-01"
-end_date = "2021-06-25"
+end_date = "2021-06-20"
 num_sentences = 1
     
 # get meetings and summarize transcripts
 get_meetings(conn, cur, user, headers, start_date, end_date, num_sentences)
 # get_summaries(conn, cur, num_sentences)
 
+# cur.execute("SELECT * FROM recordings")
+# for recording in cur.fetchall():
+#     change_visibility(conn, cur, recording[0], 'FALSE')
+
 # print info
-cur.execute("SELECT * FROM recordings")
+cur.execute("SELECT * FROM recordings WHERE visible=TRUE")
 for recording in cur.fetchall():
     print(recording[0]) # meeting id
-    print(recording[1]) # topic
-    print(recording[2]) # start time and date
-    print(recording[3]) # video link
-    # print(recording[4]) # transcript link
-    # print(recording[5]) # processed text of transcript
-    print(recording[6]) # summary
-    # print(recording[7]) # token
-    print(recording[8]) # tags
+    print(recording[1]) # visible (T/F)
+    print(recording[2]) # topic
+    print(recording[3]) # start time and date
+    print(recording[4]) # video link
+    # print(recording[5]) # transcript link
+    # print(recording[6]) # processed text of transcript
+    print(recording[7]) # summary
+    # print(recording[8]) # token
+    print(recording[9]) # tags
     print()
 
 # search for phrase in transcript
