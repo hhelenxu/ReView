@@ -7,13 +7,19 @@
           <thead>
             <tr>
               <th>Date</th>
+              <th>Tags</th>
               <th>Summary</th>
+              <th class="col-edit"></th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>{{ recording[2] }}</td>
+              <td>{{ recording[8] }}</td>
               <td>{{ recording[6] }}</td>
+              <td><a href="{{ url_for('edit', recording_id=recording[0]) }}">
+                <span class="fa fa-edit td-edit"></span>
+              </a></td>
             </tr>
           </tbody>
         </table>

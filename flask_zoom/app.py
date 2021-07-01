@@ -21,6 +21,7 @@ def get_recording(recording_id):
         abort(404)
     return recording
 
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'NlcPJLmeyeXMn4KpISh0hGQ3cWQIQbbnE0WwfpeZxjiftirfP2sCNI0GA6P96kCP'  # used to secure sessions, which allow Flask to remember information from one request to another
 
@@ -73,13 +74,14 @@ def edit(recording_id):
         # tags = request.form['tags']
         summary = request.form['summary']
         transcription = request.form['transcription']
+        tags = request.form['tags']
 
         if not title:
             flash('Title is required!')
         else:
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute('UPDATE recordings SET topic = %s, summary = %s, text = %s where id = %s', (title, summary, transcription, recording_id))
+            cur.execute('UPDATE recordings SET topic = %s, summary = %s, text = %s, tags = %s where id = %s', (title, summary, transcription, tags, recording_id))
             cur.close()
             conn.commit()
             conn.close()

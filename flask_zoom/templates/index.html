@@ -6,7 +6,8 @@
         <thead>
           <tr>
             <th class="col-date">Date</th>
-            <th class="col-ttitle no-sort">Recording</th>
+            <th class="col-title no-sort">Recording</th>
+            <th class="col-tags no-sort">Tags</th>
             <th class="col-summary no-sort">Summary</th>
             <th class="col-edit no-sort"></th>
           </tr>
@@ -16,6 +17,7 @@
               <tr>
                 <td>{{ recording[2] }}</td>
                 <td><a href="{{ url_for('recording', recording_id=recording[0]) }}">{{ recording[1] }}</a></td>
+                <td>{{ recording[8] }}</td>
                 <td>{{ recording[6] }}</td>
                 <td>
                   <a href="{{ url_for('edit', recording_id=recording[0]) }}">
