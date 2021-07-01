@@ -4,15 +4,16 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.cluster.util import cosine_distance
 from nltk.tokenize import sent_tokenize
-nltk.download('stopwords')
-nltk.download('cosine_distance')
-nltk.download('punkt')
+# nltk.download('stopwords')
+# nltk.download('cosine_distance')
+# nltk.download('punkt')
 import numpy as np
 import networkx as nx
 import psycopg2
 import databaseconfig as dbconfig
 import zoomconfig
-from datetime import date
+from datetime import date, datetime
+from dateutil import tz
 from rake_nltk import Rake
 
 name = "Test User1" # "testuser1.zoom@gmail.com"
@@ -45,17 +46,24 @@ def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1
     for meeting in json["meetings"]:
         print("Processing meeting")
         cur.execute("SELECT EXISTS(SELECT id FROM recordings WHERE id=%s)", (meeting["uuid"],))
+        
         # if recording already exists in database
         if cur.fetchone()[0]:
             continue
 
+        # format date and start time    
+        date = format_date(meeting["start_time"]) 
+
         transcript_link = ""
         for file in meeting["recording_files"]:
+            # video link
             if file["file_type"] == "MP4":
                 video_link = file["play_url"]
+            # transcript download link
             elif file["file_type"] == "TRANSCRIPT":
                 transcript_link = file["download_url"]
     
+        # transcript text
         text = parse_transcripts(transcript_link)
 
         # create list of tokens for text search
@@ -69,8 +77,20 @@ def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1
         summary = generate_summary(text, num_sentences)
 
         # add to database
-        cur.execute("INSERT INTO recordings(id, topic, start_time, video, transcript, text, tokens, tags, summary) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT (id) DO NOTHING", (meeting["uuid"], meeting["topic"], meeting["start_time"], video_link, transcript_link, text, tokens, keywords, summary))
+        cur.execute("INSERT INTO recordings(id, topic, start_time, video, transcript, text, tokens, tags, summary) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT (id) DO NOTHING", (meeting["uuid"], meeting["topic"], date, video_link, transcript_link, text, tokens, keywords, summary))
         conn.commit()
+
+
+def format_date(date_str):
+    # time originally in UTC
+    utc_time = datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%SZ')
+    utc_time = utc_time.replace(tzinfo=tz.gettz('UTC'))
+
+    # convert time zones and format
+    # to_zone = tz.tzlocal() # convert to local time
+    to_zone = tz.gettz('America/New_York') # convert to ET
+    time = utc_time.astimezone(to_zone)
+    return time.strftime("%b %d, %Y %I:%M %p")
 
 
 def parse_transcripts(transcript_link):
@@ -146,7 +166,6 @@ def generate_summary(text, top_n=5):
     sentences = sent_tokenize(text)
 
     # Generate Similary Matrix across sentences
-    
     sentence_similarity_martix = build_similarity_matrix(sentences, stop_words)
     # Rank sentences in similarity matrix
     sentence_similarity_graph = nx.from_numpy_array(sentence_similarity_martix)
@@ -163,16 +182,6 @@ def generate_summary(text, top_n=5):
     # Output the summarize text
     summarized = " ".join(summarize_text)
     return summarized
-
-
-# def get_summaries(conn, cur, num_sentences=3):
-#     cur.execute("SELECT * FROM recordings")
-#     for recording in cur.fetchall():
-#         # check if summary already exists in database
-#         if recording[6] == None:
-#             # add to recordings table in database
-#             cur.execute("UPDATE recordings SET summary = %s where id = %s", (generate_summary(recording[5], num_sentences), recording[0]))
-#             conn.commit()
 
 
 def search(conn, cur, words):
@@ -198,6 +207,11 @@ def search(conn, cur, words):
     return cur.fetchall()
 
 
+def change_visibility(conn, cur, meeting_id, visible='FALSE'):
+    cur.execute("UPDATE recordings SET visible=%s WHERE id=%s", (visible, meeting_id))
+    conn.commit()
+
+
 # connect to database
 conn = psycopg2.connect("dbname={} user={} host='localhost' password={}".format(dbconfig.database["db"], dbconfig.database["user"], dbconfig.database["password"]))
 cur = conn.cursor()
@@ -221,7 +235,6 @@ num_sentences = 3
     
 # get meetings and summarize transcripts
 get_meetings(conn, cur, user, headers, start_date, end_date, num_sentences)
-# get_summaries(conn, cur, num_sentences)
 
 
 cur.close()

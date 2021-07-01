@@ -5,6 +5,7 @@ from werkzeug.exceptions import abort
 import psycopg2
 import databaseconfig as dbconfig
 import zoomconfig
+from zoom import *
 
 
 def get_db_connection():
@@ -32,7 +33,7 @@ def index():
     cur = conn.cursor()
 
     # get recordings
-    cur.execute("SELECT * FROM recordings")
+    cur.execute("SELECT * FROM recordings WHERE visible=TRUE")
     recordings = cur.fetchall()
     cur.close()
     conn.close()
@@ -75,12 +76,11 @@ def edit(recording_id):
 
 @app.route('/<string:recording_id>/delete', methods=('POST',))
 def delete(recording_id):
-    recording = get_recording(recording_id)
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute('DELETE FROM recordings where id = %s', (recording_id,))
-    cur.close()
+    change_visibility(conn, cur, recording_id)
     conn.commit()
+    cur.close()
     conn.close()
-    flash('"{}" was successfully deleted!'.format(recording[1]))
+    flash('"{}" was successfully deleted!'.format(recording_id))
     return redirect(url_for('index'))

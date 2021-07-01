@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2 class="py-4">{% block title %} {{ recording[1] }} {% endblock %}</h2>
+    <h2 class="py-5">{% block title %} {{ recording[2] }} {% endblock %}</h2>
     <div class="individualTable">
       <table class="table">
           <thead>
@@ -14,9 +14,9 @@
           </thead>
           <tbody>
             <tr>
-              <td>{{ recording[2] }}</td>
-              <td>{{ recording[8] }}</td>
-              <td>{{ recording[6] }}</td>
+              <td>{{ recording[3] }}</td>
+              <td>{{ recording[9] }}</td>
+              <td>{{ recording[7] }}</td>
               <td><a href="{{ url_for('edit', recording_id=recording[0]) }}">
                 <span class="fa fa-edit td-edit"></span>
               </a></td>
@@ -24,5 +24,5 @@
           </tbody>
         </table>
       </div>
-    <iframe src="{{ recording[3] }}" height="500px" width=100% title="Embedded Zoom Recording" allowfullscreen="allowfullscreen"></iframe>
+    <iframe src="{{ recording[4] }}" height="500px" width=100% title="Embedded Zoom Recording" allowfullscreen="allowfullscreen"></iframe>
 {% endblock %}
