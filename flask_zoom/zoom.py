@@ -43,6 +43,7 @@ def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1
 
     # get useful info
     for meeting in json["meetings"]:
+        print("Processing meeting")
         cur.execute("SELECT EXISTS(SELECT id FROM recordings WHERE id=%s)", (meeting["uuid"],))
         # if recording already exists in database
         if cur.fetchone()[0]:
@@ -54,7 +55,7 @@ def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1
                 video_link = file["play_url"]
             elif file["file_type"] == "TRANSCRIPT":
                 transcript_link = file["download_url"]
-
+    
         text = parse_transcripts(transcript_link)
 
         # create list of tokens for text search
@@ -145,8 +146,8 @@ def generate_summary(text, top_n=5):
     sentences = sent_tokenize(text)
 
     # Generate Similary Matrix across sentences
+    
     sentence_similarity_martix = build_similarity_matrix(sentences, stop_words)
-
     # Rank sentences in similarity matrix
     sentence_similarity_graph = nx.from_numpy_array(sentence_similarity_martix)
     scores = nx.pagerank(sentence_similarity_graph)
