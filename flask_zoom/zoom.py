@@ -12,7 +12,8 @@ import networkx as nx
 import psycopg2
 import databaseconfig as dbconfig
 import zoomconfig
-from datetime import date
+from datetime import date, datetime
+from dateutil import tz
 from rake_nltk import Rake
 
 name = "Test User1" # "testuser1.zoom@gmail.com"
@@ -45,17 +46,24 @@ def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1
     for meeting in json["meetings"]:
         print("Processing meeting")
         cur.execute("SELECT EXISTS(SELECT id FROM recordings WHERE id=%s)", (meeting["uuid"],))
+        
         # if recording already exists in database
         if cur.fetchone()[0]:
             continue
 
+        # format date and start time    
+        date = format_date(meeting["start_time"]) 
+
         transcript_link = ""
         for file in meeting["recording_files"]:
+            # video link
             if file["file_type"] == "MP4":
                 video_link = file["play_url"]
+            # transcript download link
             elif file["file_type"] == "TRANSCRIPT":
                 transcript_link = file["download_url"]
     
+        # transcript text
         text = parse_transcripts(transcript_link)
 
         # create list of tokens for text search
@@ -69,8 +77,20 @@ def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1
         summary = generate_summary(text, num_sentences)
 
         # add to database
-        cur.execute("INSERT INTO recordings(id, topic, start_time, video, transcript, text, tokens, tags, summary) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT (id) DO NOTHING", (meeting["uuid"], meeting["topic"], meeting["start_time"], video_link, transcript_link, text, tokens, keywords, summary))
+        cur.execute("INSERT INTO recordings(id, topic, start_time, video, transcript, text, tokens, tags, summary) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT (id) DO NOTHING", (meeting["uuid"], meeting["topic"], date, video_link, transcript_link, text, tokens, keywords, summary))
         conn.commit()
+
+
+def format_date(date_str):
+    # time originally in UTC
+    utc_time = datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%SZ')
+    utc_time = utc_time.replace(tzinfo=tz.gettz('UTC'))
+
+    # convert time zones and format
+    # to_zone = tz.tzlocal() # convert to local time
+    to_zone = tz.gettz('America/New_York') # convert to ET
+    time = utc_time.astimezone(to_zone)
+    return time.strftime("%b %d, %Y %I:%M %p")
 
 
 def parse_transcripts(transcript_link):
