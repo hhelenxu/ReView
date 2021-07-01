@@ -25,6 +25,7 @@ def get_recording(recording_id):
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'NlcPJLmeyeXMn4KpISh0hGQ3cWQIQbbnE0WwfpeZxjiftirfP2sCNI0GA6P96kCP'  # used to secure sessions, which allow Flask to remember information from one request to another
 
+
 @app.route('/')
 def index():
     conn = get_db_connection()
@@ -38,32 +39,12 @@ def index():
 
     return render_template('index.html', recordings=recordings)
 
+
 @app.route('/<string:recording_id>')
 def recording(recording_id):
     recording = get_recording(recording_id)
     return render_template('recording.html', recording=recording)
 
-# create route is not in use and incorrect
-# @app.route('/create', methods=('GET', 'POST'))
-# def create():
-#     if request.method == 'POST':
-#         title = request.form['title']
-#         recordingURL = request.form['recordingURL']
-#         tags = request.form['tags']
-#         summary = request.form['summary']
-#         transcription = request.form['transcription']
-
-#         if not title:
-#             flash('Title is required!')
-#         else:
-#             conn = get_db_connection()
-#             conn.execute('INSERT INTO posts (title, recordingURL, tags, summary, transcription) VALUES (?, ?, ?, ?, ?)',
-#                          (title, recordingURL, tags, summary, transcription))
-#             conn.commit()
-#             conn.close()
-#             return redirect(url_for('index'))
-
-#     return render_template('create.html')
 
 @app.route('/<string:recording_id>/edit', methods=('GET', 'POST'))
 def edit(recording_id):
@@ -88,6 +69,7 @@ def edit(recording_id):
             return redirect(url_for('index'))
 
     return render_template('edit.html', recording=recording)
+
 
 @app.route('/<string:recording_id>/delete', methods=('POST',))
 def delete(recording_id):
