@@ -146,7 +146,6 @@ def generate_summary(text, top_n=5):
     sentences = sent_tokenize(text)
 
     # Generate Similary Matrix across sentences
-    
     sentence_similarity_martix = build_similarity_matrix(sentences, stop_words)
     # Rank sentences in similarity matrix
     sentence_similarity_graph = nx.from_numpy_array(sentence_similarity_martix)
@@ -163,16 +162,6 @@ def generate_summary(text, top_n=5):
     # Output the summarize text
     summarized = " ".join(summarize_text)
     return summarized
-
-
-# def get_summaries(conn, cur, num_sentences=3):
-#     cur.execute("SELECT * FROM recordings")
-#     for recording in cur.fetchall():
-#         # check if summary already exists in database
-#         if recording[6] == None:
-#             # add to recordings table in database
-#             cur.execute("UPDATE recordings SET summary = %s where id = %s", (generate_summary(recording[5], num_sentences), recording[0]))
-#             conn.commit()
 
 
 def search(conn, cur, words):
@@ -219,15 +208,13 @@ user = cur.fetchone()[0]
 print(user)
 print()
 
-# today = date.today().strftime("%Y-%m-%d")
+today = date.today().strftime("%Y-%m-%d")
 start_date = "2021-06-01"
-# end_date = today
-end_date = "2021-06-25"
+end_date = today
 num_sentences = 1
     
 # get meetings and summarize transcripts
 get_meetings(conn, cur, user, headers, start_date, end_date, num_sentences)
-# get_summaries(conn, cur, num_sentences)
 
 
 cur.close()
