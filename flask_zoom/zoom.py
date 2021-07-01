@@ -4,9 +4,9 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.cluster.util import cosine_distance
 from nltk.tokenize import sent_tokenize
-nltk.download('stopwords')
-nltk.download('cosine_distance')
-nltk.download('punkt')
+# nltk.download('stopwords')
+# nltk.download('cosine_distance')
+# nltk.download('punkt')
 import numpy as np
 import networkx as nx
 import psycopg2
@@ -198,6 +198,11 @@ def search(conn, cur, words):
     return cur.fetchall()
 
 
+def change_visibility(conn, cur, meeting_id, visible='FALSE'):
+    cur.execute("UPDATE recordings SET visible=%s WHERE id=%s", (visible, meeting_id))
+    conn.commit()
+
+
 # connect to database
 conn = psycopg2.connect("dbname={} user={} host='localhost' password={}".format(dbconfig.database["db"], dbconfig.database["user"], dbconfig.database["password"]))
 cur = conn.cursor()
@@ -214,9 +219,10 @@ user = cur.fetchone()[0]
 print(user)
 print()
 
-today = date.today().strftime("%Y-%m-%d")
+# today = date.today().strftime("%Y-%m-%d")
 start_date = "2021-06-01"
-end_date = today
+# end_date = today
+end_date = "2021-06-25"
 num_sentences = 1
     
 # get meetings and summarize transcripts
