@@ -29,7 +29,7 @@ try:
     # text type
     cur.execute("""
     CREATE TABLE IF NOT EXISTS recordings (
-        id varchar UNIQUE,
+        id SERIAL,
         visible boolean,
         topic varchar,
         start_time varchar,
@@ -38,7 +38,8 @@ try:
         text varchar,
         summary varchar,
         tokens tsvector,
-        tags text array
+        tags text array,
+        zoom_id varchar UNIQUE
     );
     """)
     conn.commit()
