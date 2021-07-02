@@ -77,7 +77,7 @@ def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1
         summary = generate_summary(text, num_sentences)
 
         # add to database
-        cur.execute("INSERT INTO recordings(id, topic, start_time, video, transcript, text, tokens, tags, summary) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT (id) DO NOTHING", (meeting["uuid"], meeting["topic"], date, video_link, transcript_link, text, tokens, keywords, summary))
+        cur.execute("INSERT INTO recordings(id, topic, start_time, video, transcript, text, tokens, tags, summary, visible) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, TRUE) ON CONFLICT (id) DO NOTHING", (meeting["uuid"], meeting["topic"], meeting["start_time"], video_link, transcript_link, text, tokens, keywords, summary))
         conn.commit()
 
 
