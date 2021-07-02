@@ -5,21 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch Chrome",
+            "name": "Launch Chrome ZoomBase",
             "request": "launch",
             "type": "pwa-chrome",
-            "url": "http://localhost:8080",
+            "file": "file:///Users/Eagleyes2040/zoom-app/ZoomBase.html",
             "webRoot": "${workspaceFolder}"
         },
+
         {
-            "name": "Launch Chrome",
-            "request": "launch",
             "type": "pwa-chrome",
-            "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}"
-        },
-        {
-            "type": "pwa-msedge",
             "request": "launch",
             "name": "Open ZoomBase.html",
             "file": "/Users/Eagleyes2040/zoom-app/ZoomBase.html"
