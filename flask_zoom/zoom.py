@@ -45,7 +45,7 @@ def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1
     # get useful info
     for meeting in json["meetings"]:
         print("Processing meeting")
-        cur.execute("SELECT EXISTS(SELECT id FROM recordings WHERE id=%s)", (meeting["uuid"],))
+        cur.execute("SELECT EXISTS(SELECT zoom_id FROM recordings WHERE zoom_id=%s)", (meeting["uuid"],))
         
         # if recording already exists in database
         if cur.fetchone()[0]:
@@ -77,7 +77,7 @@ def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1
         summary = generate_summary(text, num_sentences)
 
         # add to database
-        cur.execute("INSERT INTO recordings(id, topic, start_time, video, transcript, text, tokens, tags, summary, visible) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, TRUE) ON CONFLICT (id) DO NOTHING", (meeting["uuid"], meeting["topic"], date, video_link, transcript_link, text, tokens, keywords, summary))
+        cur.execute("INSERT INTO recordings(topic, start_time, video, transcript, text, tokens, tags, summary, visible, zoom_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, TRUE, %s) ON CONFLICT (zoom_id) DO NOTHING", (meeting["topic"], date, video_link, transcript_link, text, tokens, keywords, summary, meeting["uuid"]))
         conn.commit()
 
 
