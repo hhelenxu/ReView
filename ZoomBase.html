@@ -13,7 +13,7 @@
     <body>
         <style>
             body {
-                background-color: #eeeeee;
+                background-color: #fdfdfd;
             }
             
         </style>
@@ -23,52 +23,27 @@
             .titleheader {
                 height: 90px; padding: 0px 12px;
                 display: flex;
-            box-shadow: rgba(27, 37, 64, 0.12) 0px 1px 3px 0px;
+            box-shadow: #171f361f 10px 10px 16px 0px;
              min-width: 100%; max-width: 100%;
               box-sizing: border-box; z-index: 1101; background-color: white; 
             }
         </style>
             <header class="titleheader">
-              <h1 class=titleheadtext style="align-items: center; vertical-align: center;">Mirage/ZoomBase Card View Testing Field</h1>
+              <h1 class=titleheadtext style="margin: auto 0; padding-left: 1rem;">Mirage/ZoomBase Card View Testing Field</h1>
             </header>
         </div>
-            <h2><caption>Class Name</caption></h2> <!--<caption></caption> tags allow you to name tables-->
+            <br/>
+            <h2 style="padding-left: 3rem;"><caption>Class Name</caption></h2> <!--<caption></caption> tags allow you to name tables-->
             <br />
-                <table> <!--this is the beginning of creating the table-->
-                    <thead> <!--Not completely sure what this does-->
-                        <tr> <!--In this block is where you name your columns. You can specify using scope="col" or "row" to name rows-->
-                            <!-- <th>Date</th>
-                            <th>Time</th>
-                            <th>Topic</th>
-                            <th>Content Tags</th>
-                            <th>Summary</th> -->
-                        </tr>
-                    </thead>
-                    <tbody> <!--This block is where you edit the parts of the table under the title row-->
-                        <tr>
-                            <!-- <td>06/22</td>
-                            <td>Test Topic</td> -->
-                        </tr>
-                    </tbody>
-                    <!--<thead>, <tbody>, and <tfoot> tags are used like <div> tags are used-->
-                </table>
-                <!-- <br/> <br/> -->
 
-
-            <div id="background">
-                
-                <style>
-                    .background {
-                        background-color: blue;
-                    }
-                </style>
+            <div id="cardtemp">
                         
-                <div id="card">
+                <div id="card" style="padding: 3rem";>
                         
                     <style>
                         
                         html { font-size: 22px; }
-                        body { padding: 3rem; }
+                        /* body { padding: 3rem; } */
 
                         a:link {
                         color: rgb(0, 0, 0);
@@ -91,28 +66,33 @@
                         text-decoration:underline;
                         }
 
-                        .card {
-                        border-radius: 1.3rem;
-                        border-color: transparent;
-                        /* border-width: 2px; */
-                        background-color: #eeeeee;
-                        color: rgb(9, 11, 104);
-                        padding: 1.15rem;
-                        height: 4rem;
-                        box-shadow: 10px 10px 16px 0 #dddddd , 
-                            -8px -8px 12px 0 #fdfdfd ;
-                        /* background: linear-gradient(-45deg, #fdfdfd, #dddddd); */
-                        }
-
                         .cards {
                         max-width: 1200px;
                         margin: 0 auto;
+                        background-color: #f5f5f5;
+                        padding: 3rem;
+                        border-radius: 1.3rem;
+                        box-shadow: 10px 10px 16px 0 #8b8b8b , 
+                            0px 0px 1px 0 #494949 ;
                         display: grid;
                         grid-gap: 1rem;
                         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
                         justify-content: space-evenly;
                         }
                         
+                        .card {
+                        border-radius: 1.3rem;
+                        border-color: #f0f0f0;
+                        border-width: 1px;
+                        background-color: #eeeeee;
+                        color: #090b68;
+                        padding: 1.15rem;
+                        height: 4rem;
+                        box-shadow: 10px 10px 16px 0 #dbdbdb , 
+                            -8px -8px 12px 0 #fdfdfd ;
+                        background: linear-gradient(-45deg, #fdfdfd, #ededed);
+                        }
+
                         .card:hover {
                                 border-radius: 1rem;
                                 border-color: transparent;
@@ -120,7 +100,7 @@
                                 /* background-color: #abb6e6;
                                 color: rgb(255, 139, 139); */
                                 padding: 1.3rem;
-                                height: 4.5rem;
+                                height: 8rem;
                         }
 
                         .card:active {
@@ -139,23 +119,26 @@
                                 text-decoration: underline;
 
                         }
+                        .card:checked {
+                                height: 8rem;
+                        }
 
                 </style>
 
                     <div class="cards">
                             
-                        <a href="file:///Users/Eagleyes2040/zoom-app/HypotheticalZoomLink.html" target="_blank"><div class="card">One</div></a>
-                        <a href="file:///Users/Eagleyes2040/zoom-app/HypotheticalZoomLink.html" target="_blank"><div class="card">Two</div></a>
-                        <a href="file:///Users/Eagleyes2040/zoom-app/HypotheticalZoomLink.html" target="_blank"><div class="card">Three</div></a>
-                        <a href="file:///Users/Eagleyes2040/zoom-app/HypotheticalZoomLink.html" target="_blank"><div class="card">Four</div></a>
-                        <a href="file:///Users/Eagleyes2040/zoom-app/HypotheticalZoomLink.html" target="_blank"><div class="card">Five</div></a>
-                        <a href="file:///Users/Eagleyes2040/zoom-app/HypotheticalZoomLink.html" target="_blank"><div class="card">Six</div></a>
-                        <a href="file:///Users/Eagleyes2040/zoom-app/HypotheticalZoomLink.html" target="_blank"><div class="card">Seven</div></a>
-                        <a href="file:///Users/Eagleyes2040/zoom-app/HypotheticalZoomLink.html" target="_blank"><div class="card">Eight</div></a>
-                        <a href="file:///Users/Eagleyes2040/zoom-app/HypotheticalZoomLink.html" target="_blank"><div class="card">Nine</div></a>
-                        <a href="file:///Users/Eagleyes2040/zoom-app/HypotheticalZoomLink.html" target="_blank"><div class="card">Ten</div></a>
-                        <a href="file:///Users/Eagleyes2040/zoom-app/HypotheticalZoomLink.html" target="_blank"><div class="card">Eleven</div></a>
-                        <a href="file:///Users/Eagleyes2040/zoom-app/HypotheticalZoomLink.html" target="_blank"><div class="card">Twelve</div></a>
+                        <a href="file:///Users/Eagleyes2040/zoom-app/HypotheticalZoomLink.html" target="_blank"><div class="card">{Topic Name}</div></a>
+                        <a href="file:///Users/Eagleyes2040/zoom-app/HypotheticalZoomLink.html" target="_blank"><div class="card">{Topic Name}</div></a>
+                        <a href="file:///Users/Eagleyes2040/zoom-app/HypotheticalZoomLink.html" target="_blank"><div class="card">{Topic Name}</div></a>
+                        <a href="file:///Users/Eagleyes2040/zoom-app/HypotheticalZoomLink.html" target="_blank"><div class="card">{Topic Name}</div></a>
+                        <a href="file:///Users/Eagleyes2040/zoom-app/HypotheticalZoomLink.html" target="_blank"><div class="card">{Topic Name}</div></a>
+                        <a href="file:///Users/Eagleyes2040/zoom-app/HypotheticalZoomLink.html" target="_blank"><div class="card">{Topic Name}</div></a>
+                        <a href="file:///Users/Eagleyes2040/zoom-app/HypotheticalZoomLink.html" target="_blank"><div class="card">{Topic Name}</div></a>
+                        <a href="file:///Users/Eagleyes2040/zoom-app/HypotheticalZoomLink.html" target="_blank"><div class="card">{Topic Name}</div></a>
+                        <a href="file:///Users/Eagleyes2040/zoom-app/HypotheticalZoomLink.html" target="_blank"><div class="card">{Topic Name}</div></a>
+                        <a href="file:///Users/Eagleyes2040/zoom-app/HypotheticalZoomLink.html" target="_blank"><div class="card">{Topic Name}</div></a>
+                        <a href="file:///Users/Eagleyes2040/zoom-app/HypotheticalZoomLink.html" target="_blank"><div class="card">{Topic Name}</div></a>
+                        <a href="file:///Users/Eagleyes2040/zoom-app/HypotheticalZoomLink.html" target="_blank"><div class="card">{Topic Name}</div></a>
 
                     </div>
                 </div>
