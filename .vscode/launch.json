@@ -17,6 +17,23 @@
             "request": "launch",
             "name": "Open ZoomBase.html",
             "file": "/Users/Eagleyes2040/zoom-app/ZoomBase.html"
+        },
+
+        {
+            "name": "Launch cardview ZoomBase",
+            "request": "launch",
+            "type": "pwa-chrome",
+            "file": "file:///Users/Eagleyes2040/zoom-app/flask_zoom/templates/cardview.html",
+            "webRoot": "${workspaceFolder}"
+        },
+
+        {
+            "type": "pwa-chrome",
+            "request": "launch",
+            "name": "Open cardview.html",
+            "file": "/Users/Eagleyes2040/zoom-app/flask_zoom/templates/cardview.html"
         }
+
+        
     ]
 }
