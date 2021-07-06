@@ -18,11 +18,11 @@
     {% for post in posts %} <!-- to reverse use `for post in posts|reverse` -->
               <tr>
                 <td>{{ post['created'] }}</td>
-                <td><a href="{{ post['recordingURL'] }}">{{ post['title'] }}</a></td>
+                <td><a href="{{ recording[4] }}">{{ post['title'] }}</a></td>
                 <td>{{ post['tags'] }}</td>
                 <td>{{ post['summary'] }}</td>
                 <td>
-                  <a href="{{ url_for('edit', id=post['id']) }}">
+                  <a href="{{ url_for('edit', id=recording[0]) }}">
                     <!-- <button type="button" class="btn btn-primary btn-sm">Edit</button> -->
                     <span class="fa fa-edit"></span>
                   </a>
@@ -61,7 +61,7 @@
                     
             <div id="card" style="padding: 3rem";>
 
-                {% for cards/background1 in cards %}    
+
                 <style>
                     
                     html { font-size: 22px; }
@@ -147,8 +147,8 @@
                 <div class="cards">
 
                     {#<!-- Loop the line below however many times is relevant -->#}
-                    <a href="{{ post['recordingURL'] }}" target="_blank"><div class="card">{{ post['title'] }}</div></a>
-                    <a href="{{ url_for('edit', id=post['id']) }}"><button type="button" class="btn btn-primary btn-sm">Edit</button></a>
+                    <a href="{{ recording[2] }}" target="_blank"><div class="card">{{ post['title'] }}</div></a>
+                    <a href="{{ url_for('edit', id=recording[0]) }}"><button type="button" class="btn btn-primary btn-sm">Edit</button></a>
 
                 </div>
             </div>
