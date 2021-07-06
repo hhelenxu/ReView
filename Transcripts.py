@@ -1,5 +1,6 @@
 import requests
 import nltk
+from nltk import tokenize
 from nltk.corpus import stopwords
 from nltk.cluster.util import cosine_distance
 from nltk.tokenize import sent_tokenize
@@ -11,10 +12,14 @@ import networkx as nx
 import psycopg2
 import databaseconfig as dbconfig
 import zoomconfig
-from rake_nltk import Rake
+from datetime import date, datetime
+from dateutil import tz
+from sklearn.feature_extraction.text import CountVectorizer
+import json
 
 name = "Test User1" # "testuser1.zoom@gmail.com"
 # TOKEN stored in zoomconfig file (hidden by .gitignore)
+stop_words = set(stopwords.words('english'))
 
 def get_users(conn, cur, headers):
     url = "https://api.zoom.us/v2/users"
@@ -37,14 +42,17 @@ def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1
     elif end != None:
         url += "?to=" + end
     response = requests.request("GET", url, headers=headers)
-    json = response.json()
+    meetings_json = response.json()
 
     # get useful info
-    for meeting in json["meetings"]:
-        cur.execute("SELECT EXISTS(SELECT id FROM recordings WHERE id=%s)", (meeting["uuid"],))
+    for meeting in meetings_json["meetings"]:
+        cur.execute("SELECT EXISTS(SELECT zoom_id FROM recordings WHERE zoom_id=%s)", (meeting["uuid"],))
         # if recording already exists in database
         if cur.fetchone()[0]:
             continue
+
+        # format date and start time    
+        date = format_date(meeting["start_time"]) 
 
         transcript_link = ""
         for file in meeting["recording_files"]:
@@ -61,13 +69,26 @@ def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1
 
         # calculate keywords for tags
         keywords = find_keywords(text)
+        keywords_dict = {tag: 0 for tag in keywords}
 
         # generate summary
         summary = generate_summary(text, num_sentences)
 
         # add to database
-        cur.execute("INSERT INTO recordings(id, topic, start_time, video, transcript, text, tokens, tags, summary, visible) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, TRUE) ON CONFLICT (id) DO NOTHING", (meeting["uuid"], meeting["topic"], meeting["start_time"], video_link, transcript_link, text, tokens, keywords, summary))
+        cur.execute("INSERT INTO recordings(topic, start_time, video, transcript, text, tokens, tags, summary, visible, zoom_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, TRUE, %s) ON CONFLICT (zoom_id) DO NOTHING", (meeting["topic"], date, video_link, transcript_link, text, tokens, json.dumps(keywords_dict), summary, meeting["uuid"]))
         conn.commit()
+
+
+def format_date(date_str):
+    # time originally in UTC
+    utc_time = datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%SZ')
+    utc_time = utc_time.replace(tzinfo=tz.gettz('UTC'))
+
+    # convert time zones and format
+    # to_zone = tz.tzlocal() # convert to local time
+    to_zone = tz.gettz('America/New_York') # convert to ET
+    time = utc_time.astimezone(to_zone)
+    return time.strftime("%b %d, %Y %I:%M %p")
 
 
 def parse_transcripts(transcript_link):
@@ -84,11 +105,33 @@ def parse_transcripts(transcript_link):
     return " ".join(lines)
 
 
-# get keywords using Rapid Automatic Keyword Extraction algorithm
-def find_keywords(text):
-    r = Rake(min_length=1, max_length=3)
-    r.extract_keywords_from_text(text)
-    return r.get_ranked_phrases()[:5]
+# get keywords from transcript
+dict_idf = {}
+sentences = []
+def find_keywords(text, num_tags=5):
+    if text=="":
+        return []
+    words = text.split()
+    word_len = len(words)
+    sentences.extend(tokenize.sent_tokenize(text))
+    sent_len = len(sentences)
+    for word in words:
+        word = word.replace('.','')
+        if word not in stop_words:
+            if word in dict_idf:
+                final = [all([w in x for w in word]) for x in sentences] 
+                dict_idf[word] = len([sentences[i] for i in range(0, len(final)) if final[i]])
+            else:
+                dict_idf[word] = 1
+    vectorizer = CountVectorizer()
+    tf = vectorizer.fit_transform([text.lower()]).toarray()
+    tf = np.log(tf+1)
+    tfidf = tf.copy()
+    tags = np.array(vectorizer.get_feature_names())
+    for k in dict_idf.keys():
+        if k in tags:
+            tfidf[:, tags==k] = tfidf[:, tags==k] * dict_idf[k]
+    return list(tags[tfidf[0, :].argsort()[-1*num_tags:][::-1]])
 
 
 # summarize
@@ -177,25 +220,35 @@ def search(conn, cur, words):
 
     # search for phrase
     phrase = " <-> ".join(words)
-    cur.execute("SELECT id FROM recordings WHERE tokens @@ to_tsquery(%s)", (phrase,)) 
+    cur.execute("SELECT zoom_id FROM recordings WHERE tokens @@ to_tsquery(%s)", (phrase,)) 
     results = cur.fetchall()
     if len(results) > 0: # if results found
         return results
 
     # search for all words
     and_search = " & ".join(words)
-    cur.execute("SELECT id FROM recordings WHERE tokens @@ to_tsquery(%s)", (and_search,)) 
+    cur.execute("SELECT zoom_id FROM recordings WHERE tokens @@ to_tsquery(%s)", (and_search,)) 
     results = cur.fetchall()
     if len(results) > 0: # if results found
         return results
 
     # search for any word
     or_search = " | ".join(words)
-    cur.execute("SELECT id FROM recordings WHERE tokens @@ to_tsquery(%s)", (or_search,)) 
+    cur.execute("SELECT zoom_id FROM recordings WHERE tokens @@ to_tsquery(%s)", (or_search,)) 
     return cur.fetchall()
 
+
 def change_visibility(conn, cur, meeting_id, visible='FALSE'):
-    cur.execute("UPDATE recordings SET visible=%s WHERE id=%s", (visible, meeting_id))
+    cur.execute("UPDATE recordings SET visible=%s WHERE zoom_id=%s", (visible, meeting_id))
+    conn.commit()
+
+
+def vote_tags(conn, cur, zoom_id, tag, vote):
+    # vote should either be 1 for upvote or -1 for downvote
+    cur.execute("SELECT tags FROM recordings WHERE zoom_id=%s", (zoom_id,))
+    tags_dict = cur.fetchone()[0]
+    tags_dict[tag] = tags_dict[tag] + vote
+    cur.execute("UPDATE recordings SET tags=%s WHERE zoom_id=%s", (json.dumps(tags_dict), zoom_id))
     conn.commit()
      
 
@@ -216,7 +269,7 @@ print(user)
 print()
 
 start_date = "2021-06-01"
-end_date = "2021-06-20"
+end_date = "2021-06-17"
 num_sentences = 1
     
 # get meetings and summarize transcripts
@@ -230,7 +283,7 @@ get_meetings(conn, cur, user, headers, start_date, end_date, num_sentences)
 # print info
 cur.execute("SELECT * FROM recordings WHERE visible=TRUE")
 for recording in cur.fetchall():
-    print(recording[0]) # meeting id
+    print(recording[0]) # id
     print(recording[1]) # visible (T/F)
     print(recording[2]) # topic
     print(recording[3]) # start time and date
@@ -240,6 +293,7 @@ for recording in cur.fetchall():
     print(recording[7]) # summary
     # print(recording[8]) # token
     print(recording[9]) # tags
+    print(recording[10]) # meeting id
     print()
 
 # search for phrase in transcript
@@ -247,6 +301,12 @@ search_phrase = "zoom app"
 search_results = search(conn, cur, search_phrase)
 print('Search results for "{}":'.format(search_phrase))
 print(search_results)
+
+# upvote tag
+print()
+vote_tags(conn, cur, "qTVdsPJiRLSeIAPFachU/g==", "yeah", 1)
+cur.execute("SELECT tags FROM recordings WHERE zoom_id=%s", ("qTVdsPJiRLSeIAPFachU/g==",))
+print(cur.fetchall())
 
 cur.close()
 conn.close()
