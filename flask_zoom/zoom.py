@@ -263,8 +263,8 @@ def main():
 
     today = date.today().strftime("%Y-%m-%d")
     start_date = "2021-06-01"
-    # end_date = today
-    end_date="2021-06-17"
+    end_date = today
+    # end_date="2021-06-17"
     num_sentences = 3
         
     # get meetings and summarize transcripts
