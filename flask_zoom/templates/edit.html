@@ -13,7 +13,7 @@
     
     <div class="form-group py-2">
         <label for="tags">Tags</label>
-        <input name="tags" type="text" value="{{ request.form['tags'] or ", ".join(recording[9]) }}" data-role="tagsinput" placeholder="Add tags" class="form-control" />
+        <input id="tags" name="tags" type="text" value="{{ request.form['tags'] or ", ".join(recording[9]) }}" data-role="tagsinput" placeholder="Add tags" class="form-control" />
     </div>
 
     <div class="form-group py-2">

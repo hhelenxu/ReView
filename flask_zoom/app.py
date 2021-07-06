@@ -35,6 +35,11 @@ def index():
     # get recordings
     cur.execute("SELECT * FROM recordings WHERE visible=TRUE")
     recordings = cur.fetchall()
+
+    # testing
+    # print(recordings[0][9])
+    # recordings[0][9]["test"] = 0
+    # print(recordings[0][9])
     cur.close()
     conn.close()
 
@@ -50,22 +55,42 @@ def recording(recording_id):
 @app.route('/<string:recording_id>/edit', methods=('GET', 'POST'))
 def edit(recording_id):
     recording = get_recording(recording_id)
+    originalTags = recording[9]
 
     if request.method == 'POST':
         title = request.form['title']
-        # tags = request.form['tags']
         summary = request.form['summary']
         transcription = request.form['transcription']
-        tags = "{" + request.form['tags'] + "}"
-        # newTags = request.form['newTags']
-        # print(tags, newTags)
+        tags = request.form['tags'].split(',')
+
+        # remove leading and trailing whitespaces
+        for i in range(len(tags)):
+            tags[i] = tags[i].strip()
+
+        # adding new tags
+        for tag in tags:
+            if tag not in originalTags:
+                recording[9][tag] = 0
+
+        newDict = recording[9]
+        # deleting tags
+        toDelete = []
+        for tag in recording[9]:
+            if tag not in tags:
+                toDelete.append(tag)
+
+        for s in toDelete:
+            del newDict[s]
+
+        # newDict = {tag: value for (tag, value) in recording[9] if tag in tags}
+        # {key: value for (key, value) in iterable}
 
         if not title:
             flash('Title is required!')
         else:
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute('UPDATE recordings SET topic = %s, summary = %s, text = %s, tags = %s where id = %s', (title, summary, transcription, tags, recording_id))
+            cur.execute('UPDATE recordings SET topic = %s, summary = %s, text = %s, tags = %s where id = %s', (title, summary, transcription, json.dumps(newDict), recording_id))
             cur.close()
             conn.commit()
             conn.close()
