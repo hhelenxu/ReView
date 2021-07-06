@@ -14,9 +14,9 @@ cur = conn.cursor()
 try:
     cur.execute("""
     CREATE TABLE IF NOT EXISTS users (
-        name varchar,
-        id varchar UNIQUE,
-        email varchar UNIQUE
+        name VARCHAR,
+        id VARCHAR UNIQUE,
+        email VARCHAR UNIQUE
     );
     """)
     conn.commit()
@@ -29,16 +29,17 @@ try:
     # text type
     cur.execute("""
     CREATE TABLE IF NOT EXISTS recordings (
-        id varchar UNIQUE,
-        visible boolean,
-        topic varchar,
-        start_time varchar,
-        video varchar,
-        transcript varchar,
-        text varchar,
-        summary varchar,
-        tokens tsvector,
-        tags text array
+        id SERIAL,
+        visible BOOLEAN,
+        topic VARCHAR,
+        start_time VARCHAR,
+        video VARCHAR,
+        transcript VARCHAR,
+        text VARCHAR,
+        summary VARCHAR,
+        tokens TSVECTOR,
+        tags JSONB,
+        zoom_id varchar UNIQUE
     );
     """)
     conn.commit()

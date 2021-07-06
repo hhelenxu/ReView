@@ -16,6 +16,7 @@ import zoomconfig
 from datetime import date, datetime
 from dateutil import tz
 from sklearn.feature_extraction.text import CountVectorizer
+import json
 
 name = "Test User1" # "testuser1.zoom@gmail.com"
 # TOKEN stored in zoomconfig file (hidden by .gitignore)
@@ -74,12 +75,13 @@ def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1
 
         # calculate keywords for tags
         keywords = find_keywords(text)
+        keywords_dict = {tag: 0 for tag in keywords}
 
         # generate summary
         summary = generate_summary(text, num_sentences)
 
         # add to database
-        cur.execute("INSERT INTO recordings(topic, start_time, video, transcript, text, tokens, tags, summary, visible, zoom_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, TRUE, %s) ON CONFLICT (zoom_id) DO NOTHING", (meeting["topic"], date, video_link, transcript_link, text, tokens, keywords, summary, meeting["uuid"]))
+        cur.execute("INSERT INTO recordings(topic, start_time, video, transcript, text, tokens, tags, summary, visible, zoom_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, TRUE, %s) ON CONFLICT (zoom_id) DO NOTHING", (meeting["topic"], date, video_link, transcript_link, text, tokens, json.dumps(keywords_dict), summary, meeting["uuid"]))
         conn.commit()
 
 
@@ -230,6 +232,15 @@ def search(conn, cur, words):
 
 def change_visibility(conn, cur, meeting_id, visible='FALSE'):
     cur.execute("UPDATE recordings SET visible=%s WHERE id=%s", (visible, meeting_id))
+    conn.commit()
+
+# upvote or downvote tags
+def vote_tags(conn, cur, zoom_id, tag, vote):
+    # vote should either be 1 for upvote or -1 for downvote
+    cur.execute("SELECT tags FROM recordings WHERE zoom_id=%s", (zoom_id,))
+    tags_dict = cur.fetchone()[0]
+    tags_dict[tag] = tags_dict[tag] + vote
+    cur.execute("UPDATE recordings SET tags=%s WHERE zoom_id=%s", (json.dumps(tags_dict), zoom_id))
     conn.commit()
 
 
