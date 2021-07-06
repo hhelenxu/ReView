@@ -11,40 +11,6 @@
     </a>
     </button>
            
-    <table id="table_id" class="recordings table table-hover table-striped py-2">
-      <thead>
-        <tr>
-          <th class="col-date">Date</th>
-          <th class="col-title no-sort">Recording</th>
-          <th class="col-tags no-sort">Tags</th>
-          <th class="col-summary no-sort">Summary</th>
-          <th class="col-edit no-sort"></th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for recording in recordings %}
-                  <tr>
-                    <td>{{ recording[3] }}</td>
-                    <td><a href="{{ url_for('recording', recording_id=recording[0]) }}">{{ recording[2] }}</a></td>
-                    <!-- <td>{{ ", ".join(recording[8]) }}</td> -->
-                    <td>
-                      {% for tag in recording[9] %}
-                        <span class="badge bg-primary">{{ tag }}</span>
-                      {% endfor %}
-                    </td>
-                    <td>{{ recording[7] }}</td>
-                    <td>
-                      <a href="{{ url_for('edit', recording_id=recording[0]) }}">
-                        <span class="fa fa-edit td-edit"></span>
-                      </a>
-                    </td>
-    
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    
-
 <!-- 
 <h1 class="text-center text-3xl">CARD EXAMPLE 1</h1>
 <div class="card-deck mt-6 grid grid-cols-2 md:grid-cols-3 gap-6">
@@ -72,7 +38,6 @@
   {% endfor %}
 </div> -->
 
-<!-- <h1 class="text-center text-3xl">CARD EXAMPLE 2</h1>
 <div class="card-deck mt-6 grid grid-cols-2 md:grid-cols-3 gap-6">
   {% for recording in recordings %}
   <div class="card mb-3 max-w-md">
@@ -96,5 +61,5 @@
     
     
   {% endfor %}
-</div> -->
+</div>
 {% endblock %}
