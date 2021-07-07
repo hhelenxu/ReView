@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+      <style>
+        body {
+            background-color: #fdfdfd;
+        }
+        
+    </style>
+    <div id="page title"> <!--"div"s categorize code into blocks. The id allows for references to that block of code-->
+        <title>Mirage/ZoomBase</title>
+    <style>
+        .titleheader {
+            height: 90px; padding: 0px 12px;
+            display: flex;
+        box-shadow: #171f361f 10px 10px 16px 0px;
+         min-width: 100%; max-width: 100%;
+          box-sizing: border-box; z-index: 1101; background-color: white; 
+        }
+    </style>
+        <header class="titleheader">
+          <h1 class=titleheadtext style="margin: auto 0; padding-left: 1rem;">{% block title %} Recordings for CLASS NAME {% endblock %}</h1>
+        </header>
+    </div>
+        <br/>
+        <h2 style="padding-left: 3rem;"><caption>{Class Name}</caption></h2> <!--<caption></caption> tags allow you to name tables-->
+        <br />
+
+        <div id="cardtemp"> <!--this div contains all the card info. Will be made into separate template file-->
+                    
+            <div id="card" style="padding: 3rem";>
+
+
+                <style>
+                    
+                    html { font-size: 22px; }
+                    /* body { padding: 3rem; } */
+
+                    a:link {
+                    color: rgb(0, 0, 0);
+                    background-color: transparent;
+                    text-decoration: none;
+                    }
+                    a:visited {
+                    color: rgb(9, 11, 104);
+                    background-color: transparent;
+                    text-decoration: none;
+                    }
+                    a:hover {
+                    color: rgb(7, 7, 7);
+                    background-color: transparent;
+                    text-decoration: none;
+                    }
+                    a:active {
+                    color: rgb(255, 255, 255);
+                    background-color: transparent;
+                    text-decoration:underline;
+                    }
+
+                    .cards {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    background-color: #f5f5f5;
+                    padding: 3rem;
+                    border-radius: 1.3rem;
+                    box-shadow: 10px 10px 16px 0 #8b8b8b , 
+                        0px 0px 1px 0 #494949 ;
+                    display: grid;
+                    grid-gap: 1rem;
+                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                    justify-content: space-evenly;
+                    }
+                    
+                    .card {
+                    border-radius: 1.3rem;
+                    border-color: #f0f0f0;
+                    border-width: 1px;
+                    background-color: #eeeeee;
+                    color: #090b68;
+                    padding: 1.15rem;
+                    height: 4rem;
+                    box-shadow: 10px 10px 16px 0 #dbdbdb , 
+                        -8px -8px 12px 0 #fdfdfd ;
+                    background: linear-gradient(-45deg, #fdfdfd, #ededed);
+                    }
+
+                    .card:hover {
+                            border-radius: 1rem;
+                            border-color: transparent;
+                            /* border-width: 3px; */
+                            /* background-color: #abb6e6;
+                            color: rgb(255, 139, 139); */
+                            padding: 1.3rem;
+                            height: 8rem;
+                    }
+
+                    .card:active {
+                            /* border-radius: 1rem; */
+                            border-color: transparent;
+                            /* border-width: 3px; */
+                            /* background-color: #abb6e6;
+                            color: rgb(255, 139, 139); */
+                            color: rgb(0, 0, 0);
+                            /* background-color: #c0c0c0; */
+                            box-shadow: 10px 10px 16px 0 #dddddd , 
+                                -8px -8px 12px 0 #fdfdfd ;
+                            background: linear-gradient(-45deg, #fdfdfd, #dddddd);
+                            padding: 1.225rem;
+                            height: 4.25rem;
+                            text-decoration: underline;
+
+                    }
+
+            </style>
+
+                <div class="cards">
+
+                    {#<!-- Loop the line below however many times is relevant -->#}
+                    <a href="{{ recording[2] }}" target="_blank"><div class="card">{{ recording[2] }}</div></a>
+                    <a href="{{ url_for('edit', id=recording[0]) }}"><button type="button" class="btn btn-primary btn-sm">Edit</button></a>
+
+                </div>
+            </div>
+        </div>
+{% endblock %}
