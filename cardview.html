@@ -27,6 +27,15 @@
         <h2 style="padding-left: 3rem;"><caption>{Class Name}</caption></h2> <!--<caption></caption> tags allow you to name tables-->
         <br />
 
+        <button><a href="{{ url_for('card')}}">
+            Card view
+          </a>
+          </button>
+          <button><a href="{{ url_for('index')}}">
+            Table view
+          </a>
+          </button>
+
         <div id="cardtemp"> <!--this div contains all the card info. Will be made into separate template file-->
                     
             <div id="card" style="padding: 3rem";>
