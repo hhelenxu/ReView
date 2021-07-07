@@ -23,8 +23,8 @@
           <h1 class=titleheadtext style="margin: auto 0; padding-left: 1rem;">{% block title %} Recordings for CLASS NAME {% endblock %}</h1>
         </header>
     </div>
-        <br/>
-        <h2 style="padding-left: 3rem;"><caption>{Class Name}</caption></h2> <!--<caption></caption> tags allow you to name tables-->
+        <!-- <br/>
+        <h2 style="padding-left: 3rem;"><caption>{Class Name}</caption></h2> (<caption></caption> tags allow you to name tables)-->
         <br />
 
         <button><a href="{{ url_for('card')}}">
@@ -38,7 +38,7 @@
 
         <div id="cardtemp"> <!--this div contains all the card info. Will be made into separate template file-->
                     
-            <div id="card" style="padding: 3rem";>
+            <div id="card" style="padding: 1rem";>
 
 
                 <style>
@@ -46,22 +46,22 @@
                     html { font-size: 22px; }
                     /* body { padding: 3rem; } */
 
-                    a:link {
+                    #a:link {
                     color: rgb(0, 0, 0);
                     background-color: transparent;
                     text-decoration: none;
                     }
-                    a:visited {
+                    #a:visited {
                     color: rgb(9, 11, 104);
                     background-color: transparent;
                     text-decoration: none;
                     }
-                    a:hover {
+                    #a:hover {
                     color: rgb(7, 7, 7);
                     background-color: transparent;
                     text-decoration: none;
                     }
-                    a:active {
+                    #a:active {
                     color: rgb(255, 255, 255);
                     background-color: transparent;
                     text-decoration:underline;
@@ -88,7 +88,7 @@
                     background-color: #eeeeee;
                     color: #090b68;
                     padding: 1.15rem;
-                    height: 4rem;
+                    /* height: 5rem; */
                     box-shadow: 10px 10px 16px 0 #dbdbdb , 
                         -8px -8px 12px 0 #fdfdfd ;
                     background: linear-gradient(-45deg, #fdfdfd, #ededed);
@@ -126,8 +126,23 @@
                 <div class="cards">
 
                     {#<!-- Loop the line below however many times is relevant -->#}
-                    <a href="{{ recording[2] }}" target="_blank"><div class="card">{{ recording[2] }}</div></a>
-                    <a href="{{ url_for('edit', id=recording[0]) }}"><button type="button" class="btn btn-primary btn-sm">Edit</button></a>
+
+                    {% for recording in recordings %}
+                    <a href="{{ url_for('recording', recording_id=recording[0]) }}" target="_blank">
+                        <div class="card">
+                        <!-- The sizing of the letters is being overridden by some code somewhere -->
+                        <h3>{{ recording[2] }}</h3>
+                        <h4>{{ recording[3] }}</h4>
+
+                        <!-- For some reason, once the button comes into play, it causes linked blank space in every other place where a card should be -->
+                        
+                            <button type="button" class="btn btn-primary btn-sm" style="position:absolute; top:0; right:0; margin:0.5rem; border-radius:20px;" ><a href="{{ url_for('edit', recording_id=recording[0]) }}">Edit</a></button>
+                        
+                        
+                        </div>
+                    </a>
+                    
+                    {% endfor %}
 
                 </div>
             </div>
