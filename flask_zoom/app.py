@@ -109,3 +109,37 @@ def delete(recording_id):
     conn.close()
     flash('"{}" was successfully deleted!'.format(recording_id))
     return redirect(url_for('index'))
+
+
+@app.route('/upvote', methods=['POST'])
+def upvote_tag():
+    if request.method == "POST":
+
+        data_received = json.loads(request.data) 
+        
+        conn = get_db_connection()
+        cur = conn.cursor()
+        vote_tags(conn, cur, data_received['zoomid'], data_received['tag'], 1)
+        cur.close()
+        conn.close()
+        print(data_received['tag'])
+                 
+        return json.dumps({'status' : 'success'})
+    return redirect(url_for('index'))
+
+
+@app.route('/downvote', methods=['POST'])
+def downvote_tag():
+    if request.method == "POST":
+
+        data_received = json.loads(request.data) 
+        
+        conn = get_db_connection()
+        cur = conn.cursor()
+        vote_tags(conn, cur, data_received['zoomid'], data_received['tag'], -1)
+        cur.close()
+        conn.close()
+        print(data_received['tag'])
+                 
+        return json.dumps({'status' : 'success'})
+    return redirect(url_for('index'))
