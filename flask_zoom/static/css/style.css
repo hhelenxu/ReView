@@ -45,3 +45,19 @@ th {
 .td-edit {
     float: right;
 }
+.col-tags-small {
+    width: 15%;
+}
+
+.recording-tag {
+    width: 5em;
+}
+
+/* Vote buttons */
+.voting {
+    cursor: pointer;
+}
+
+.voting:hover {
+    color: #0D6EFD;
+}

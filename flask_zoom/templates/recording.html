@@ -7,7 +7,7 @@
     <thead>
       <tr>
         <th>Date</th>
-        <th>Tags</th>
+        <th class="col-tags-small">Tags</th>
         <th>Summary</th>
         <th class="col-edit"></th>
       </tr>
@@ -18,7 +18,11 @@
         <td>{{ recording[3] }}</td>
         <td>
           {% for tag in recording[9] %}
-          <span class="badge bg-primary">{{ tag }}</span>
+          <span class="badge bg-primary recording-tag">{{ tag }}</span>
+          <i class="fa fa-arrow-up voting" id="upvote-btn" data-zoomid="{{ recording[10] }}" data-tag="{{ tag }}"></i>
+          {{ recording[9][tag] }}
+          <i class="fa fa-arrow-down voting" id="downvote-btn" data-zoomid="{{ recording[10] }}" data-tag="{{ tag }}"></i>
+          <br>
           {% endfor %}
         </td>
         <td>{{ recording[7] }}</td>
