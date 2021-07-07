@@ -29,7 +29,13 @@
                     <!-- <td>{{ ", ".join(recording[8]) }}</td> -->
                     <td>
                       {% for tag in recording[9] %}
-                        <span class="badge bg-primary">{{ tag }}</span>
+                        {% if recording[9][tag] <= -3 %}
+                          <span class="badge bg-danger">{{ tag }}</span>
+                        {% elif recording[9][tag] >= 3 %}
+                          <span class="badge bg-success">{{ tag }}</span>
+                        {% else %}
+                          <span class="badge bg-primary">{{ tag }}</span>
+                        {% endif %}
                       {% endfor %}
                     </td>
                     <td>{{ recording[7] }}</td>

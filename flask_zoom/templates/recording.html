@@ -18,11 +18,17 @@
         <td>{{ recording[3] }}</td>
         <td>
           {% for tag in recording[9] %}
-          <span class="badge bg-primary recording-tag">{{ tag }}</span>
-          <i class="fa fa-arrow-up voting" id="upvote-btn" data-zoomid="{{ recording[10] }}" data-tag="{{ tag }}"></i>
-          {{ recording[9][tag] }}
-          <i class="fa fa-arrow-down voting" id="downvote-btn" data-zoomid="{{ recording[10] }}" data-tag="{{ tag }}"></i>
-          <br>
+            {% if recording[9][tag] <= -3 %}
+              <span class="badge bg-danger recording-tag">{{ tag }}</span>
+            {% elif recording[9][tag] >= 3 %}
+              <span class="badge bg-success recording-tag">{{ tag }}</span>
+            {% else %}
+              <span class="badge bg-primary recording-tag">{{ tag }}</span>
+            {% endif %}
+            <i class="fa fa-arrow-up voting" id="upvote-btn" data-zoomid="{{ recording[10] }}" data-tag="{{ tag }}"></i>
+            {{ recording[9][tag] }}
+            <i class="fa fa-arrow-down voting" id="downvote-btn" data-zoomid="{{ recording[10] }}" data-tag="{{ tag }}"></i>
+            <br>
           {% endfor %}
         </td>
         <td>{{ recording[7] }}</td>

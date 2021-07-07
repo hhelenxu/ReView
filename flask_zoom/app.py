@@ -35,11 +35,6 @@ def index():
     # get recordings
     cur.execute("SELECT * FROM recordings WHERE visible=TRUE")
     recordings = cur.fetchall()
-
-    # testing
-    # print(recordings[0][9])
-    # recordings[0][9]["test"] = 0
-    # print(recordings[0][9])
     cur.close()
     conn.close()
 
@@ -53,11 +48,6 @@ def card():
     # get recordings
     cur.execute("SELECT * FROM recordings WHERE visible=TRUE")
     recordings = cur.fetchall()
-
-    # testing
-    # print(recordings[0][9])
-    # recordings[0][9]["test"] = 0
-    # print(recordings[0][9])
     cur.close()
     conn.close()
 
