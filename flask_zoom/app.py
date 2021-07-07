@@ -85,30 +85,20 @@ def edit(recording_id):
         for i in range(len(tags)):
             tags[i] = tags[i].strip()
 
+        # deleting tags
+        new_dict = {tag: value for (tag, value) in recording[9].items() if tag in tags}
+
         # adding new tags
         for tag in tags:
             if tag not in originalTags:
-                recording[9][tag] = 0
-
-        newDict = recording[9]
-        # deleting tags
-        toDelete = []
-        for tag in recording[9]:
-            if tag not in tags:
-                toDelete.append(tag)
-
-        for s in toDelete:
-            del newDict[s]
-
-        # newDict = {tag: value for (tag, value) in recording[9] if tag in tags}
-        # {key: value for (key, value) in iterable}
+                new_dict[tag] = 0
 
         if not title:
             flash('Title is required!')
         else:
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute('UPDATE recordings SET topic = %s, summary = %s, text = %s, tags = %s where id = %s', (title, summary, transcription, json.dumps(newDict), recording_id))
+            cur.execute('UPDATE recordings SET topic = %s, summary = %s, text = %s, tags = %s where id = %s', (title, summary, transcription, json.dumps(new_dict), recording_id))
             cur.close()
             conn.commit()
             conn.close()
