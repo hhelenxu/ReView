@@ -5,9 +5,9 @@ from nltk import tokenize
 from nltk.corpus import stopwords
 from nltk.cluster.util import cosine_distance
 from nltk.tokenize import sent_tokenize
-# nltk.download('stopwords')
-# nltk.download('cosine_distance')
-# nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('cosine_distance')
+nltk.download('punkt')
 import numpy as np
 import networkx as nx
 import psycopg2
