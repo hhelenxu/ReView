@@ -1,8 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1 class="py-5">{% block title %} Recordings for CLASS NAME {% endblock %}</h1> 
-
+<style>
+  .py-5 {
+      height: 90px; padding: max-content 12px;
+      display: flex;
+      box-shadow: #171f361f 10px 10px 16px 0px;
+      min-width: 100%; max-width: 100%;
+      box-sizing: border-box; z-index: 1101; background-color: white; 
+  }
+</style>
+    <h1 class="py-5" style="width:fit-content; padding-left: 1rem; text-align:center">{% block title %} Recordings for CLASS NAME {% endblock %}</h1> 
+    <br/>
     <style>
       .view {
                 color: rgb(100, 100, 100);
@@ -17,6 +26,10 @@
       Card view
     </a>
     </button>
+    <button><a href="{{ url_for('cardview')}}" class="view">
+      Card view 2
+    </a>
+    </button>
     <button><a href="{{ url_for('index')}}" class="view">
       Table view
     </a>
@@ -24,7 +37,12 @@
 
     <br/>
     <br/>
-           
+    
+    <style>
+        .recordings table table-hover table-striped py-2{
+          background: linear-gradient(-45deg, #fdfdfd, #dddddd);
+        }
+    </style>
     <table id="table_id" class="recordings table table-hover table-striped py-2">
       <thead>
         <tr>
