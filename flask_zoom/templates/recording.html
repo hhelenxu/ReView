@@ -1,44 +1,52 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2 class="py-5">{% block title %} {{ recording[2] }} {% endblock %}</h2>
-<div class="individualTable">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th class="col-tags-small">Tags</th>
-        <th>Summary</th>
-        <th class="col-edit"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Not display info in a table? -->
-      <tr>
-        <td>{{ recording[3] }}</td>
-        <td>
-          {% for tag in recording[9] %}
-            {% if recording[9][tag] <= -3 %}
-              <span class="badge bg-danger recording-tag">{{ tag }}</span>
-            {% elif recording[9][tag] >= 3 %}
-              <span class="badge bg-success recording-tag">{{ tag }}</span>
-            {% else %}
-              <span class="badge bg-primary recording-tag">{{ tag }}</span>
-            {% endif %}
-            <i class="fa fa-arrow-up voting" id="upvote-btn" data-zoomid="{{ recording[10] }}" data-tag="{{ tag }}"></i>
-            {{ recording[9][tag] }}
-            <i class="fa fa-arrow-down voting" id="downvote-btn" data-zoomid="{{ recording[10] }}" data-tag="{{ tag }}"></i>
-            <br>
-          {% endfor %}
-        </td>
-        <td>{{ recording[7] }}</td>
-        <td><a href="{{ url_for('edit', recording_id=recording[0]) }}">
-            <span class="fa fa-edit td-edit"></span>
-          </a></td>
-      </tr>
-    </tbody>
-  </table>
+<div class="my-10 rounded-lg">
+  <div class="px-4 pt-2 grid grid-flow-col bg-transparent">
+    <div class="justify-self-end">
+      <a href="{{ url_for('edit', recording_id=recording[0]) }}">
+        <span class="fa fa-edit td-edit"></span>
+      </a>
+    </div>
+  </div>
+ 
+<div class="" style="font-family:'Open Sans',sans-serif;">
+  <h1 class="pb-4 px-3 text-4xl tracking-wide" style="font-family:'EB Garamond',serif; color:#012169">{% block title %}
+    {{ recording[2] }} {% endblock %}</h1>
+
+
+<ul class="list-group list-group-flush">
+  <li class="list-group-item"><span class="font-bold">Date:</span> {{ recording[3] }}</li>
+  <li class="list-group-item"><span class="font-bold">Summary:</span> {{ recording[7] }}</li>
+  <li class="list-group-item"><span class="font-bold">
+    <div class="flex flex-row items-center overflow-x-auto">
+      <div class="mr-2">
+    Tags:
+  </div>
+  </span>
+  {% for tag in recording[9] %}
+  {% if recording[9][tag] <= -3 %}
+    <span class="badge text-base rounded-full bg-yellow-300 recording-tag">{{ tag }}</span>
+  {% elif recording[9][tag] >= 3 %}
+    <span class="badge text-base rounded-full bg-yellow-600 recording-tag">{{ tag }}</span>
+  {% else %}
+    <span class="badge text-base rounded-full bg-yellow-500 recording-tag">{{ tag }}</span>
+  {% endif %}
+  <i class="fa fa-chevron-up text-gray-400 hover:text-gray-900 voting mx-2" id="upvote-btn" data-zoomid="{{ recording[10] }}" data-tag="{{ tag }}"></i>
+  {{ recording[9][tag] }}
+  <i class="fa fa-chevron-down text-gray-400 hover:text-gray-900 voting mx-2 pr-4" id="downvote-btn" data-zoomid="{{ recording[10] }}" data-tag="{{ tag }}"></i>
+  <br>
+{% endfor %}
+
+</div>
+</li>
+</ul>
+</div>
 </div>
 <iframe src="{{ recording[4] }}" height="500px" width=100% title="Embedded Zoom Recording"
   allowfullscreen="allowfullscreen"></iframe>
+
+</div>
+
+
 {% endblock %}
