@@ -2,14 +2,28 @@
 
 {% block content %}
     <h1 class="py-5">{% block title %} Recordings for CLASS NAME {% endblock %}</h1> 
-    <button><a href="{{ url_for('card')}}">
+
+    <style>
+      .view {
+                color: rgb(100, 100, 100);
+                text-decoration: none;
+                border-radius: 1.3rem;
+                border-color: #f0f0f0;
+                box-shadow: 10px 10px 16px 0 #dbdbdb , 
+                        -8px -8px 12px 0 #fdfdfd ;
+            }
+    </style>
+    <button><a href="{{ url_for('card')}}" class="view">
       Card view
     </a>
     </button>
-    <button><a href="{{ url_for('index')}}">
+    <button><a href="{{ url_for('index')}}" class="view">
       Table view
     </a>
     </button>
+
+    <br/>
+    <br/>
            
     <table id="table_id" class="recordings table table-hover table-striped py-2">
       <thead>

@@ -126,8 +126,6 @@
                 <div class="cards">
 
                     {#<!-- Loop the line below however many times is relevant -->#}
-
-                    {% for recording in recordings %}
                     <a href="{{ url_for('recording', recording_id=recording[0]) }}" target="_blank">
                         <div class="card">
                         <!-- The sizing of the letters is being overridden by some code somewhere -->
