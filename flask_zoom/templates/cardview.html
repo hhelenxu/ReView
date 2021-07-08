@@ -51,13 +51,10 @@
                     
             <div id="card" style="padding: 1rem";>
 
-
                 <style>
                     
                     /* body { font-size: 22px; } */
                     /* body { padding: 3rem; } */
-
-                    
 
                     .kards {
                     max-width: 1200px;
@@ -114,7 +111,7 @@
                     }
                     
                     .kardtxt {
-                        color: #090b68;
+                        color: #575757;
                         text-decoration: none !important;
 
                     }
@@ -128,6 +125,10 @@
                         text-decoration: underline;
                     }
 
+                    .bg-primary {
+                        background-color:#090b68 !important;
+                    }
+
             </style>
 
                 <div class="kards">
@@ -135,25 +136,28 @@
                     {#<!-- Loop the line below however many times is relevant -->#}
                     {% for recording in recordings %}
                     
-                    
-                        
                         <div>
                             <a href="{{ url_for('recording', recording_id=recording[0]) }}" target="_blank">
                             <div class="kard">
+                            <a href="{{ url_for('edit', recording_id=recording[0]) }}">
+                                <span class="fa fa-edit td-edit" style="color:#090b68"></span>
+                            </a>
+                            
                             <!-- The sizing of the letters is being overridden by some code somewhere -->
                             
                             <h5 class="kardtxt">{{ recording[2] }}</h5>
-
-                            <!-- For some reason, once the button comes into play, it causes linked blank space in every other place where a card should be -->
-                            <button type="button" class="editbut" style="position:absolute; top:0; right:0; margin:0.5rem; border-radius:20px;" >
-                                <a href="{{ url_for('edit', recording_id=recording[0]) }}" class="kardtxt">Edit</a>
-                            </button>
-                            
                             <h6 class="kardtxt">{{ recording[3] }}</h6>
 
-                            
-                            
-                            
+                            {% for tag in recording[9] %}
+                                {% if recording[9][tag] <= -3 %}
+                                <span class="badge bg-danger" style="color:#090b68">{{ tag }}</span>
+                                {% elif recording[9][tag] >= 3 %}
+                                <span class="badge bg-success">{{ tag }}</span>
+                                {% else %}
+                                <span class="badge bg-primary" >{{ tag }}</span>
+                                {% endif %}
+                            {% endfor %}
+
                             </div>
                         </a>
                         </div>
