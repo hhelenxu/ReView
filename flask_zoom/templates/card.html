@@ -46,7 +46,13 @@
       <h5 class="card-title text-2xl"> <a href="{{ url_for('recording', recording_id=recording[0]) }}">{{ recording[2] }}</a></h5>
       <div class="bg-transparent"> Tags: 
         {% for tag in recording[9] %}
-        <span class="badge bg-primary">{{ tag }}</span>
+        {% if recording[9][tag] <= -3 %}
+          <span class="badge bg-danger">{{ tag }}</span>
+        {% elif recording[9][tag] >= 3 %}
+          <span class="badge bg-success">{{ tag }}</span>
+        {% else %}
+          <span class="badge bg-primary">{{ tag }}</span>
+        {% endif %}
       {% endfor %}</div>
     </div>
       <div class="card-footer bg-transparent">

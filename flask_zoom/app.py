@@ -51,7 +51,7 @@ def card():
     cur.close()
     conn.close()
 
-    return render_template('cardview.html', recordings=recordings)
+    return render_template('card.html', recordings=recordings)
 
 
 @app.route('/<string:recording_id>')

@@ -240,8 +240,12 @@ def vote_tags(conn, cur, id, tag, vote):
     cur.execute("SELECT tags FROM recordings WHERE id=%s", (id,))
     tags_dict = cur.fetchone()[0]
     tags_dict[tag] = tags_dict[tag] + vote
+    tags_dict = dict(sorted(tags_dict.items(), key=lambda item: item[1]))
+    print(json.dumps(tags_dict))
     cur.execute("UPDATE recordings SET tags=%s WHERE id=%s", (json.dumps(tags_dict), id))
     conn.commit()
+    cur.execute("SELECT tags FROM recordings WHERE id=%s", (id,))
+    print(cur.fetchone())
 
 
 def main():

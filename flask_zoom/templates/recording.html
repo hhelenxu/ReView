@@ -7,7 +7,7 @@
     <thead>
       <tr>
         <th>Date</th>
-        <th class="col-tags-small">Tags</th>
+        <th class="col-tags">Tags</th>
         <th>Summary</th>
         <th class="col-edit"></th>
       </tr>
@@ -26,9 +26,7 @@
               <span class="badge bg-primary recording-tag">{{ tag }}</span>
             {% endif %}
             <a href="{{ url_for('upvote_tag', id=recording[0], tag=tag) }}" class="fa fa-arrow-up voting"></a>
-            <!-- <i class="fa fa-arrow-up voting" id="upvote-btn" data-zoomid="{{ recording[10] }}" data-tag="{{ tag }}"></i> -->
             {{ recording[9][tag] }}
-            <!-- <i class="fa fa-arrow-down voting" id="downvote-btn" data-recording_id="{{ recording[0] }}" data-tag="{{ tag }}"></i> -->
             <a href="{{ url_for('downvote_tag', id=recording[0], tag=tag) }}" class="fa fa-arrow-down voting"></a>
             <br>
           {% endfor %}
