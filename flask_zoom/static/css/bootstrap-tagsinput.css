@@ -19,7 +19,7 @@
     box-shadow: none;
     outline: none;
     background-color: transparent;
-    padding: 0 6px;
+    padding: 6px 6px;
     margin: 0;
     width: auto;
     max-width: inherit;
@@ -101,7 +101,7 @@ a.label:focus, a.label:hover {
   background-color: #449d44;
 }
 .label-info {
-  background-color: #5bc0de;
+  background-color: #E89923;
 }
 .label-info[href]:focus, .label-info[href]:hover {
   background-color: #31b0d5;

@@ -1,120 +1,99 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1 class="py-5">{% block title %} Recordings for CLASS NAME {% endblock %}</h1> 
+<div class="my-10" style="font-family:'Open Sans',sans-serif;">
+  <h1 class=" text-4xl tracking-wider" style="font-family:'EB Garamond',serif; color:#012169">{% block title %}
+    Recordings for Class Title {% endblock %}</h1>
+  <p class="py-4">Class description text. Any special instructions about how to use this site or any system that the
+    instructors and TAs use. </p>
+  <button class="px-2 rounded-sm" style="background-color: #E2E6ED;"><a href="{{ url_for('index')}}">
+      <div class="flex flex-row items-center">
+        <div>
+          <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="12" height="3" rx="0.5" fill="#012169" />
+            <rect y="5" width="12" height="3" rx="0.5" fill="#012169" />
+            <rect y="10" width="12" height="3" rx="0.5" fill="#012169" />
+          </svg>
+        </div>
 
-    <style>
-      .view {
-                color: rgb(100, 100, 100);
-                text-decoration: none;
-                border-radius: 1.3rem;
-                border-color: #f0f0f0;
-                box-shadow: 10px 10px 16px 0 #dbdbdb , 
-                        -8px -8px 12px 0 #fdfdfd ;
-            }
-    </style>
-    <button><a href="{{ url_for('card')}}" class="view">
-      Card view
+        <div class="pl-2 font-bold" style="color:#012169">TABLE VIEW</div>
+      </div>
     </a>
-    </button>
-    <button><a href="{{ url_for('index')}}" class="view">
-      Table view
-    </a>
-    </button>
+  </button>
+  <button class="px-4 rounded-sm "><a href="{{ url_for('card')}}">
+      <div class=" flex flex-row items-center">
+        <div>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" width="5.29412" height="5.29412" rx="0.5" fill="#00539B" />
+            <rect width="5.29412" height="5.29412" rx="0.5" fill="#00539B" />
+            <rect x="8" y="8" width="5.29412" height="5.29412" rx="0.5" fill="#00539B" />
+            <rect y="8" width="5.29412" height="5.29412" rx="0.5" fill="#00539B" />
+          </svg>
+        </div>
 
-    <br/>
-    <br/>
-           
-    <table id="table_id" class="recordings table table-hover table-striped py-2">
-      <thead>
-        <tr>
-          <th class="col-date">Date</th>
-          <th class="col-title no-sort">Recording</th>
-          <th class="col-tags no-sort">Tags</th>
-          <th class="col-summary no-sort">Summary</th>
-          <th class="col-edit no-sort"></th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for recording in recordings %}
-                  <tr>
-                    <td>{{ recording[3] }}</td>
-                    <td><a href="{{ url_for('recording', recording_id=recording[0]) }}">{{ recording[2] }}</a></td>
-                    <!-- <td>{{ ", ".join(recording[8]) }}</td> -->
-                    <td>
-                      {% for tag in recording[9] %}
-                        {% if recording[9][tag] <= -3 %}
-                          <span class="badge bg-danger">{{ tag }}</span>
-                        {% elif recording[9][tag] >= 3 %}
-                          <span class="badge bg-success">{{ tag }}</span>
-                        {% else %}
-                          <span class="badge bg-primary">{{ tag }}</span>
-                        {% endif %}
-                      {% endfor %}
-                    </td>
-                    <td>{{ recording[7] }}</td>
-                    <td>
-                      <a href="{{ url_for('edit', recording_id=recording[0]) }}">
-                        <span class="fa fa-edit td-edit"></span>
-                      </a>
-                    </td>
-    
-        </tr>
+        <div class="pl-2 font-medium hover:no-underline underline" style="color:#00539B">CARD VIEW</div>
+      </div>
+    </a>
+  </button>
+</div>
+
+<div class="flex flex-row items-center mb-4">
+  <button class="hover:bg-gray-50 rounded-lg p-2 border border-gray-100">
+    <div class="flex flex-row">
+      <div>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M14 6L4 6M6 12H4H6ZM6 12C6 12.5304 6.21071 13.0391 6.58579 13.4142C6.96086 13.7893 7.46957 14 8 14C8.53043 14 9.03914 13.7893 9.41421 13.4142C9.78929 13.0391 10 12.5304 10 12L6 12ZM6 12C6 11.4696 6.21071 10.9609 6.58579 10.5858C6.96086 10.2107 7.46957 10 8 10C8.53043 10 9.03914 10.2107 9.41421 10.5858C9.78929 10.9609 10 11.4696 10 12L6 12ZM18 18C18 17.4696 17.7893 16.9609 17.4142 16.5858C17.0391 16.2107 16.5304 16 16 16C15.4696 16 14.9609 16.2107 14.5858 16.5858C14.2107 16.9609 14 17.4696 14 18H18ZM18 18C18 18.5304 17.7893 19.0391 17.4142 19.4142C17.0391 19.7893 16.5304 20 16 20C15.4696 20 14.9609 19.7893 14.5858 19.4142C14.2107 19.0391 14 18.5304 14 18H18ZM18 18H20H18ZM14 18L4 18L14 18ZM10 12L20 12L10 12ZM18 6C18 5.46957 17.7893 4.96086 17.4142 4.58579C17.0391 4.21071 16.5304 4 16 4C15.4696 4 14.9609 4.21071 14.5858 4.58579C14.2107 4.96086 14 5.46957 14 6H18ZM18 6C18 6.53043 17.7893 7.03914 17.4142 7.41421C17.0391 7.78929 16.5304 8 16 8C15.4696 8 14.9609 7.78929 14.5858 7.41421C14.2107 7.03914 14 6.53043 14 6H18ZM18 6H20H18Z" stroke="#B5B5B5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="px-2">
+    Filters
+  </div>
+  </div>
+  </button>
+  <div class="mx-6 "> Popular Tags:
+
+</div>
+</div>
+<hr class="my-4">
+<div class="table-responsive">
+<table id="table_id" class="table py-2">
+  <thead class="border border-2 border-black" style="background-color: #E2E6ED;">
+    <tr>
+      <th class="w-2/12 col">Date</th>
+      <th class="w-2/12 col">Recording</th>
+      <th class="w-3/12 col no-sort">Tags</th>
+      <th class="w-5/12 col no-sort">Summary</th>
+      <th class="w-1/12 col no-sort"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for recording in recordings %}
+    <tr class="hover:bg-gray-100">
+      <td>{{ recording[3] }}</td>
+      <td><a href="{{ url_for('recording', recording_id=recording[0]) }}">{{ recording[2] }}</a></td>
+      <!-- <td>{{ ", ".join(recording[8]) }}</td> -->
+      <td>
+        {% for tag in recording[9] %}
+          {% if recording[9][tag] <= -3 %}
+            <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
+          {% elif recording[9][tag] >= 3 %}
+            <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
+          {% else %}
+            <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
+          {% endif %}
         {% endfor %}
-      </tbody>
-    </table>
-    
-
-<!-- 
-<h1 class="text-center text-3xl">CARD EXAMPLE 1</h1>
-<div class="card-deck mt-6 grid grid-cols-2 md:grid-cols-3 gap-6">
-  {% for recording in recordings %}
-  <div class="card mb-3 max-w-md">
-    <div class="card-header bg-light">
-      <div class="self-start">
-        {{ recording[3] }}
+      </td>
+      <td>{{ recording[7] }}</td>
+      <td>
         <a href="{{ url_for('edit', recording_id=recording[0]) }}">
           <span class="fa fa-edit td-edit"></span>
         </a>
-    </div>
-    </div>
-    <div class="card-body">
-      <h5 class="card-title text-2xl"><a href="{{ url_for('recording', recording_id=recording[0]) }}">{{ recording[2] }}</a></h5>
-      <p class="card-text">
-        {{ recording[7] }}
-      </p>
-    </div>
-    <div class="card-footer bg-transparent"> Tags: 
-      {% for tag in recording[9] %}
-      <span class="badge bg-primary">{{ tag }}</span>
-    {% endfor %}</div>
-  </div>
-  {% endfor %}
-</div> -->
+      </td>
 
-<!-- <h1 class="text-center text-3xl">CARD EXAMPLE 2</h1>
-<div class="card-deck mt-6 grid grid-cols-2 md:grid-cols-3 gap-6">
-  {% for recording in recordings %}
-  <div class="card mb-3 max-w-md">
-  
-    <div class="card-body">
-      <h5 class="card-title text-2xl"> <a href="{{ url_for('recording', recording_id=recording[0]) }}">{{ recording[2] }}</a></h5>
-      <div class="bg-transparent"> Tags: 
-        {% for tag in recording[9] %}
-        <span class="badge bg-primary">{{ tag }}</span>
-      {% endfor %}</div>
-    </div>
-      <div class="card-footer bg-transparent">
-        <div class="self-start">
-          {{ recording[3] }}
-          <a href="{{ url_for('edit', recording_id=recording[0]) }}">
-            <span class="fa fa-edit td-edit"></span>
-          </a>
-      </div>
-      </div>
-    </div>
-    
-    
-  {% endfor %}
-</div> -->
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
 {% endblock %}
