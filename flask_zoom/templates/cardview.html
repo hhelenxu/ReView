@@ -27,11 +27,22 @@
         <h2 style="padding-left: 3rem;"><caption>{Class Name}</caption></h2> (<caption></caption> tags allow you to name tables)-->
         <br />
 
-        <button><a href="{{ url_for('card')}}">
+        <style>
+            .view {
+                color: rgb(100, 100, 100);
+                text-decoration: none;
+                border-radius: 1.3rem;
+                border-color: #f0f0f0;
+                box-shadow: 10px 10px 16px 0 #dbdbdb , 
+                        -8px -8px 12px 0 #fdfdfd ;
+            }
+        </style>
+
+        <button><a href="{{ url_for('card')}}" class="view">
             Card view
           </a>
           </button>
-          <button><a href="{{ url_for('index')}}">
+          <button><a href="{{ url_for('index')}}" class="view">
             Table view
           </a>
           </button>
@@ -43,31 +54,12 @@
 
                 <style>
                     
-                    html { font-size: 22px; }
+                    /* body { font-size: 22px; } */
                     /* body { padding: 3rem; } */
 
-                    #a:link {
-                    color: rgb(0, 0, 0);
-                    background-color: transparent;
-                    text-decoration: none;
-                    }
-                    #a:visited {
-                    color: rgb(9, 11, 104);
-                    background-color: transparent;
-                    text-decoration: none;
-                    }
-                    #a:hover {
-                    color: rgb(7, 7, 7);
-                    background-color: transparent;
-                    text-decoration: none;
-                    }
-                    #a:active {
-                    color: rgb(255, 255, 255);
-                    background-color: transparent;
-                    text-decoration:underline;
-                    }
+                    
 
-                    .cards {
+                    .kards {
                     max-width: 1200px;
                     margin: 0 auto;
                     background-color: #f5f5f5;
@@ -81,12 +73,12 @@
                     justify-content: space-evenly;
                     }
                     
-                    .card {
+                    .kard {
                     border-radius: 1.3rem;
                     border-color: #f0f0f0;
                     border-width: 1px;
                     background-color: #eeeeee;
-                    color: #090b68;
+                    /* color: #090b68; */
                     padding: 1.15rem;
                     /* height: 5rem; */
                     box-shadow: 10px 10px 16px 0 #dbdbdb , 
@@ -94,23 +86,23 @@
                     background: linear-gradient(-45deg, #fdfdfd, #ededed);
                     }
 
-                    .card:hover {
+                    .kard:hover {
                             border-radius: 1rem;
                             border-color: transparent;
                             /* border-width: 3px; */
                             /* background-color: #abb6e6;
                             color: rgb(255, 139, 139); */
                             padding: 1.3rem;
-                            height: 8rem;
+                            height:125%;
                     }
 
-                    .card:active {
+                    .kard:active {
                             /* border-radius: 1rem; */
                             border-color: transparent;
                             /* border-width: 3px; */
                             /* background-color: #abb6e6;
                             color: rgb(255, 139, 139); */
-                            color: rgb(0, 0, 0);
+                            /* color: rgb(100, 100, 100); */
                             /* background-color: #c0c0c0; */
                             box-shadow: 10px 10px 16px 0 #dddddd , 
                                 -8px -8px 12px 0 #fdfdfd ;
@@ -120,29 +112,56 @@
                             text-decoration: underline;
 
                     }
+                    
+                    .kardtxt {
+                        color: #090b68;
+                        text-decoration: none !important;
+
+                    }
+
+                    .kardtxt:hover {
+                        color: rgb(255, 139, 139)
+                    }
+
+                    .kardtxt:active {
+                        color: rgb(100, 100, 100);
+                        text-decoration: underline;
+                    }
 
             </style>
 
-                <div class="cards">
+                <div class="kards">
 
                     {#<!-- Loop the line below however many times is relevant -->#}
-                    <a href="{{ url_for('recording', recording_id=recording[0]) }}" target="_blank">
-                        <div class="card">
-                        <!-- The sizing of the letters is being overridden by some code somewhere -->
-                        <h3>{{ recording[2] }}</h3>
-                        <h4>{{ recording[3] }}</h4>
-
-                        <!-- For some reason, once the button comes into play, it causes linked blank space in every other place where a card should be -->
-                        
-                            <button type="button" class="btn btn-primary btn-sm" style="position:absolute; top:0; right:0; margin:0.5rem; border-radius:20px;" ><a href="{{ url_for('edit', recording_id=recording[0]) }}">Edit</a></button>
-                        
-                        
-                        </div>
-                    </a>
+                    {% for recording in recordings %}
                     
-                    {% endfor %}
+                    
+                        
+                        <div>
+                            <a href="{{ url_for('recording', recording_id=recording[0]) }}" target="_blank">
+                            <div class="kard">
+                            <!-- The sizing of the letters is being overridden by some code somewhere -->
+                            
+                            <h5 class="kardtxt">{{ recording[2] }}</h5>
 
+                            <!-- For some reason, once the button comes into play, it causes linked blank space in every other place where a card should be -->
+                            <button type="button" class="editbut" style="position:absolute; top:0; right:0; margin:0.5rem; border-radius:20px;" >
+                                <a href="{{ url_for('edit', recording_id=recording[0]) }}" class="kardtxt">Edit</a>
+                            </button>
+                            
+                            <h6 class="kardtxt">{{ recording[3] }}</h6>
+
+                            
+                            
+                            
+                            </div>
+                        </a>
+                        </div>
+                        
+                    {% endfor %}
+                    
                 </div>
             </div>
         </div>
 {% endblock %}
+<!-- SELECT * FROM jsonb_each((SELECT tags FROM recordings WHERE id=1)) ORDER BY VALUE DESC; -->
