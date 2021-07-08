@@ -32,9 +32,9 @@
   {% else %}
     <span class="badge text-base rounded-full bg-yellow-500 recording-tag">{{ tag }}</span>
   {% endif %}
-  <i class="fa fa-chevron-up text-gray-400 hover:text-gray-900 voting mx-2" id="upvote-btn" data-zoomid="{{ recording[10] }}" data-tag="{{ tag }}"></i>
+  <a class="fa fa-chevron-up text-gray-400 hover:text-gray-900 voting mx-2" href="{{ url_for('upvote_tag', id=recording[0], tag=tag) }}" class="fa fa-arrow-up voting"></a>
   {{ recording[9][tag] }}
-  <i class="fa fa-chevron-down text-gray-400 hover:text-gray-900 voting mx-2 pr-4" id="downvote-btn" data-zoomid="{{ recording[10] }}" data-tag="{{ tag }}"></i>
+  <a class="fa fa-chevron-down text-gray-400 hover:text-gray-900 voting mx-2 pr-4" href="{{ url_for('downvote_tag', id=recording[0], tag=tag) }}" class="fa fa-arrow-down voting"></a>
   <br>
 {% endfor %}
 
