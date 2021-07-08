@@ -25,9 +25,11 @@
             {% else %}
               <span class="badge bg-primary recording-tag">{{ tag }}</span>
             {% endif %}
-            <i class="fa fa-arrow-up voting" id="upvote-btn" data-zoomid="{{ recording[10] }}" data-tag="{{ tag }}"></i>
+            <a href="{{ url_for('upvote_tag', id=recording[0], tag=tag) }}" class="fa fa-arrow-up voting"></a>
+            <!-- <i class="fa fa-arrow-up voting" id="upvote-btn" data-zoomid="{{ recording[10] }}" data-tag="{{ tag }}"></i> -->
             {{ recording[9][tag] }}
-            <i class="fa fa-arrow-down voting" id="downvote-btn" data-zoomid="{{ recording[10] }}" data-tag="{{ tag }}"></i>
+            <!-- <i class="fa fa-arrow-down voting" id="downvote-btn" data-recording_id="{{ recording[0] }}" data-tag="{{ tag }}"></i> -->
+            <a href="{{ url_for('downvote_tag', id=recording[0], tag=tag) }}" class="fa fa-arrow-down voting"></a>
             <br>
           {% endfor %}
         </td>

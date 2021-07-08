@@ -235,12 +235,12 @@ def change_visibility(conn, cur, meeting_id, visible='FALSE'):
     conn.commit()
 
 # upvote or downvote tags
-def vote_tags(conn, cur, zoom_id, tag, vote):
+def vote_tags(conn, cur, id, tag, vote):
     # vote should either be 1 for upvote or -1 for downvote
-    cur.execute("SELECT tags FROM recordings WHERE zoom_id=%s", (zoom_id,))
+    cur.execute("SELECT tags FROM recordings WHERE id=%s", (id,))
     tags_dict = cur.fetchone()[0]
     tags_dict[tag] = tags_dict[tag] + vote
-    cur.execute("UPDATE recordings SET tags=%s WHERE zoom_id=%s", (json.dumps(tags_dict), zoom_id))
+    cur.execute("UPDATE recordings SET tags=%s WHERE id=%s", (json.dumps(tags_dict), id))
     conn.commit()
 
 

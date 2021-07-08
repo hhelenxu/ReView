@@ -109,35 +109,25 @@ def delete(recording_id):
     return redirect(url_for('index'))
 
 
-@app.route('/upvote', methods=['POST'])
-def upvote_tag():
-    if request.method == "POST":
+@app.route('/<string:id>/<string:tag>/upvote', methods=('POST','GET'))
+def upvote_tag(id, tag):  
+    conn = get_db_connection()
+    cur = conn.cursor()
+    vote_tags(conn, cur, id, tag, 1)
+    cur.close()
+    conn.close()
 
-        data_received = json.loads(request.data) 
-        
-        conn = get_db_connection()
-        cur = conn.cursor()
-        vote_tags(conn, cur, data_received['zoomid'], data_received['tag'], 1)
-        cur.close()
-        conn.close()
-        print(data_received['tag'])
-                 
-        return json.dumps({'status' : 'success'})
-    return redirect(url_for('index'))
+    recording = get_recording(id)
+    return redirect(url_for('.recording', recording_id=id))
+    
 
+@app.route('/<string:id>/<string:tag>/downvote', methods=('POST','GET'))
+def downvote_tag(id, tag):  
+    conn = get_db_connection()
+    cur = conn.cursor()
+    vote_tags(conn, cur, id, tag, -1)
+    cur.close()
+    conn.close()
 
-@app.route('/downvote', methods=['POST'])
-def downvote_tag():
-    if request.method == "POST":
-
-        data_received = json.loads(request.data) 
-        
-        conn = get_db_connection()
-        cur = conn.cursor()
-        vote_tags(conn, cur, data_received['zoomid'], data_received['tag'], -1)
-        cur.close()
-        conn.close()
-        print(data_received['tag'])
-                 
-        return json.dumps({'status' : 'success'})
-    return redirect(url_for('index'))
+    recording = get_recording(id)
+    return redirect(url_for('.recording', recording_id=id))
