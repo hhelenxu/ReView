@@ -19,15 +19,15 @@
           box-sizing: border-box; z-index: 1101; background-color: white; 
         }
     </style>
-        <header class="titleheader">
-          <h1 class=titleheadtext style="margin: auto 0; padding-left: 1rem;">{% block title %} Recordings for CLASS NAME {% endblock %}</h1>
-        </header>
+        <!-- <header class="titleheader">
+          <h1 class=titleheadtext style="margin: auto 0; padding-left: 1rem;">{ block title %} Recordings for CLASS NAME { endblock %}</h1>
+        </header> -->
     </div>
-        <!-- <br/>
-        <h2 style="padding-left: 3rem;"><caption>{Class Name}</caption></h2> (<caption></caption> tags allow you to name tables)-->
+        <br/> <!-- 
+        <h2 style="padding-left: 3rem;"><caption>{Class Name}</caption></h2> (<caption></caption> tags allow you to name tables) -->
         <br />
 
-        <style>
+        <!-- <style>
             .view {
                 color: rgb(100, 100, 100);
                 text-decoration: none;
@@ -45,7 +45,43 @@
           <button><a href="{{ url_for('index')}}" class="view">
             Table view
           </a>
-          </button>
+          </button> -->
+          
+          <div class="my-10" style="font-family:'Open Sans',sans-serif;">
+            <h1 class=" text-4xl tracking-wider" style="font-family:'EB Garamond',serif; color:#012169">{% block title %}
+              Recordings for Class Title {% endblock %}</h1>
+            <p class="py-4">Class description text. Any special instructions about how to use this site or any system that the
+              instructors and TAs use. </p>
+            <button class="px-2 rounded-sm" style="background-color: #E2E6ED;"><a href="{{ url_for('index')}}">
+                <div class="flex flex-row items-center">
+                  <div>
+                    <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect width="12" height="3" rx="0.5" fill="#012169" />
+                      <rect y="5" width="12" height="3" rx="0.5" fill="#012169" />
+                      <rect y="10" width="12" height="3" rx="0.5" fill="#012169" />
+                    </svg>
+                  </div>
+          
+                  <div class="pl-2 font-bold" style="color:#012169">TABLE VIEW</div>
+                </div>
+              </a>
+            </button>
+            <button class="px-4 rounded-sm "><a href="{{ url_for('card')}}">
+                <div class=" flex flex-row items-center">
+                  <div>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="8" width="5.29412" height="5.29412" rx="0.5" fill="#00539B" />
+                      <rect width="5.29412" height="5.29412" rx="0.5" fill="#00539B" />
+                      <rect x="8" y="8" width="5.29412" height="5.29412" rx="0.5" fill="#00539B" />
+                      <rect y="8" width="5.29412" height="5.29412" rx="0.5" fill="#00539B" />
+                    </svg>
+                  </div>
+          
+                  <div class="pl-2 font-medium hover:no-underline underline" style="color:#00539B">CARD VIEW</div>
+                </div>
+              </a>
+            </button>
+          </div>
 
         <div id="cardtemp"> <!--this div contains all the card info. Will be made into separate template file-->
                     
@@ -81,6 +117,7 @@
                     box-shadow: 10px 10px 16px 0 #dbdbdb , 
                         -8px -8px 12px 0 #fdfdfd ;
                     background: linear-gradient(-45deg, #fdfdfd, #ededed);
+                    
                     }
 
                     .kard:hover {
@@ -90,7 +127,7 @@
                             /* background-color: #abb6e6;
                             color: rgb(255, 139, 139); */
                             padding: 1.3rem;
-                            height:125%;
+                            height:110%;
                     }
 
                     .kard:active {
@@ -113,7 +150,7 @@
                     .kardtxt {
                         color: #575757;
                         text-decoration: none !important;
-
+                        
                     }
 
                     .kardtxt:hover {
@@ -139,27 +176,28 @@
                         <div>
                             <a href="{{ url_for('recording', recording_id=recording[0]) }}" target="_blank">
                             <div class="kard">
-                            <a href="{{ url_for('edit', recording_id=recording[0]) }}">
-                                <span class="fa fa-edit td-edit" style="color:#090b68"></span>
-                            </a>
                             
-                            <!-- The sizing of the letters is being overridden by some code somewhere -->
                             
-                            <h5 class="kardtxt">{{ recording[2] }}</h5>
-                            <h6 class="kardtxt">{{ recording[3] }}</h6>
+                                <!-- The sizing of the letters is being overridden by some code somewhere -->
+                                <a href="{{ url_for('edit', recording_id=recording[0]) }}">
+                                    <span class="fa fa-edit td-edit" style="color:#090b68; float:right; position:relative; top:0px;"></span>
+                                </a>
+                                <h5 class="kardtxt">{{ recording[2] }}</h5>
+                                
+                                <h6 class="kardtxt">{{ recording[3] }}</h6>
 
-                            {% for tag in recording[9] %}
-                                {% if recording[9][tag] <= -3 %}
-                                <span class="badge bg-danger" style="color:#090b68">{{ tag }}</span>
-                                {% elif recording[9][tag] >= 3 %}
-                                <span class="badge bg-success">{{ tag }}</span>
-                                {% else %}
-                                <span class="badge bg-primary" >{{ tag }}</span>
-                                {% endif %}
-                            {% endfor %}
+                                {% for tag in recording[9] %}
+                                    {% if recording[9][tag] <= -3 %}
+                                        <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
+                                    {% elif recording[9][tag] >= 3 %}
+                                        <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
+                                    {% else %}
+                                        <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
+                                    {% endif %}
+                                {% endfor %}
 
                             </div>
-                        </a>
+                            </a>
                         </div>
                         
                     {% endfor %}

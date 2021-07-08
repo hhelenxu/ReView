@@ -1,39 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<<<<<<< HEAD
-<style>
-  .py-5 {
-      height: 90px; padding: max-content 12px;
-      display: flex;
-      box-shadow: #171f361f 10px 10px 16px 0px;
-      min-width: 100%; max-width: 100%;
-      box-sizing: border-box; z-index: 1101; background-color: white; 
-  }
-</style>
-    <h1 class="py-5" style="width:fit-content; padding-left: 1rem; text-align:center">{% block title %} Recordings for CLASS NAME {% endblock %}</h1> 
-    <br/>
-    <style>
-      .view {
-                color: rgb(100, 100, 100);
-                text-decoration: none;
-                border-radius: 1.3rem;
-                border-color: #f0f0f0;
-                box-shadow: 10px 10px 16px 0 #dbdbdb , 
-                        -8px -8px 12px 0 #fdfdfd ;
-            }
-    </style>
-    <button><a href="{{ url_for('card')}}" class="view">
-      Card view
-    </a>
-    </button>
-    <button><a href="{{ url_for('cardview')}}" class="view">
-      Card view 2
-    </a>
-    </button>
-    <button><a href="{{ url_for('index')}}" class="view">
-      Table view
-=======
 <div class="my-10" style="font-family:'Open Sans',sans-serif;">
   <h1 class=" text-4xl tracking-wider" style="font-family:'EB Garamond',serif; color:#012169">{% block title %}
     Recordings for Class Title {% endblock %}</h1>
@@ -66,12 +33,25 @@
 
         <div class="pl-2 font-medium hover:no-underline underline" style="color:#00539B">CARD VIEW</div>
       </div>
->>>>>>> 0c3854d8571fc46fb64ff99ae914159de1d515cd
     </a>
   </button>
+  <button class="px-4 rounded-sm "><a href="{{ url_for('cardview')}}">
+    <div class=" flex flex-row items-center">
+      <div>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" width="5.29412" height="5.29412" rx="0.5" fill="#00539B" />
+          <rect width="5.29412" height="5.29412" rx="0.5" fill="#00539B" />
+          <rect x="8" y="8" width="5.29412" height="5.29412" rx="0.5" fill="#00539B" />
+          <rect y="8" width="5.29412" height="5.29412" rx="0.5" fill="#00539B" />
+        </svg>
+      </div>
+
+      <div class="pl-2 font-medium hover:no-underline underline" style="color:#00539B">CARD VIEW 2</div>
+    </div>
+  </a>
+</button>
 </div>
 
-<<<<<<< HEAD
     <br/>
     <br/>
     
@@ -119,7 +99,6 @@
       </tbody>
     </table>
     
-=======
 <div class="flex flex-row items-center mb-4">
   <button class="hover:bg-gray-50 rounded-lg p-2 border border-gray-100">
     <div class="flex flex-row">
@@ -134,7 +113,6 @@
   </div>
   </button>
   <div class="mx-6 "> Popular Tags:
->>>>>>> 0c3854d8571fc46fb64ff99ae914159de1d515cd
 
 </div>
 </div>
