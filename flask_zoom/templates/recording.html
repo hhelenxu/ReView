@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<script type="text/javascript">
+  function SetSrc()
+  {
+      document.getElementById("myIfreme").src = document.getElementById("txtSRC").value;
+  }
+</script>
 <div class="my-10 rounded-lg">
   <div class="px-4 pt-2 grid grid-flow-col bg-transparent">
     <div class="justify-self-end">
@@ -45,6 +51,9 @@
 </div>
 <iframe src="{{ recording[4] }}" height="500px" width=100% title="Embedded Zoom Recording"
   allowfullscreen="allowfullscreen"></iframe>
+  <!--This is for if people want to embed a video through the create page-->
+  <iframe id="myIfreme" src="" frameborder="0" marginwidth="0" scrolling="yes"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 </div>
 

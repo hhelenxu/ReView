@@ -85,7 +85,7 @@
     {% for recording in recordings %}
     <tr class="hover:bg-gray-100">
       <td>{{ recording[3] }}</td>
-      <td><a href="{{ url_for('recording', recording_id=recording[0]) }}">{{ recording[2] }}</a></td>
+      <td><a href="{{ url_for('recording', recording_id=recording[0]) }}" style="color: #090b68">{{ recording[2] }}</a></td>
       <!-- <td>{{ ", ".join(recording[8]) }}</td> -->
       <td>
         {% for tag, value in recording[9] | dictsort(false, 'value', reverse=true) %}
