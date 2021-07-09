@@ -51,53 +51,6 @@
   </a>
 </button>
 </div>
-
-    <br/>
-    <br/>
-    
-    <style>
-        .recordings table table-hover table-striped py-2{
-          background: linear-gradient(-45deg, #fdfdfd, #dddddd);
-        }
-    </style>
-    <table id="table_id" class="recordings table table-hover table-striped py-2">
-      <thead>
-        <tr>
-          <th class="col-date">Date</th>
-          <th class="col-title no-sort">Recording</th>
-          <th class="col-tags no-sort">Tags</th>
-          <th class="col-summary no-sort">Summary</th>
-          <th class="col-edit no-sort"></th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for recording in recordings %}
-                  <tr>
-                    <td>{{ recording[3] }}</td>
-                    <td><a href="{{ url_for('recording', recording_id=recording[0]) }}">{{ recording[2] }}</a></td>
-                    <!-- <td>{{ ", ".join(recording[8]) }}</td> -->
-                    <td>
-                      {% for tag in recording[9] %}
-                        {% if recording[9][tag] <= -3 %}
-                          <span class="badge bg-danger">{{ tag }}</span>
-                        {% elif recording[9][tag] >= 3 %}
-                          <span class="badge bg-success">{{ tag }}</span>
-                        {% else %}
-                          <span class="badge bg-primary">{{ tag }}</span>
-                        {% endif %}
-                      {% endfor %}
-                    </td>
-                    <td>{{ recording[7] }}</td>
-                    <td>
-                      <a href="{{ url_for('edit', recording_id=recording[0]) }}">
-                        <span class="fa fa-edit td-edit"></span>
-                      </a>
-                    </td>
-    
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
     
 <div class="flex flex-row items-center mb-4">
   <button class="hover:bg-gray-50 rounded-lg p-2 border border-gray-100">
@@ -135,7 +88,7 @@
       <td><a href="{{ url_for('recording', recording_id=recording[0]) }}">{{ recording[2] }}</a></td>
       <!-- <td>{{ ", ".join(recording[8]) }}</td> -->
       <td>
-        {% for tag in recording[9] %}
+        {% for tag, value in recording[9] | dictsort(false, 'value', reverse=true) %}
           {% if recording[9][tag] <= -3 %}
             <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
           {% elif recording[9][tag] >= 3 %}
