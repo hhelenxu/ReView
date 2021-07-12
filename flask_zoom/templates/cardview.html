@@ -96,7 +96,23 @@
                 </div>
               </a>
             </button>
+            <button class="px-4 rounded-sm "><a href="{{ url_for('tablecard')}}">
+            <div class=" flex flex-row items-center">
+              <div>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="8" width="5.29412" height="5.29412" rx="0.5" fill="#00539B" />
+                  <rect width="5.29412" height="5.29412" rx="0.5" fill="#00539B" />
+                  <rect x="8" y="8" width="5.29412" height="5.29412" rx="0.5" fill="#00539B" />
+                  <rect y="8" width="5.29412" height="5.29412" rx="0.5" fill="#00539B" />
+                </svg>
+              </div>
+        
+              <div class="pl-2 font-medium hover:no-underline underline" style="color:#00539B">TABLECARD</div>
+            </div>
+          </a>
+        </button>
           </div>
+          
 
         <div id="cardtemp"> <!--this div contains all the card info. Will be made into separate template file-->
                     
@@ -197,7 +213,7 @@
                                 <a href="{{ url_for('edit', recording_id=recording[0]) }}">
                                     <span class="fa fa-edit td-edit" style="color:#090b68; float:right; position:relative; top:0px;"></span>
                                 </a>
-                                <h5 class="kardtxt">{{ recording[2] }}</h5>
+                                <h5 class="kardtxt" style="font-size: 20px;">{{ recording[2] }}</h5>
                                 
                                 <h6 class="kardtxt">{{ recording[3] }}</h6>
 
