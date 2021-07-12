@@ -1,12 +1,15 @@
 from flask import Flask, render_template, request, url_for, flash, redirect
 from werkzeug.exceptions import abort
-
-# db imports
+import jwt
+from jwt import PyJWKClient
 import psycopg2
+from zoom import *
 import databaseconfig as dbconfig
 import zoomconfig
-from zoom import *
+import vcmconfig
 
+
+permission = False
 
 def get_db_connection():
     conn = psycopg2.connect("dbname={} user={} password={}".format(dbconfig.database["db"], dbconfig.database["user"], dbconfig.database["password"]))
@@ -22,6 +25,19 @@ def get_recording(recording_id):
         abort(404)
     return recording
 
+def authenticate(token):
+    # jwks = "https://go.fuqua.duke.edu/auth/jwks"
+    # jwks_client = PyJWKClient(jwks)
+    # signing_key = jwks_client.get_signing_key_from_jwt(token)
+    public_key = b"-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsenb4+ybQKRQk75rCK9o\n8c9Yfd1NusBxnXeWPqL6mEoL8FOnJwC+emHxOh6G4sBFF3wADFq0tsZdm3k5E1nG\nrFe6Z6r0aYmFjXjBWNaOGACekQe0/m5wlKOn24c7QjiPxLb22vCSCHKM/P2meuf5\n0Gb4DfcXIFzmUoNYiEEbUyJ326meNeXQJBPq/UuZyBrwh4T7VmFGhCcfWOZ9i2Ho\ndldJHva5IzKjfF+VjPcNlAymbumjL7PlzOsjhTmOlyc9fEesINOuCctaNQUqE4nH\n6cPh7fO1CYlJMaxULzqvltazeHuCX4B14FM9/EJKdr677M5qFFqMPOuHQw3guzdd\nXwIDAQAB\n-----END PUBLIC KEY-----"
+    data = jwt.decode(
+        token,
+        public_key,
+        algorithms=["RS256"],
+        audience="Shibboleth",
+        options={"require": ["exp", "iss", "sub"]})
+    return data
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'NlcPJLmeyeXMn4KpISh0hGQ3cWQIQbbnE0WwfpeZxjiftirfP2sCNI0GA6P96kCP'  # used to secure sessions, which allow Flask to remember information from one request to another
@@ -29,6 +45,15 @@ app.config['SECRET_KEY'] = 'NlcPJLmeyeXMn4KpISh0hGQ3cWQIQbbnE0WwfpeZxjiftirfP2sC
 
 @app.route('/')
 def index():
+    # authentication and determine permissions
+    if not request.cookies.get('_FSB_SHIB'):
+        return redirect(url_for('auth_redirect'))
+    
+    token = request.cookies.get('_FSB_SHIB')
+    auth = authenticate(token)
+    if "staff@duke.edu" or "faculty@duke.edu" in auth["eduPersonScopedAffiliation"]:
+        permission = True
+
     conn = get_db_connection()
     cur = conn.cursor()
 
@@ -39,6 +64,11 @@ def index():
     conn.close()
 
     return render_template('index.html', recordings=recordings)
+
+@app.route('/auth_redirect')
+def auth_redirect():
+    auth_url = "https://go.fuqua.duke.edu/auth/shibboleth?service="+vcmconfig.VCM
+    return redirect(auth_url, 302)
 
 @app.route('/card')
 def card():
