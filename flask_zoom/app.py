@@ -84,6 +84,19 @@ def card():
 
     return render_template('card.html', recordings=recordings)
 
+@app.route('/tablecard')
+def tablecard():
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    # get recordings
+    cur.execute("SELECT * FROM recordings WHERE visible=TRUE")
+    recordings = cur.fetchall()
+    cur.close()
+    conn.close()
+
+    return render_template('tablecard.html', recordings=recordings)
+
 @app.route('/cardview')
 def cardview():
     conn = get_db_connection()
