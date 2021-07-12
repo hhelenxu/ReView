@@ -36,16 +36,21 @@
             <input type="button" value="Click to Set Source. Then click 'Save'." onclick="SetSrc()" />
             </form>
     </div>
-    <div class="flex flex-row items-center">
-        <div class=" mr-4">
-            <form action="{{ url_for('delete', recording_id=recording[0]) }}" method="POST">
-                <input type="submit" value="Delete" class="border-2 px-4 py-2 rounded-lg hover:border-red-500 bg-white hover:text-red-500"
-                    onclick="return confirm('Are you sure you want to delete this post?')">
-            </form>
-        </div>
+    <div class="flex flex-row my-4 items-center">
+        
 
-    <div class="form-group py-2">
-        <button type="submit" class="btn rounded-lg text-white hover:bg-opacity-80 bg-blue-900 px-12">Save</button>
+    <div class="form-group py-2 mr-4">
+        <button type="submit" class="btn rounded-lg text-white hover:bg-blue-700 bg-blue-900 px-12">Save</button>
+    </div>
+    <div class="mr-4">
+        <button class="btn border border-2 hover:border-red-500 px-4 py-2 rounded-lg bg-white "><a href="{{ url_for('recording', recording_id=recording[0]) }}">Cancel</a></button>
+    </div>
+
+    <div class="">
+        <form action="{{ url_for('delete', recording_id=recording[0]) }}" method="POST">
+            <input type="submit" value="Delete" class="border-2 px-4 py-2 rounded-lg hover:border-red-500 bg-white text-red-500"
+                onclick="return confirm('Are you sure you want to delete this post?')">
+        </form>
     </div>
    
 
