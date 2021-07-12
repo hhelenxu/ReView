@@ -105,7 +105,7 @@ def edit(recording_id):
             cur.close()
             conn.commit()
             conn.close()
-            return redirect(url_for('index'))
+            return redirect(url_for('.recording', recording_id=recording_id))
 
     return render_template('edit.html', recording=recording)
 
