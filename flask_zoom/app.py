@@ -51,6 +51,7 @@ def index():
     
     token = request.cookies.get('_FSB_SHIB')
     auth = authenticate(token)
+    print(auth)
     if "staff@duke.edu" or "faculty@duke.edu" in auth["eduPersonScopedAffiliation"]:
         permission = True
 
@@ -137,7 +138,7 @@ def edit(recording_id):
             conn.close()
             return redirect(url_for('.recording', recording_id=recording_id))
 
-    return render_template('edit.html', recording=recording)
+    return render_template('edit.html', recording=recording, permission=permission)
 
 
 @app.route('/<string:recording_id>/delete', methods=('POST',))
