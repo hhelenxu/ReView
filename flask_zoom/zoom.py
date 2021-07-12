@@ -249,6 +249,13 @@ def vote_tags(conn, cur, id, tag, vote):
 
 
 def main():
+    print(stop_words)
+    # add additional stopwords
+    with open('stopwords.txt') as f:
+        words = f.read().splitlines()
+        for word in words:
+            stop_words.add(word)
+
     # connect to database
     conn = psycopg2.connect("dbname={} user={} host='localhost' password={}".format(dbconfig.database["db"], dbconfig.database["user"], dbconfig.database["password"]))
     cur = conn.cursor()
