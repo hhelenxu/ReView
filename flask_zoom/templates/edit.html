@@ -28,15 +28,13 @@
         <textarea name="transcription" placeholder="Transcription" rows="10"
                   class="form-control">{{ request.form['transcription'] or recording[6] }}</textarea>
     </div>
-    
-    <div>
-        <form >
-            Enter video URL:
-            <input type="text" id="txtSRC" style="border-width:2px;" />
-            <input type="button" value="Click to Set Source. Then click 'Save'." onclick="SetSrc()" />
-            </form>
-    </div>
     <div class="flex flex-row items-center">
+        <div class="form-group py-2 mr-4">
+            <button type="submit" class="btn rounded-lg text-white hover:bg-blue-700 bg-blue-900 px-12">Save</button>
+        </div>
+        <div class="mr-4">
+            <button class="btn border border-2 hover:border-red-500 px-4 py-2 rounded-lg bg-white "><a href="{{ url_for('recording', recording_id=recording[0]) }}">Cancel</a></button>
+        </div>
         <div class=" mr-4">
             <form action="{{ url_for('delete', recording_id=recording[0]) }}" method="POST">
                 <input type="submit" value="Delete" class="border-2 px-4 py-2 rounded-lg hover:border-red-500 bg-white hover:text-red-500"
@@ -44,9 +42,7 @@
             </form>
         </div>
 
-    <div class="form-group py-2">
-        <button type="submit" class="btn rounded-lg text-white hover:bg-opacity-80 bg-blue-900 px-12">Save</button>
-    </div>
+   
    
 
 </div>

@@ -2,12 +2,28 @@
 
 {% block content %}
 <script type="text/javascript">
-  function SetSrc()
-  {
-      document.getElementById("myIfreme").src = document.getElementById("txtSRC").value;
+  function SetSrc() {
+    document.getElementById("myIfreme").src = document.getElementById("txtSRC").value;
   }
 </script>
+
 <div class="my-10 rounded-lg">
+
+  <button>
+    <a href="{{ url_for('index')}}">
+      <div class="flex flex-row">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+
+        </div>
+        <div>Back</div>
+      </div>
+    </a>
+
+  </button>
+
   <div class="px-4 pt-2 grid grid-flow-col bg-transparent">
     <div class="justify-self-end">
       <a href="{{ url_for('edit', recording_id=recording[0]) }}">
@@ -51,9 +67,10 @@
 </div>
 <iframe src="{{ recording[4] }}" height="500px" width=100% title="Embedded Zoom Recording"
   allowfullscreen="allowfullscreen"></iframe>
-  <!--This is for if people want to embed a video through the create page-->
-  <iframe id="myIfreme" src="" frameborder="0" marginwidth="0" scrolling="yes"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<!--This is for if people want to embed a video through the create page-->
+<iframe id="myIfreme" src="" frameborder="0" marginwidth="0" scrolling="yes"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen></iframe>
 
 </div>
 
