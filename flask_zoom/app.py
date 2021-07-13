@@ -64,6 +64,7 @@ def index():
     session['dukeid'] = auth['dukeid']
     session['email'] = auth['sub']
     if "staff@duke.edu" in auth['eduPersonScopedAffiliation'] or "faculty@duke.edu" in auth['eduPersonScopedAffiliation']:
+    # if "staff@duke.edu" in auth['eduPersonScopedAffiliation'] or "student@duke.edu" in auth['eduPersonScopedAffiliation']:
         session['permission'] = True
         print("has permission")
     else:
@@ -88,6 +89,24 @@ def index():
 def auth_redirect():
     auth_url = "https://go.fuqua.duke.edu/auth/shibboleth?service="+vcmconfig.VCM
     return redirect(auth_url, 302)
+
+
+@app.route('/admin')
+def admin():
+    if not session.get('permission'):
+        return redirect(url_for('index'))
+    else:
+        conn = get_db_connection()
+        cur = conn.cursor()
+
+        # get recordings
+        cur.execute("SELECT * FROM recordings WHERE visible=FALSE")
+        hiddenRecordings = cur.fetchall()
+        cur.close()
+        conn.close()
+
+        return render_template('admin.html', hiddenRecordings=hiddenRecordings)
+
 
 @app.route('/card')
 def card():
