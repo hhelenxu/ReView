@@ -218,12 +218,15 @@
                                 <h6 class="kardtxt">{{ recording[3] }}</h6>
 
                                 {% for tag in recording[9] %}
-                                    {% if recording[9][tag] <= -3 %}
-                                        <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
+                                    {% if recording[9][tag] <= -3 %}<a href="{{ url_for('tagFilter', tag=tag) }}">
+                                      <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span></a>
                                     {% elif recording[9][tag] >= 3 %}
-                                        <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
+                                    <a href="{{ url_for('tagFilter', tag=tag) }}">
+                                      <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span></a>
                                     {% else %}
-                                        <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
+                                    <a href="{{ url_for('tagFilter', tag=tag) }}">
+                                      <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
+                                    </a>
                                     {% endif %}
                                 {% endfor %}
 

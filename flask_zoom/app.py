@@ -172,6 +172,18 @@ def delete(recording_id):
     flash('"{}" was successfully deleted!'.format(recording_id))
     return redirect(url_for('index'))
 
+@app.route('/tagFilter/<string:tag>')
+def tagFilter(tag):
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    # get recordings
+    cur.execute('SELECT * FROM recordings WHERE tags::jsonb ? %s',(tag,))
+    recordings = cur.fetchall()
+    cur.close()
+    conn.close()
+    return render_template('index.html', recordings=recordings)
+
 
 @app.route('/<string:id>/<string:tag>/upvote', methods=('POST','GET'))
 def upvote_tag(id, tag):  
