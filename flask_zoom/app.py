@@ -50,8 +50,15 @@ def index():
         return redirect(url_for('auth_redirect'))
     
     token = request.cookies.get('_FSB_SHIB')
-    auth = authenticate(token)
-    print(auth)
+    try:
+        auth = authenticate(token)
+        print(auth)
+    except jwt.exceptions.DecodeError as e:
+        print("Error decoding JWT "+token)
+        return redirect(url_for('auth_redirect'))
+    except jwt.exceptions.ExpiredSignatureError as e:
+        return redirect(url_for('auth_redirect'))
+
     if "staff@duke.edu" or "faculty@duke.edu" in auth["eduPersonScopedAffiliation"]:
         permission = True
 
