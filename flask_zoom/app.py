@@ -191,7 +191,7 @@ def edit(recording_id):
     return render_template('edit.html', recording=recording, permission=session.get('permission'))
 
 
-@app.route('/<string:recording_id>/delete', methods=('POST',))
+@app.route('/<string:recording_id>/delete', methods=('POST','GET'))
 def delete(recording_id):
     conn = get_db_connection()
     cur = conn.cursor()
