@@ -214,13 +214,17 @@
                                     <li><h5>{{ recording[3] }}</h5></li>
                                     <li><div style="text-decoration: no-underline">
                                     {% for tag in recording[9] %}
-                                        {% if recording[9][tag] <= -3 %}
-                                            <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
-                                        {% elif recording[9][tag] >= 3 %}
-                                            <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
-                                        {% else %}
-                                            <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
-                                        {% endif %}
+                                      {% if recording[9][tag] <= -3 %}
+                                      <a href="{{ url_for('tagFilter', tag=tag) }}">
+                                        <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span></a>
+                                      {% elif recording[9][tag] >= 3 %}
+                                      <a href="{{ url_for('tagFilter', tag=tag) }}">
+                                        <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span></a>
+                                      {% else %}
+                                      <a href="{{ url_for('tagFilter', tag=tag) }}">
+                                        <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
+                                      </a>
+                                      {% endif %}
                                     {% endfor %}</div></li>
                                     </div>
                                     </ul>

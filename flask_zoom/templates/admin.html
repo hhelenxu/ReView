@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="my-10" style="font-family:'Open Sans',sans-serif;">
+    <h1 class=" text-4xl tracking-wider" style="font-family:'EB Garamond',serif; color:#012169">{% block title %}
+        Admin Page {% endblock %}
+    </h1>
+</div>
+
+<h4 class=" text-2xl tracking-wider" style="font-family:'EB Garamond',serif; color:#012169">Hidden Recordings</h4>
+<hr class="my-4">
+<div class="table-responsive">
+<table id="table_id" class="table py-2">
+  <thead class="border border-2 border-black" style="background-color: #E2E6ED;">
+    <tr>
+      <th class="w-2/12 col">Date</th>
+      <th class="w-2/12 col">Recording</th>
+      <th class="w-3/12 col no-sort">Tags</th>
+      <th class="w-5/12 col no-sort">Summary</th>
+      <th class="w-1/12 col no-sort"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for recording in hiddenRecordings %}
+    <tr class="hover:bg-gray-100">
+      <td>{{ recording[3] }}</td>
+      <td class="underline"><a href="{{ url_for('recording', recording_id=recording[0]) }}">{{ recording[2] }}</a></td>
+      <!-- <td>{{ ", ".join(recording[8]) }}</td> -->
+      <td>
+        {% for tag, value in recording[9] | dictsort(false, 'value', reverse=true) %}
+          {% if recording[9][tag] <= -3 %}
+            <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
+          {% elif recording[9][tag] >= 3 %}
+            <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
+          {% else %}
+            <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
+          {% endif %}
+        {% endfor %}
+      </td>
+      <td>{{ recording[7] }}</td>
+      <td>
+        <a href="{{ url_for('edit', recording_id=recording[0]) }}">
+          <span class="fa fa-edit td-edit"></span>
+        </a>
+      </td>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}
