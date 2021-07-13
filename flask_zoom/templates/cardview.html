@@ -173,7 +173,6 @@
                                 -8px -8px 12px 0 #fdfdfd ;
                             background: linear-gradient(-45deg, #fdfdfd, #dddddd);
                             padding: 1.225rem;
-                            height: 4.25rem;
                             text-decoration: underline;
 
                     }
@@ -206,28 +205,28 @@
                     
                         <div>
                             <a href="{{ url_for('recording', recording_id=recording[0]) }}" target="_blank">
-                            <div class="kard">
-                            
-                            
-                                <!-- The sizing of the letters is being overridden by some code somewhere -->
-                                <a href="{{ url_for('edit', recording_id=recording[0]) }}">
-                                    <span class="fa fa-edit td-edit" style="color:#090b68; float:right; position:relative; top:0px;"></span>
-                                </a>
-                                <h5 class="kardtxt" style="font-size: 20px;">{{ recording[2] }}</h5>
-                                
-                                <h6 class="kardtxt">{{ recording[3] }}</h6>
+                              <div class="kard">
+                              
+                              
+                                  <!-- The sizing of the letters is being overridden by some code somewhere -->
+                                  <a href="{{ url_for('edit', recording_id=recording[0]) }}">
+                                      <span class="fa fa-edit td-edit" style="color:#090b68; float:right; position:relative; top:0px;"></span>
+                                  </a>
+                                  <h5 class="kardtxt" style="font-size: 20px;">{{ recording[2] }}</h5>
+                                  
+                                  <h6>{{ recording[3] }}</h6>
 
-                                {% for tag in recording[9] %}
-                                    {% if recording[9][tag] <= -3 %}
-                                        <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
-                                    {% elif recording[9][tag] >= 3 %}
-                                        <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
-                                    {% else %}
-                                        <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
-                                    {% endif %}
-                                {% endfor %}
+                                  {% for tag in recording[9] %}
+                                      {% if recording[9][tag] <= -3 %}
+                                          <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
+                                      {% elif recording[9][tag] >= 3 %}
+                                          <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
+                                      {% else %}
+                                          <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
+                                      {% endif %}
+                                  {% endfor %}
 
-                            </div>
+                              </div>
                             </a>
                         </div>
                         
