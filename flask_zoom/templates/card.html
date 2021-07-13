@@ -98,7 +98,8 @@
           </h5>
           <div class="my-2 self-start items-center">
             {% for tag in recording[9] %}
-            <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
+            <a href="{{ url_for('tagFilter', tag=tag) }}">
+            <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span></a>
             {% endfor %}
           </div>
           <!-- <div class="bg-transparent" style="color:#666666"> {{ recording[3] }}</div> -->
