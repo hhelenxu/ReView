@@ -1,0 +1,299 @@
+﻿much like people it is a fact of life that some matrices are nicer than others uh in this lecture i want to go over uh row echelon forms and specifically we'll talk about two what's called row echelon forms uh one will be much more prominent in this course than the other so let's jump right into it
+
+
+um so the context here is um lots of matrices are very difficult to work with but some matrices are are easier to work with so let's say that we're working with an m by n matrix and let's say that matrix is called r so in this example our matrix looks like it's four by five um we say that our matrix is in reduced row echelon form if four things are satisfied so we need four rules to pass in order to call our matrix reduced row echelon form 
+
+
+so what's the first rule the first rule says that if there are any rows that are full of all zeros those rows need to be at the bottom and in our example here we see that this rule passes the um only row in this matrix that's full of all zeros is the last row which of course is at the bottom so rule number one checks out for this matrix
+
+
+so far so good rule number two all of the other rows so these are the rows where not every single entry is equal to zero although we could have some entries equal to zero these other rows have to have first non-zero entry equal to one and these are very very important uh entries inside of a reduced row echelon form matrix and they're so important that they have a special name these are called pivots so remember the last row in our matrix is all zeros so forget about that row it's at the bottom we're not worried about it and if we go to all the other rows here's the the first row the first non-zero entry is equal to one that is our first pivot if we look at the second row the first two entries are equal to zero that's fine the next entry is the first non-zero entry this entry is equal to one that's our second pivot our third row is the last row that's not all zeros its first three entries are equal to zero again totally fine but the first non-zero entry uh is right here in the three four position that position is equal to one that's our third pivot so the second uh rule for reduced for echelon form says all uh the first non-zero entry of um a a row that's not all zeros has to equal one and those positions are called pivots
+
+
+what's the third rule the third rule says
+that every pivot must occur to the right
+of all of the pivots above it so if
+we're looking at any pivot
+and we look above for other pivots the
+pivot we're looking at needs to be to
+the right of all of those
+so if we look at our example here our
+first pivot in the 1 1 position
+there's nothing above it so there's
+nothing to worry about in the second row
+we're looking at the 2 3 position
+there's one pivot above this second pivot but the
+second pivot
+is indeed to the right so that's okay
+then we when we go to our third pivot
+our third pivot is here in the 3 4
+position
+there are two pivots above this third
+pivot but this third pivot is
+to the right of both of them so um for
+pivots we go
+right and down um we go right and down
+so
+uh the third rule passes here so we are
+on track to be reduced row echelon form
+i promise there are four rules though
+what's the fourth rule the fourth rule
+says that
+all non-pivot entries and a column
+containing a pivot
+must be equal to zero so if we look at
+our example here
+we have three pivots which means we have
+three pivot columns
+and the rule says that every column that
+has a pivot
+can have the pivot but then everything
+else is equal to zero
+so if we look at our first column here
+um we have our pivot
+and everything else in the column is
+equal to zero that's cool
+then in our next uh column with a pivot
+that's the third column of this matrix
+we have our pivot position and
+everything else is equal to zero
+great and then for our third pivot in
+the fourth column
+we have our pivot position and
+everything else is equal to zero
+the fourth rule passes here so we can
+call this matrix
+reduced row echelon form so
+the way we write this is we write so we
+called this matrix r
+so what we would write here to
+efficiently communicate that this matrix
+is in reduced row echelon form
+is we would write r equals r r
+e f of r r e f
+is an abbreviation of reduced row
+echelon form
+great so these matrices play an
+enormously important role for us
+so it's important that we understand how
+to identify them
+it's key here that there are four rules
+and the matrix needs to pass
+all four of those rules um or follow
+all four of those rules if we're going
+to call it a reduced row echelon form
+so let's look at a few examples to test
+our understanding here
+so here we have a new matrix also called
+r
+this one's a little bit bigger i think
+this one looks like it's a 5
+by 5 by 7 matrix so this is a larger
+matrix
+so what are the rules the first rule
+says that if there are rows of zeros
+they can be there but they have to be at
+the bottom and here we do
+actually have rows of zeros um the last
+two rows of this matrix
+are all zeros um but that's fine because
+they're at the bottom of the matrix
+so the first rule passes what about the
+second rule
+the second rule says that all of the
+other rows so the rows that aren't all
+zeros
+have to have first non-zero entry equal
+to one
+so if we look at the the first row here
+the first row starts with a one
+that's great that's our first pivot in
+the second row we start with two zeros
+that's fine but the first non-zero entry
+is in this 2 3 position that's equal to
+1
+that's our second pivot now when we look
+at our third row this is the only
+remaining row that's not
+all zeros if we the first one
+two three four positions are all zero
+totally fine
+the next position is the first non-zero
+entry in the third row
+it is equal to one that's our third
+pivot the second rule passes
+and here we have three pivots
+the third rule says that the pivots need
+to move right
+and down so every pivot needs to be to
+the right of all pivots above it
+so to get from the first to the second
+we travel right and down
+great to get from the second to the
+third we travel right and down great
+the third rule passes the fourth rule
+says
+each pivot needs to be the only non-zero
+entry
+and its column so if we look at the
+first pivot
+it is the only non-zero entry in its
+column we have the pivot
+and everything else is equal to zero
+good
+if we look at the second pivot it is the
+only
+non-zero entry in its column so we have
+our pivot here in the third
+column and everything else is equal to
+zero great
+and then finally our last pivot is in
+the fifth column here one two three four
+five in the fifth column
+the pivot's there everything else is
+equal to zero the rule passes
+there's no other pivots to verify here
+so great this
+this is another example of a matrix
+that's in reduced row echelon form
+so here it's appropriate to write r
+equals
+r r e f r this matrix is in reduced row
+echelon form one thing that's important
+to point out here
+is we require pivots to equal one but
+not
+every one in the matrix is a pivot for
+example
+in this uh here we have a one in the
+first row
+and the one two three four five six
+position so this is in the one sixth
+position
+this is equal to one but it is not a
+pivot a pivot
+is the first non-zero entry of a row
+that's not all zeros and and when we say
+something is in reduced for echelon form
+the pivots have to equal one
+let's look at our next example so here
+we have a smaller matrix this one
+looks like it's what three by five
+um what are the rules the first rule
+says that if there is a row of zeros
+it needs to be at the bottom in this
+example there are no rows
+that are all zeros so we don't have to
+worry about the first rule
+first rule passes the second rule
+says that all of the other rows so in
+this case all of the rows
+have to have a first non-zero entry
+equal to one
+well in the first row we start with a
+one that's our first pivot
+in the second row we have we start with
+a zero which is fine and the first
+non-zero entry is in the second position
+so the two two position here
+that's equal to one so we're good and
+then finally
+um in uh in the third row we start with
+three zeros
+totally fine and then the first non-zero
+entry
+is in the um a fourth column that's
+equal to one
+we have our pivots so the pivot axiom
+passes
+um our other rule says that pivots must
+occur from right and down so every pivot
+must be to the right of
+every pivot above it um to get from the
+first to the second pivot we travel to
+the right and down
+great to get from the second to the
+third pivot we travel right and down
+great so we have pivots the pivots go
+um our every pivot is to the right of
+every pivot above it
+that's great so we have one more rule to
+check and that rule says that pivots can
+be the only non-zero entry
+in their respective columns if we look
+at the first pivot in this matrix
+um we have the pivot and then two zeros
+great
+if we look at the second pivot we have
+the pivot and then two zeros
+great and then we're just about to get
+there however
+if we look at the third pivot in this
+matrix we have the pivot position
+but right above it is a two two is not
+equal to zero
+so that axiom fails our rule for reduce
+for echelon form we almost got there
+but the rule that says that uh pivots
+can be the only non-zero entry in their
+respective columns
+fails so even though we're real close
+this matrix is not in reduced row
+echelon form
+so here we write r not equal to r
+r e f r we almost got there
+but not quite so again the rules for
+reduce for echelon form
+are super strict we have to pass all
+four of the rules
+in order to be in reduced row echelon
+form we got close
+but we didn't make it here uh so cross
+it out
+uh what here's another example so this
+one's pretty big as well
+uh this is like six by seven
+um let's run through the axiom so as you
+start to do a lot of these you get more
+comfortable with the axioms
+here we have two rows of zeros they're
+at the bottom
+everything's good so far um if we look
+at all of the other rows
+the very first entries that are that's
+not a zero
+is a one so we have our first pivot in
+the one one position
+our second position in the two five
+position
+our uh third pivot is in the three
+three position and our fourth pivot is
+in the what one
+two three four one two three four five
+the four six
+position so the first non-zero entry of
+every row that's not
+all zeros is equal to one so we have
+pivots
+and if we look at all these pivot
+columns uh the pivots are
+the only non-zero entries in their
+respective columns
+so we're doing pretty good on the axioms
+but you may have already seen it by now
+as you can tell not every pivot is to
+the right of
+all of the pivots above it to get from
+the second pivot to the third pivot
+we travel to the left and down so even
+though we're real close with this one as
+well
+this matrix is not in reduced row
+echelon form
+we passed most of the axioms we passed
+most the rules but we didn't pass all of
+them
+so this is not in reduced row echelon
+form
+real close but not quite there
+so cross it out

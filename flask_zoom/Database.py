@@ -20,9 +20,9 @@ try:
     );
     """)
     conn.commit()
-    print("Created table.")
+    print("Created users table.")
 except:
-    print("Failed to create table.")
+    print("Failed to create users table.")
 
 # create zoom recordings table
 try:
@@ -43,6 +43,22 @@ try:
     );
     """)
     conn.commit()
-    print("Created table.")
+    print("Created recordings table.")
 except:
-    print("Failed to create table.")
+    print("Failed to create recordings table.")
+
+# create activity table
+try:
+    cur.execute("""
+    CREATE TABLE IF NOT EXISTS activity (
+        name VARCHAR,
+        email VARCHAR UNIQUE,
+        time TIMESTAMP WITH TIME ZONE,
+        recording_id INTEGER,
+        action VARCHAR
+    );
+    """)
+    conn.commit()
+    print("Created activity table.")
+except:
+    print("Failed to create activity table.")

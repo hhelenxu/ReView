@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, url_for, flash, redirect
+from flask import Flask, render_template, request, url_for, flash, redirect, session
+from flask_session import Session
 from werkzeug.exceptions import abort
 import jwt
 from jwt import PyJWKClient
@@ -8,8 +9,6 @@ import databaseconfig as dbconfig
 import zoomconfig
 import vcmconfig
 
-
-permission = False
 
 def get_db_connection():
     conn = psycopg2.connect("dbname={} user={} password={}".format(dbconfig.database["db"], dbconfig.database["user"], dbconfig.database["password"]))
@@ -40,8 +39,10 @@ def authenticate(token):
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'NlcPJLmeyeXMn4KpISh0hGQ3cWQIQbbnE0WwfpeZxjiftirfP2sCNI0GA6P96kCP'  # used to secure sessions, which allow Flask to remember information from one request to another
-
+# app.config['SECRET_KEY'] = 'NlcPJLmeyeXMn4KpISh0hGQ3cWQIQbbnE0WwfpeZxjiftirfP2sCNI0GA6P96kCP'  # used to secure sessions, which allow Flask to remember information from one request to another
+app.secret_key = 'NlcPJLmeyeXMn4KpISh0hGQ3cWQIQbbnE0WwfpeZxjiftirfP2sCNI0GA6P96kCP'
+# app.config['SESSION_TYPE'] = 'redis'
+# Session(app)
 
 @app.route('/')
 def index():
@@ -59,8 +60,18 @@ def index():
     except jwt.exceptions.ExpiredSignatureError as e:
         return redirect(url_for('auth_redirect'))
 
-    if "staff@duke.edu" or "faculty@duke.edu" in auth["eduPersonScopedAffiliation"]:
-        permission = True
+    session['user'] = auth['cn']
+    session['dukeid'] = auth['dukeid']
+    session['email'] = auth['sub']
+    if "staff@duke.edu" in auth['eduPersonScopedAffiliation'] or "faculty@duke.edu" in auth['eduPersonScopedAffiliation']:
+        session['permission'] = True
+        print("has permission")
+    else:
+        session['permission'] = False
+        print("no permission")
+
+    print(session.get('user'))
+    print(session.get('permission'))
 
     conn = get_db_connection()
     cur = conn.cursor()
@@ -157,8 +168,8 @@ def edit(recording_id):
             conn.commit()
             conn.close()
             return redirect(url_for('.recording', recording_id=recording_id))
-
-    return render_template('edit.html', recording=recording, permission=permission)
+    print(session.get('permission'))
+    return render_template('edit.html', recording=recording, permission=session.get('permission'))
 
 
 @app.route('/<string:recording_id>/delete', methods=('POST',))

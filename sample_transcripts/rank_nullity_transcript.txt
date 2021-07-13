@@ -1,0 +1,281 @@
+﻿so why am i so excited to talk about
+reduced for echelon form matrices
+um well studying reduced for echelon for
+matrices is pretty interesting
+uh there are certain adjectives we can
+use to describe reduced row echelon for
+matrices
+that end up proving useful so uh now i
+want to talk about what's called
+rank and nullity and these are two of
+the most important concepts in all of
+linear algebra
+so um let's say that we're working with
+a matrix that's in reduced row echelon
+form
+the first thing so so to remind yourself
+right
+this is in reduce row echelon form there
+is a row of zeros but it's at the bottom
+uh we have three pivots they uh they
+move down and to the right
+and they're the only non-zero entries in
+their respective columns
+so i have my pivots um the first thing
+to learn
+is that every reduced row echelon form
+matrix
+has pivot columns and non-pivot columns
+so when we're talking about the columns
+of a reduced row echelon form matrix
+we'll call the columns that have pivots
+in them pivot columns
+and we'll call the columns without
+pivots in them non-pivot columns
+so in this matrix we have three pivot
+columns
+because we have three pivots in this
+reduced row echelon form matrix
+there are two remaining columns so there
+are two columns that don't have pivots
+in them
+these are called non-pivot columns so
+once you have your matrix in reduced row
+echelon form it's quite simple
+to figure out which are the pivot
+columns and which are the non-pivot
+columns
+simply locate your pivots the columns
+with the pivots in them are the pivot
+columns
+the columns without pivots in them are
+the non-pivot columns
+all right so now one of my favorite
+definitions rank
+so if we're working with a matrix in
+reduced row echelon form
+we call the rank the number of pivot
+columns
+so the rank is the number of pivot
+columns which is really just the same
+thing as the number of pivots
+so if we go to our example here remember
+rank
+is the number of pivot columns all we
+need to do to figure out the rank
+is just count the number of pivots and
+that tells us what the rank is
+there's three pivots here which means
+there's three pivot columns
+that tells us the rank is equal to three
+now rank couples nicely with this other
+concept called the nullity
+the nullity of a matrix is the number of
+non-pivot
+columns so here we're working with
+a four by five matrix
+and the rank is three because we had
+three pivots
+well the nullity is the number of
+non-pivot columns
+well since there are three pivot columns
+there's two other columns remaining
+so that means that there are two
+non-pivot columns which means that the
+nullity
+of this matrix is equal to 2.
+so we have pivot columns and non-pivot
+columns
+the number of pivot columns is called
+the rank
+and the number of non-pivot columns is
+called the nullity
+these these two concepts are extremely
+important
+okay so here is a much larger matrix
+this matrix is
+in reduced row echelon form and i went
+ahead and i found all the pivots
+in this case we have four pivots
+because there are four pivots there are
+consequently four pivot columns
+which means that the rank of this
+reduced row echelon four matrix
+is equal to four what about the nullity
+well to calculate the nullity we just
+need to figure out the number of
+non-pivot columns so how many columns in
+this matrix don't have a pivot in them
+well let's just count them we have 1 2
+3 4 5 6.
+so in this matrix there are six columns
+that don't have a pivot
+in it so in them so the nullity of this
+matrix is equal to
+6. so here we're in reduced row echelon
+form which means it's
+easy to locate where the pivots are here
+we happen to have
+four of them so there are four pivot
+columns
+which means the rank is four and
+um when we counted the number of
+non-pivot columns we counted six of them
+so the nullity of this matrix is equal
+to six
+again if you're in reduced row echelon
+form it's very simple to figure out the
+rank in the melody
+figure out the number of pivot columns
+that's the rank figure out the number of
+non-pivot columns that's the nullity
+and now we arrive at believe it or not
+one of the most elegant theorems
+in all of mathematics at least this is
+one of my favorite theorems in all of
+mathematics
+this is called the rank nullity theorem
+and the cool thing about this theorem
+is that there are certain ways to state
+it where it seems like a completely
+obvious thing
+but then it creeps up in other areas
+where it's far less obvious
+hopefully we've set things up here so
+that the statement of the theorem
+is relatively easy to understand if so
+if you think about it
+um a matrix that's in reduced row
+echelon form has
+only two kinds of columns there's pivot
+columns which is
+the columns that have pivots in them and
+there's non-pivot columns which are the
+columns that don't have pivots in them
+well every column fits one of those two
+descriptions so when we sum
+the number of pivot columns with the
+number of non-pivot columns we get the
+total number of columns
+this is the idea behind the rank nullity
+theorem
+so let's state this more rigorously
+let's say that
+r is m by n and let's say that we're
+working with r
+which is in reduced row echelon form so
+r is a matrix
+with m rows and n columns and r's
+in reduced row echelon form the rank
+nullity theorem
+is one simple equation it says that the
+rank
+of our reduced row echelon form matrix
+plus the nullity of our reduced row
+echelon form matrix
+is equal to n and an even simpler way of
+thinking of that is simply
+the rank plus the nullity is always the
+number of columns
+so let's see this in practice again the
+rank nullity theorem
+says that the rank plus the nullity
+always equals the number of columns
+and one of the useful things about an
+equation
+is especially an equation like this is
+that if you
+know all everything except one piece of
+information in the equation
+you can use the equation to infer your
+missing piece of information
+in other words if you the rank nullity
+theorem is a relationship between
+three numbers the rank the nullity and
+the number of columns
+so if you know one or if you know two of
+the three numbers here
+you can use the rank nullity theorem to
+infer the third missing number
+let's see some examples so here i'm
+giving you an example
+where i'm pretentiously writing r is an
+arrow or can be viewed as a
+transformation from
+r five to r nine remember this is really
+just a pretentious way of saying that
+r is a nine by five matrix
+and let's say that someone told us that
+the rank of this matrix was
+2. well if the rank was 2
+and we know that the rank plus the
+nullity equals the number of columns
+it must be the case that the nullity
+can be solved for here and it should be
+the number of columns
+minus the rank so in this case the
+number of columns is five
+someone has told us the rank is two five
+minus two is three
+now we know the nullity so here we had
+an example
+where we knew the the shape of the
+matrix we knew that the matrix was nine
+by five
+someone told us that the rank was two
+and then we used the rank nullity
+theorem
+to figure out ourselves that the nullity
+had to be three
+let's see another example in this
+example
+we're representing r as a process that
+takes vectors in r
+12 to vectors in r seven
+remember this is just a fancy way of
+saying that this matrix is
+7 by 12 so there are 7 rows and 12
+columns
+let's say that we don't know the rank
+but someone tells us that the nullity
+is 4 well i know the number of columns
+and i know the nullity so i can use the
+rank nullity theorem
+to infer the ring the rank
+should be equal to the number of columns
+minus the nullity
+well the number of columns here is 12
+and 12 minus the melody would be 12
+minus 4 which is equal to 8. so in other
+words if you tell me that
+r is a 7 by 12 matrix with nullity 4
+the rank nullity theorem automatically
+tells me that the rank had to equal 8.
+great let's see one more example here
+we're representing r is a process that
+goes from r to the question mark so
+we don't know that number to r6 and
+someone is telling us that the rank
+of this matrix is 5 and the nullity of
+this matrix is 3.
+so the question now is well r
+was a process that went from where to
+where or in other words
+r is a six by question mark matrix
+what is question mark well question mark
+should be the number of columns
+and the number of columns is always the
+rank plus the nullity
+since the rank is five and the nullity
+is three i automatically know
+that the number of columns has to equal
+eight which is five plus three
+and that's the power of the rank nullity
+theorem so this is a nice uh i i sort of
+like these examples because
+they're sort of um a nice examples of
+situations where you might have
+incomplete information
+but the ranked melody theory theorem in
+these particular situations
+allows you to get full information
