@@ -187,7 +187,7 @@ def search(conn, cur, words):
     cur.execute("SELECT * FROM recordings WHERE tokens @@ to_tsquery(%s)", (or_search,)) 
     return cur.fetchall()
 
-def change_visibility(conn, cur, meeting_id, user, email, visible='FALSE'):
+def change_visibility(conn, cur, meeting_id, visible='FALSE'):
     cur.execute("UPDATE recordings SET visible=%s WHERE id=%s", (visible, meeting_id))
     conn.commit()
     
