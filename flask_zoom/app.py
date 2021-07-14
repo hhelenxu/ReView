@@ -63,8 +63,8 @@ def index():
     session['user'] = auth['cn']
     session['dukeid'] = auth['dukeid']
     session['email'] = auth['sub']
-    if "staff@duke.edu" in auth['eduPersonScopedAffiliation'] or "faculty@duke.edu" in auth['eduPersonScopedAffiliation']:
-    # if "staff@duke.edu" in auth['eduPersonScopedAffiliation'] or "student@duke.edu" in auth['eduPersonScopedAffiliation']:
+    # if "staff@duke.edu" in auth['eduPersonScopedAffiliation'] or "faculty@duke.edu" in auth['eduPersonScopedAffiliation']:
+    if "staff@duke.edu" in auth['eduPersonScopedAffiliation'] or "student@duke.edu" in auth['eduPersonScopedAffiliation']:
         session['permission'] = True
         print("has permission")
     else:
@@ -191,16 +191,29 @@ def edit(recording_id):
     return render_template('edit.html', recording=recording, permission=session.get('permission'))
 
 
-@app.route('/<string:recording_id>/delete', methods=('POST','GET'))
-def delete(recording_id):
+@app.route('/<string:recording_id>/hide', methods=('POST','GET'))
+def hide(recording_id):
     conn = get_db_connection()
     cur = conn.cursor()
     change_visibility(conn, cur, recording_id, session.get('user'), session.get('email'))
     conn.commit()
     cur.close()
     conn.close()
-    flash('"{}" was successfully deleted!'.format(recording_id))
+    flash('"{}" was successfully hidden!'.format(recording_id))
     return redirect(url_for('index'))
+
+
+@app.route('/<string:recording_id>/show', methods=('POST','GET'))
+def show(recording_id):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    change_visibility(conn, cur, recording_id, session.get('user'), session.get('email'), visible='TRUE')
+    conn.commit()
+    cur.close()
+    conn.close()
+    flash('"{}" was successfully shown!'.format(recording_id))
+    return redirect(url_for('index'))
+
 
 @app.route('/tagFilter/<string:tag>')
 def tagFilter(tag):
