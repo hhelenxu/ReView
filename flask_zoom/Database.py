@@ -51,11 +51,12 @@ except:
 try:
     cur.execute("""
     CREATE TABLE IF NOT EXISTS activity (
+        time VARCHAR,
         name VARCHAR,
-        email VARCHAR UNIQUE,
-        time TIMESTAMP WITH TIME ZONE,
+        email VARCHAR,
         recording_id INTEGER,
-        action VARCHAR
+        action VARCHAR,
+        notes VARCHAR
     );
     """)
     conn.commit()
