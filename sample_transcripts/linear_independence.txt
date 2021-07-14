@@ -1,0 +1,166 @@
+﻿linear independence this is an
+adjective that describes a list of
+vectors
+that ends up playing a really important
+role in a lot of the theory of linear
+algebra
+now before we define what this important
+term means
+i actually want to define what the
+opposite of the term means
+and this is the notion of linear
+dependence so what does this mean
+we call a list of vectors so i'm calling
+this list of vectors l
+and the list of vectors is labeled v1 v2
+up to vn
+we call this list of vectors linearly
+dependent
+if it is possible to find a linear
+combination
+of that list of vectors that equals zero
+or at least one of the scalars used in
+the linear combination
+is not equal to zero so if you can
+produce the zero vector
+with a linear combination where at least
+one of the scalars you use in the linear
+combination is not zero
+automatically you know that the list of
+vectors you're dealing with
+is called linearly dependent
+let's look at an example to illustrate
+this concept so here
+what we're doing is we're taking a
+particular linear combination
+of four vectors in r3 and this linear
+combination produces the zero vector
+right away we know that this list of
+vectors must be linearly dependent
+because at least one of the scalars we
+use in the linear combination
+is zero in fact or is not zero in fact
+three of the four
+scalars we use are not zero
+now i want to point out that we can more
+elegantly
+write this equation as a matrix vector
+product that's the point of matrix
+vector products
+is to uh better present or
+make better products give us a tool to
+better work with linear combinations
+so the first vector in our list was 0 3
+negative 1
+and that's the first column of the
+matrix we're going to use here
+the second vector was 0 negative 2
+negative 1 which is the second column
+and then negative 5 1 negative 2 and 0 0
+negative 2
+are our last two columns the scalars we
+used in the linear combination were
+four six zero and negative five and
+that's the vector we're multiplying our
+matrix by
+and what we found was that this
+particular linear combination
+produced the zero vector so we can sort
+of visualize all that data here
+we have the columns of this matrix we're
+creating which
+are are are given by the vectors that we
+originally started with so that's the
+list of vectors we're interested in here
+we scaled each of those vectors by
+numbers which
+can be organized into this vector we're
+multiplying our matrix by
+and then when we took this linear
+combination we produce the zero vector
+the punch line here is that the matrix
+we just created a has
+linearly dependent columns and
+the way that we are verifying this is by
+noting
+that the vector 4 6 0 negative 5
+is in the null space of this matrix when
+we multiplied this matrix and multiplied
+by this vector
+we produced the zero vector and the
+interesting thing about the vector we're
+multiplying
+by here is that at least one of the
+coordinates is not equal to zero
+in fact here three of the four
+coordinates are not equal to
+zero
+um here's another example of a linearly
+dependent list of vectors
+the reason i know this list is linearly
+dependent is because someone is handing
+me
+this equation when i take the first
+vector on the list and scale by two
+and then the second vector in the list
+and scale by negative three
+and then the third vector on the list
+and scale by five
+and add everything up i produce the zero
+vector
+at least one of the scalars used here is
+not equal to zero and in fact all three
+are not equal to zero here
+which means this list of vectors is
+linearly dependent
+now i think it's kind of interesting
+that we can view this equation
+geometrically
+so what we're saying is that two times
+the first vector
+minus three times the second vector plus
+five times the third vector
+is the zero vector so let's imagine so
+we have this diagram of vectors here
+if we start in the upper left-hand
+corner and we just
+follow a pathway what we're doing is
+we're geometrically interpreting this
+equation
+we're going through 2 times the first
+vector in my list
+minus three times the second vector in
+my list
+and then plus five times the third
+vector and the idea is that when i go
+through that path
+my start point is the same as my
+endpoint which really means that i have
+had no displacement
+which means i'm representing the zero
+vector here
+and sort of you can see how uh the
+relations work here
+the first vector on my list i'm calling
+v one and
+two times v one is really just that
+vector scaled by two
+the second vector on my list i'm calling
+v2 and if i scale that by three
+i get the this sort of vector in green
+down here and then the third vector on
+my list i'm calling v3
+and when i scale that by five i get back
+to where i started
+so we have this sort of diagram which
+illustrates geometrically
+how these three vectors depend on one
+another
+so the algebraic definition says your
+list of vectors is linearly dependent
+if you can produce the zero vector with
+a linear combination where at least one
+of the scalars is not zero
+and here we have a diagram representing
+that geometrically
+English (auto-generated)

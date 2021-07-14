@@ -1,0 +1,276 @@
+﻿the gauss-jordan algorithm this is very
+exciting
+so we just saw in the last lecture that
+we care about solving
+linear systems of equations and if the
+system we're studying is in reduced row
+echelon form
+then writing down then there's a
+systematic procedure for
+writing down all solutions to the system
+of course the problem is that if we are
+come across a system of equations
+in the wild is almost guaranteed to not
+be in reduced row echelon form
+so how do we take something that's ugly
+not in reduced for echelon form
+and turn it into something that's nice
+meaning in reduced for echelon form
+well the gauss-jordan algorithm is
+exactly the tool for the job
+so let's discuss gauss-jordan
+elimination
+so the first thing to learn is that
+there are three types of elementary row
+operations
+the first type is called row switching
+and
+this says that if we are working in this
+way
+um we can simply take two rows and
+switch them and that's called that's the
+first type of elementary row operation
+the notation we use to indicate that we
+are switching the i throw with the j
+throw is sort of vector r sub i and then
+a double arrow
+vector r sub j the next type of
+elementary row operation is called row
+scaling
+here the idea is that we can take any
+row so we can take maybe the i throw
+and then we can scale by any non-zero
+zero number
+so the notation we use for this is we
+write scalar
+times the uh i th row so vector r sub i
+and then we write right arrow r sub i to
+indicate that the new i throw
+is obtained by scaling the old i throw
+by the non-zero number
+c and the third type of elementary row
+operation
+is called row addition here the idea
+is that we can take one of the rows
+maybe row i
+and then add a scalar multiple of
+another row maybe row j
+so the the notation here says we can
+take
+the i throw so vector r sub i and then
+add any scalar multiple c times the j
+throw to the i throw and then send that
+to the new i throw
+so the new i throw is obtained by taking
+the old i throw
+and then adding c times the uh j old
+j j throw which is the same as the new j
+throw because
+uh the j j throw here is not changed by
+the procedure
+okay so let's see uh these examples or
+some examples of this in action
+so here what we're going to do is we're
+going to take this perfectly good three
+by four matrix
+and we're going to perform a row switch
+we're going to take the first row and
+switch it with the third row so
+so how does that work well we have our
+first and third rows
+and then when we do the elementary row
+operation we switch the first and third
+rows it's that simple
+what about row scaling so here we're
+going to take this perfectly good
+three by two matrix and this notation
+says
+we should take the second row and then
+scale it by negative three so here's the
+second row
+um let's let's uh perform the row
+operation by scaling it by negative 3.
+so we take the original negative 5
+negative 7
+when we multiply by negative 3 we
+produce the new row
+15 21.
+finally for row addition the example
+here is a little larger
+here we're taking this four by five
+matrix
+and we're going to do the operation
+where we take the third row
+and subtract four times the first row
+from it
+and then that becomes the new third row
+so
+here's the third row of our matrix
+and now the idea is that i'm going to
+take this row and then subtract off
+four times the first row so the first
+row
+is is right here so how does the
+arithmetic work well i'm going to take
+apparently negative one and then
+subtract four times two so that's
+negative one times
+eight that becomes negative nine
+then i do the same thing for all of the
+other coordinates
+in the uh third row here
+so um these are the three types of
+elementary row operation
+row switching row scaling and row
+addition
+okay so the idea now is that if we have
+something ugly some generic matrix
+that's hard to work with we will use
+elementary row operations to make the
+matrix better
+so um it turns out there's a theorem
+that says we can do this
+every matrix a can be row reduced
+to one and only one reduced row echelon
+form matrix
+so let's see an example of this in
+action we will present an
+algorithm for doing this so it's a
+systematic list of procedures
+for uh taking some a matrix and then
+doing row operations to get to reduce
+row echelon form
+but for now i just want us to think
+about the idea what would we do
+if we wanted to get from something not
+in reduced row echelon form
+to something in reduced row echelon form
+so here we have a perfectly good
+two by three matrix but it's clearly not
+in reduced row echelon form
+well what's the problem well if we look
+at the first row
+the first entry is not a pivot because
+in reduced row echelon form
+we need this entry to equal one
+so let's fix the problem by using a row
+operation
+how about we take that row so so the
+problem here is the negative 9.
+let's take that whole first row and
+scale by negative 1
+9. so if we multiply the entire first
+row by negative 1 9
+the negative 9 becomes a 1 now the 18
+becomes a negative 2 and the 20 becomes
+negative 20 over 9. so
+we're actually a little bit closer to
+reduce for echelon form because now
+we have a pivot this this first entry is
+equal to a one
+so that can be our first pivot in our
+reduced row echelon form
+of course we're not there yet because
+another axiom for reduced row echelon
+form
+says wherever we have a pivot we have to
+have all zeros
+in the column except for the pivot so of
+course the issue now
+is that right below my pivot i have this
+negative five
+well i want to get rid of this negative
+five and if you think of the row
+operations available to
+us only one will do it so we can't do a
+row switch to get rid of the negative
+five that would mess with the pivot that
+we just worked so hard to get
+i can't do a row scaling to get rid of
+the negative five
+it's tempting to just multiply this
+entire row by zero
+but remember for row scaling we're not
+allowed to scale by
+zero so the only thing left is row
+addition
+and the general principle says if you're
+trying to get rid of entries in a pivot
+column
+take advantage of the pivot so here what
+we really want to do is we want to
+manipulate row two
+using row one and the right a way to do
+this is to take
+row two and add five times row one
+so now let's do that so what is row two
+plus five times row one well now we know
+that we'll get a zero
+in the two one position and then we have
+ten plus five times negative two that's
+also zero
+and then if we do the fractional
+arithmetic we'll take 11
+and then add 10 times negative 20 over 9
+and that ends up giving us a negative 1
+9.
+so we have successfully eliminated
+the entry right below our first pivot
+and so now that entry is okay great
+so uh we're doing a pretty good job
+we're a lot closer to reduce our echelon
+form than when we started
+but we're still not there we have our
+first pivot
+and um the column is now legit um uh the
+only other entry is a zero
+so we're done with our first pivot
+column
+now we ask ourselves well where might
+the next pivot be and the only possible
+position
+would be in this uh 2 3 position where
+we have a negative 1
+9. well remember in reduced row echelon
+form pivots have to equal 1.
+so how can we take this negative 1 9 and
+make it a 1
+well we can use row scaling we can
+multiply
+the uh second row by negative nine and
+that produces a one
+in the two three position that will be
+our next pivot
+so now we're a lot closer to reduced row
+echelon form i now have
+two pivots but i'm not quite there
+because
+right above my second pivot is negative
+20 over nine
+i need to get rid of that negative 20
+over 9 in order to be in reduced row
+echelon form
+and here we can use row addition what we
+want to do is we want to take
+row 1 and then
+subtract off negative 20 over 9 times
+row 2.
+so that's the same thing as taking row 1
+and adding
+20 over 9 times row 2 to it
+when we do that we successfully get rid
+of the
+non-zero entry above our second pivot
+and we have a zero
+and now if we stare at where we're at we
+realize this uh
+at this stage we are in reduced row
+echelon form
+so um we've successfully found what's
+called
+rref of a we started with a two by three
+matrix that was not in reduced row
+echelon form
+and we carefully chose row reductions
+until we ended up in reduced row echelon
+form
