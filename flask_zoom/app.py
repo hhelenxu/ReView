@@ -105,7 +105,16 @@ def admin():
         cur.close()
         conn.close()
 
-        return render_template('admin.html', hiddenRecordings=hiddenRecordings)
+        conn = get_db_connection()
+        cur = conn.cursor()
+
+        # get activity
+        cur.execute("SELECT * FROM activity")
+        activities = cur.fetchall()
+        cur.close()
+        conn.close()
+
+        return render_template('admin.html', hiddenRecordings=hiddenRecordings, activities=activities)
 
 
 @app.route('/card')
