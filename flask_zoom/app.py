@@ -195,7 +195,7 @@ def edit(recording_id):
 def delete(recording_id):
     conn = get_db_connection()
     cur = conn.cursor()
-    change_visibility(conn, cur, recording_id)
+    change_visibility(conn, cur, recording_id, session.get('user'), session.get('email'))
     conn.commit()
     cur.close()
     conn.close()
@@ -219,7 +219,7 @@ def tagFilter(tag):
 def upvote_tag(id, tag):  
     conn = get_db_connection()
     cur = conn.cursor()
-    vote_tags(conn, cur, id, tag, 1)
+    vote_tags(conn, cur, id, tag, 1, session.get('user'), session.get('email'))
     cur.close()
     conn.close()
 
@@ -231,7 +231,7 @@ def upvote_tag(id, tag):
 def downvote_tag(id, tag):  
     conn = get_db_connection()
     cur = conn.cursor()
-    vote_tags(conn, cur, id, tag, -1)
+    vote_tags(conn, cur, id, tag, -1, session.get('user'), session.get('email'))
     cur.close()
     conn.close()
 
