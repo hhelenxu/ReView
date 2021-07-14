@@ -8,7 +8,8 @@ from zoom import *
 import databaseconfig as dbconfig
 import zoomconfig
 import vcmconfig
-
+from datetime import datetime
+import pytz
 
 def get_db_connection():
     conn = psycopg2.connect("dbname={} user={} password={}".format(dbconfig.database["db"], dbconfig.database["user"], dbconfig.database["password"]))
@@ -64,12 +65,9 @@ def index():
     session['dukeid'] = auth['dukeid']
     session['email'] = auth['sub']
     if "staff@duke.edu" in auth['eduPersonScopedAffiliation'] or "faculty@duke.edu" in auth['eduPersonScopedAffiliation']:
-    # if "staff@duke.edu" in auth['eduPersonScopedAffiliation'] or "student@duke.edu" in auth['eduPersonScopedAffiliation']:
         session['permission'] = True
-        print("has permission")
     else:
         session['permission'] = False
-        print("no permission")
 
     print(session.get('user'))
     print(session.get('permission'))
@@ -156,13 +154,32 @@ def recording(recording_id):
 
 @app.route('/<string:recording_id>/edit', methods=('GET', 'POST'))
 def edit(recording_id):
+    conn = get_db_connection()
+    cur = conn.cursor()
     recording = get_recording(recording_id)
     originalTags = recording[9]
 
     if request.method == 'POST':
+        cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%m/%d/%Y %H:%M:%S"))
+
         title = request.form['title']
+        # add to activity log if title changed
+        if title != recording[2]:
+            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed title", ""))
+            conn.commit()
+
         summary = request.form['summary']
+        # add to activity log if summary changed
+        if summary != recording[7]:
+            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed summary", ""))
+            conn.commit()
+
         transcription = request.form['transcription']
+        # add to activity log if transcript changed
+        if transcription != recording[6]:
+            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed transcript", ""))
+            conn.commit()
+
         tags = request.form['tags'].split(',')
 
         # remove leading and trailing whitespaces
@@ -171,11 +188,18 @@ def edit(recording_id):
 
         # deleting tags
         new_dict = {tag: value for (tag, value) in recording[9].items() if tag in tags}
+        for tag in [x for x in recording[9] if x not in new_dict]:
+            # add to activity log if tag deleted
+            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Tag deleted", "Deleted tag: "+tag))
+            conn.commit()
 
         # adding new tags
         for tag in tags:
             if tag not in originalTags:
                 new_dict[tag] = 0
+                # add to activity log if tag added
+                cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Tag added", "Added tag: "+tag))
+                conn.commit()
 
         if not title:
             flash('Title is required!')
@@ -187,7 +211,6 @@ def edit(recording_id):
             conn.commit()
             conn.close()
             return redirect(url_for('.recording', recording_id=recording_id))
-    print(session.get('permission'))
     return render_template('edit.html', recording=recording, permission=session.get('permission'))
 
 
@@ -201,6 +224,7 @@ def delete(recording_id):
     conn.close()
     flash('"{}" was successfully deleted!'.format(recording_id))
     return redirect(url_for('index'))
+
 
 @app.route('/tagFilter/<string:tag>')
 def tagFilter(tag):
