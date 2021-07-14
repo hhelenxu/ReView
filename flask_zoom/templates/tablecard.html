@@ -115,25 +115,37 @@
 
         <div id="tcardtemp"> <!--this div contains all the card info. Will be made into separate template file-->
                     
-            <div id="tcard" style="padding: 1rem";>
+          <div id="tcard" style="padding: 1rem";>
 
                 <style>
                     
                     /* body { font-size: 22px; } */
                     /* body { padding: 3rem; } */
 
+                    .tcardtxt {
+                        color: #090b68;
+                        text-decoration: none;
+                        
+                    }
+
+                    .tcardtxt:hover {
+                        color: #575757;
+                        /* color: rgb(255, 139, 139) */
+                    }
+
+                    .tcardtxt:active {
+                        color: rgb(100, 100, 100);
+                        text-decoration: underline;
+                    }
+
                     .tcards {
-                    max-width: 1200px;
-                    margin: 0 auto;
+                    /* max-width: 12000px; */
+                    /* margin: 0 auto; */
                     background-color: #f5f5f5;
                     padding: 3rem;
                     border-radius: 1.3rem;
                     box-shadow: 10px 10px 16px 0 #8b8b8b , 
                         0px 0px 1px 0 #494949 ;
-                    display: grid;
-                    grid-gap: 1rem;
-                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                    justify-content: space-evenly;
                     }
                     
                     .tcard {
@@ -141,23 +153,23 @@
                     border-color: #f0f0f0;
                     border-width: 1px;
                     background-color: #eeeeee;
-                    /* color: #090b68; */
                     padding: 1.15rem;
-                    /* height: 5rem; */
+                    height:min-content;
                     box-shadow: 10px 10px 16px 0 #dbdbdb , 
                         -8px -8px 12px 0 #fdfdfd ;
                     background: linear-gradient(-45deg, #fdfdfd, #ededed);
-                    
+  
                     }
 
                     .tcard:hover {
-                            border-radius: 1rem;
-                            border-color: transparent;
+                            /* border-radius: 1.3rem;
+                            border-color: transparent; */
                             /* border-width: 3px; */
                             /* background-color: #abb6e6;
                             color: rgb(255, 139, 139); */
                             padding: 1.3rem;
-                            height:110%;
+                            
+                            
                     }
 
                     .tcard:active {
@@ -172,73 +184,56 @@
                                 -8px -8px 12px 0 #fdfdfd ;
                             background: linear-gradient(-45deg, #fdfdfd, #dddddd);
                             padding: 1.225rem;
-                            height: 4.25rem;
-                            text-decoration: underline;
 
                     }
                     
-                    .tcardtxt {
-                        color: #575757;
-                        text-decoration: none !important;
-                        
-                    }
-
-                    .tcardtxt:hover {
-                        color: rgb(255, 139, 139)
-                    }
-
-                    .tcardtxt:active {
-                        color: rgb(100, 100, 100);
-                        text-decoration: underline;
-                    }
-
+                    
                     .bg-primary {
                         background-color:#090b68 !important;
                     }
 
-            </style>
-
+                </style>
+              
                 <div class="tcards">
-
+                  <div>
                     {#<!-- Loop the line below however many times is relevant -->#}
                     {% for recording in recordings %}
-                    
-                        <div>
-                            <a href="{{ url_for('recording', recording_id=recording[0]) }}" target="_blank">
-                            <div class="tcard">
-                            
-                            
-                                <!-- The sizing of the letters is being overridden by some code somewhere -->
-                                <a href="{{ url_for('edit', recording_id=recording[0]) }}">
-                                    <span class="fa fa-edit td-edit" style="color:#090b68; float:right; position:relative; top:0px;"></span>
-                                </a>
-                                <h5 class="tcardtxt" style="font-size: 20px;">{{ recording[2] }}</h5>
-                                
-                                <h6 class="tcardtxt">{{ recording[3] }}</h6>
-
-                                {% for tag in recording[9] %}
-                                    {% if recording[9][tag] <= -3 %}
-                                    <a href="{{ url_for('tagFilter', tag=tag) }}">
-                                      <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span></a>
-                                    {% elif recording[9][tag] >= 3 %}
-                                    <a href="{{ url_for('tagFilter', tag=tag) }}">
-                                      <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span></a>
-                                    {% else %}
-                                    <a href="{{ url_for('tagFilter', tag=tag) }}">
-                                      <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
-                                    </a>
-                                    {% endif %}
+                    <a href="{{ url_for('recording', recording_id=recording[0]) }}" target="_blank">
+       
+                              <div>
+                                <div class="tcard">
+                                  <ul style="line-height: 50px;">
+                                    <!-- The sizing of the letters is being overridden by some code somewhere -->
                                     
-                                {% endfor %}
 
-                            </div>
-                            </a>
-                        </div>
-                        
-                    {% endfor %}
-                    
+                                    <li><a href="{{ url_for('recording', recording_id=recording[0]) }}" target="_blank" style="font-size: 30px;" class="tcardtxt">
+                                      {{ recording[2] }}
+                                    </a></li>
+                                    <hr>
+                                    <div style="padding:20px;">
+                                    <li><h5>{{ recording[3] }}</h5></li>
+                                    <li><div style="text-decoration: no-underline">
+                                    {% for tag in recording[9] %}
+                                      {% if recording[9][tag] <= -3 %}
+                                      <a href="{{ url_for('tagFilter', tag=tag) }}">
+                                        <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span></a>
+                                      {% elif recording[9][tag] >= 3 %}
+                                      <a href="{{ url_for('tagFilter', tag=tag) }}">
+                                        <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span></a>
+                                      {% else %}
+                                      <a href="{{ url_for('tagFilter', tag=tag) }}">
+                                        <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span>
+                                      </a>
+                                      {% endif %}
+                                    {% endfor %}</div></li>
+                                    </div>
+                                    </ul>
+                                </div>
+                              </div><br/><br/>
+    
+                  </a>{% endfor %}</div>
                 </div>
-            </div>
+          </div>
         </div>
 {% endblock %}
 <!-- SELECT * FROM jsonb_each((SELECT tags FROM recordings WHERE id=1)) ORDER BY VALUE DESC; -->
