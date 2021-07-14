@@ -1,0 +1,175 @@
+﻿we've seen that viewing a matrix
+as a machine that transforms vectors
+allows us to often
+interpret problems involving matrices
+and vectors geometrically
+so i want to take a closer look at the
+geometry of
+certain types of matrix problems and a
+good way to do this
+is by introducing what's called
+fundamental subspaces
+of a matrix the first of which we'll
+study is the null space of a matrix
+so what is the null space of a matrix by
+definition
+the null space of an m-by-n matrix
+is this so we use the notation
+n-u-l-l of a and what this notation
+tells us
+is that we're going to look at all
+vectors
+v and r n so here n
+denotes the number of columns of the
+matrix
+and this vertical line here uh is the
+math symbol that says
+that satisfy so we're looking at all
+vectors v
+and rn that satisfy and we're interested
+when we're discussing the null space
+and the equation a times v equals the
+zero vector
+so if you want to check whether or not a
+vector is in the null space of a matrix
+what you do is you take a your matrix
+you multiply it by the vector
+and you verify whether or not you get
+the zero vector
+so we write v belongs to
+null of a to indicate that
+a times v is the zero vector so here
+we're looking at two examples
+where we take the same four by three
+matrix a
+and we multiply by two different vectors
+in r3
+so on the left here we're multiplying by
+uh this vector v
+and on the right we're multiplying by
+this vector w
+what's interesting about this example is
+that when we multiply our matrix a
+by the vector v we produce the zero
+vector
+and what this tells us is that this
+vector v belongs to the null space
+on the right here we see that when we
+take our matrix a
+and we multiply by this vector w we
+definitely do not
+produce the zero vector so this vector w
+does not belong to the null space so
+some vectors belong to the null space
+some vectors don't and the way we
+distinguish between the two
+is by just multiplying by a and checking
+whether or not we get the zero vector
+it's also quite common to see the null
+space referred to as the kernel
+of a matrix we'll use the the the
+terminology uh
+null space but um the the terminology of
+kernel
+is out there okay so remember
+whether or not a vector belongs to the
+null space hinges on whether or not
+when we multiply that matrix by the
+vector we get the zero vector
+so again we have examples here on the
+left we're taking
+a three by four matrix and we're
+multiplying by this vector w
+one in r4 and when we do this matrix
+vector product we produce something
+that is definitely not the zero vector
+so what that's telling us
+is that this vector w1 does not belong
+to the null space
+on the other hand over here we have that
+same
+three by four matrix and we have another
+vector w2
+this vector belongs to r4 and again 4
+here is the number of columns of the
+matrix
+and when we multiply a by w2 we produce
+the zero vector
+so here this vector w2 does belong to
+the null space
+now um keep it so what we're saying here
+is that if someone gives you a vector
+and they ask you
+is it in the null space of this matrix
+the task isn't
+terribly difficult we just need to take
+the matrix and multiply by the vector
+and check if we get the zero vector on
+the other hand
+if someone asks you to describe all the
+vectors in the null space
+we have a bit more of a difficult
+problem on our hands
+because really what they're asking if
+someone asks you to describe
+all vectors in the null space is they're
+asking you to solve a system of
+equations
+of the form ax equals the zero vector
+and the way we solve systems of
+equations
+is by doing row reductions so i can take
+the same matrix we started with up here
+and if i'm interested in actually
+describing
+everything in the null space i need to
+set up the system
+a x equals zero which is obtained by
+taking a and augmenting with the zero
+vector
+then i do my row reductions over here
+and
+what i find is that when i do my row
+reductions
+of course i get a consistent system
+because i don't have a pivot in the
+augmented column
+i have two dependent variables and two
+free variables
+and when i go through the process of
+writing the dependent variables in terms
+of the free variables
+what i'm finding here is that the
+vectors that live in the null space of
+our matrix
+are exactly all of the linear
+combinations
+of the vectors 2 1 0 0 and 3 0
+negative 7 1. so here what we have
+is an explicit description of all
+vectors
+in the null space of a matrix this
+problem is
+significantly harder than simply
+verifying whether or not something is in
+the null space
+so again to verify whether or not a
+vector is in the null space of a matrix
+we simply multiply by a and check if we
+get zero
+if we want to describe everything in the
+null space
+we have to augment our matrix with the
+zero vector
+do the row reductions and write down all
+solutions to the system
+the the the difficult part there of
+course are the row reductions row
+reductions are computationally expensive
+which is why it's difficult to it's more
+difficult to
+produce all vectors in the null space
+than it is to verify whether or not a
+given vector
+is in the null space
+English (auto-generated)
