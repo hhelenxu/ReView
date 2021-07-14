@@ -15,12 +15,14 @@ import databaseconfig as dbconfig
 import zoomconfig
 from datetime import date, datetime
 from dateutil import tz
+import pytz
 from sklearn.feature_extraction.text import CountVectorizer
 import json
 
 name = "Test User1" # "testuser1.zoom@gmail.com"
 # TOKEN stored in zoomconfig file (hidden by .gitignore)
 stop_words = set(stopwords.words('english'))
+now = datetime.now()
 
 def get_users(conn, cur, headers):
     url = "https://api.zoom.us/v2/users"
@@ -230,12 +232,23 @@ def search(conn, cur, words):
     return cur.fetchall()
 
 
-def change_visibility(conn, cur, meeting_id, visible='FALSE'):
+def change_visibility(conn, cur, meeting_id, user, email, visible='FALSE'):
     cur.execute("UPDATE recordings SET visible=%s WHERE id=%s", (visible, meeting_id))
     conn.commit()
 
+    if visible == 'FALSE':
+        cur_action = "Hid recording"
+    else:
+        cur_action = "Made recording visible"
+    cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%m/%d/%Y %H:%M:%S"))
+
+    # add to activity log
+    cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, user, email, meeting_id, cur_action, ""))
+    conn.commit()
+    
+
 # upvote or downvote tags
-def vote_tags(conn, cur, id, tag, vote):
+def vote_tags(conn, cur, id, tag, vote, user, email):
     # vote should either be 1 for upvote or -1 for downvote
     cur.execute("SELECT tags FROM recordings WHERE id=%s", (id,))
     tags_dict = cur.fetchone()[0]
@@ -246,6 +259,16 @@ def vote_tags(conn, cur, id, tag, vote):
     conn.commit()
     cur.execute("SELECT tags FROM recordings WHERE id=%s", (id,))
     print(cur.fetchone())
+
+    if vote==1:
+        vote_type = "upvote"
+    else:
+        vote_type = "downvote"
+    cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%m/%d/%Y %H:%M:%S"))
+
+    # add to activity log
+    cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, user, email, id, vote_type, "Tag modified: " + tag))
+    conn.commit()
 
 
 def main():

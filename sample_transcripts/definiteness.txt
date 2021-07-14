@@ -1,0 +1,71 @@
+﻿now that we know how to complete the
+Square, we can apply that a process to under to
+better understand definiteness.
+so if we complete the square for a
+generic quadratic form, 
+again that means we represent the
+quadratic form with a real symmetric
+matrix.
+we find a spectral factorization and
+write the quadratic form
+as lambda times our change of variable
+y1 squared
+plus lambda 2 times our change of
+variable y2 squared,
+and then we keep going until we get to
+our last eigenvalue
+multiplied by yn squared.
+the thing to point out here, is that
+when we do this process, what we're doing
+is we're taking a linear combination
+of square terms. so if we if we care
+about the sign of the quadratic form,
+what we really care about are the signs
+of the eigenvalues. here
+so the eigenvalues of the symmetric
+matrix representing the quadratic form
+controls the definiteness of the
+quadratic form.
+explicitly what we're saying is that
+being
+positive definite is the same thing as
+saying that the eigenvalues are all
+positive numbers. being positive
+semi-definite
+is the same thing as saying that the
+eigenvalues are all non-negative.
+negative definite means the eigenvalues
+are all strictly negative.
+negative semi-definite means that the
+eigenvalues are all non-positive,
+and indefinite means there is at least
+one positive eigenvalue,
+and at least one negative eigenvalue.
+so if you know the eigenvalues of the
+symmetric matrix representing your
+quadratic form
+you immediately know the definiteness of
+your quadratic form.
+and the reason you know your
+definiteness is because of the method of
+completing the square.
+so here's an example here we're looking
+at the quadratic form
+represented by this real symmetric
+matrix.
+s i bothered to find the eigenvalues
+and i found that the eigenvalues of s
+here are negative 2
+negative 1 and what does that tell me
+well the eigenvalues here are all
+non-positive.
+they're all not positive numbers um but
+i do have zero on the list of
+eigenvalues so they're not
+strictly negative. so this tells me that
+my quadratic form
+is negative semi-definite but not
+negative definite.
+so if you know your eigenvalues you know
+the definiteness of your quadratic form.
+English (auto-generated)
