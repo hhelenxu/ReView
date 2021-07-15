@@ -48,3 +48,4 @@ $(document).on('click', '#downvote-btn', function(event) {
   });
   event.preventDefault();
 });
+
