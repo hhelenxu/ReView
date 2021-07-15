@@ -63,11 +63,7 @@
         </div>
         {% if permission %}
             <div class="mr-4 ">
-                <button class="btn border border-2 hover:text-red-500 px-4 py-2 rounded-lg bg-white "><a href="{{ url_for('delete', recording_id=recording[0]) }}" class="hover:text-red-400 hover:font-bold">Delete</a></button>
-                <!-- <form action="{{ url_for('delete', recording_id=recording[0]) }}" method="POST">
-                    <input type="submit" value="Delete" class="border-2 px-4 py-2 rounded-lg hover:border-red-500 bg-white hover:text-red-500">
-                        onclick="return confirm('Are you sure you want to delete this post?')">
-                    </form> -->
+                <button class="btn border border-2 hover:border-red-500 px-4 py-2 rounded-lg bg-white "><a href="{{ url_for('hide', recording_id=recording[0]) }}">Hide</a></button>
             </div>
         {% endif %}
     </div>
