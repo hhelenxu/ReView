@@ -81,7 +81,7 @@ def index():
     cur.close()
     conn.close()
 
-    return render_template('index.html', recordings=recordings)
+    return render_template('index.html', recordings=recordings, selected_tag="")
 
 @app.route('/auth_redirect')
 def auth_redirect():
@@ -127,32 +127,6 @@ def card():
     conn.close()
 
     return render_template('card.html', recordings=recordings)
-
-@app.route('/tablecard')
-def tablecard():
-    conn = get_db_connection()
-    cur = conn.cursor()
-
-    # get recordings
-    cur.execute("SELECT * FROM recordings WHERE visible=TRUE")
-    recordings = cur.fetchall()
-    cur.close()
-    conn.close()
-
-    return render_template('tablecard.html', recordings=recordings)
-
-@app.route('/cardview')
-def cardview():
-    conn = get_db_connection()
-    cur = conn.cursor()
-
-    # get recordings
-    cur.execute("SELECT * FROM recordings WHERE visible=TRUE")
-    recordings = cur.fetchall()
-    cur.close()
-    conn.close()
-
-    return render_template('cardview.html', recordings=recordings)
 
 
 @app.route('/<string:recording_id>')
@@ -262,7 +236,7 @@ def tagFilter(tag):
     recordings = cur.fetchall()
     cur.close()
     conn.close()
-    return render_template('index.html', recordings=recordings)
+    return render_template('index.html', recordings=recordings, selected_tag=tag)
 
 
 @app.route('/<string:id>/<string:tag>/upvote', methods=('POST','GET'))
