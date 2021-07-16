@@ -89,8 +89,25 @@ def auth_redirect():
     return redirect(auth_url, 302)
 
 
-@app.route('/admin')
-def admin():
+@app.route('/admin/activity')
+def admin_activity():
+    if not session.get('permission'):
+        return redirect(url_for('index'))
+    else:
+        conn = get_db_connection()
+        cur = conn.cursor()
+
+        # get activity
+        cur.execute("SELECT * FROM activity")
+        activities = cur.fetchall()
+        cur.close()
+        conn.close()
+
+        return render_template('admin_activity.html', activities=activities)
+
+
+@app.route('/admin/hidden_recordings')
+def admin_hidden_recordings():
     if not session.get('permission'):
         return redirect(url_for('index'))
     else:
@@ -103,17 +120,7 @@ def admin():
         cur.close()
         conn.close()
 
-        conn = get_db_connection()
-        cur = conn.cursor()
-
-        # get activity
-        cur.execute("SELECT * FROM activity")
-        activities = cur.fetchall()
-        cur.close()
-        conn.close()
-
-        return render_template('admin.html', hiddenRecordings=hiddenRecordings, activities=activities)
-
+        return render_template('admin_activity.html', hiddenRecordings=hiddenRecordings)
 
 @app.route('/card')
 def card():
@@ -199,18 +206,18 @@ def edit(recording_id):
         new_dict = {tag: value for (tag, value) in recording[9].items() if tag in tags}
         for tag in [x for x in recording[9] if x not in new_dict]:
             if tag!="":
-                print("Tag deleted: "+tag+" end")
+                print("Deleted tag: "+tag+" end")
                 # add to activity log if tag deleted
-                cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Tag deleted", "Deleted tag: "+tag))
+                cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Deleted tag", "Deleted tag: \""+tag+"\""))
                 conn.commit()
 
         # adding new tags
         for tag in tags:
             if tag not in originalTags and tag!="":
-                print("Tag added: "+ tag+ " end")
+                print("Added tag: "+ tag+ " end")
                 new_dict[tag] = 0
                 # add to activity log if tag added
-                cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Tag added", "Added tag: "+tag))
+                cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Added tag", "Added tag: \""+tag+"\""))
                 conn.commit()
 
         if not title:
