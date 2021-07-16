@@ -120,7 +120,7 @@ def admin_hidden_recordings():
         cur.close()
         conn.close()
 
-        return render_template('admin_activity.html', hiddenRecordings=hiddenRecordings, username=session.get('user'))
+        return render_template('admin_hidden.html', hiddenRecordings=hiddenRecordings, username=session.get('user'))
 
 @app.route('/card')
 def card():
@@ -171,8 +171,8 @@ def edit(recording_id):
         #     conn.commit()
 
         tags = request.form['tags'].split(',')
-        yvidurl = request.form['yvidurl']
-        vidurl = request.form['vidurl']
+        # yvidurl = request.form['yvidurl']
+        # vidurl = request.form['vidurl']
 
         # remove leading and trailing whitespaces
         for i in range(len(tags)):
