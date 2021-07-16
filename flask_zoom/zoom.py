@@ -48,7 +48,7 @@ def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1
     meetings_json = response.json()
 
     # get useful info
-    for meeting in meetings_json["meetings"]:
+    for meeting in meetings_json["meetings"].reverse():
         print("Processing meeting")
         cur.execute("SELECT EXISTS(SELECT zoom_id FROM recordings WHERE zoom_id=%s)", (meeting["uuid"],))
         

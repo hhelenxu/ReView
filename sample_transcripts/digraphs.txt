@@ -3,24 +3,24 @@ i want to introduce the notion of a
 digraph um
 and its connections to the concepts of
 matrices and vector
-vectors as we've developed them so far
+vectors as we've developed them so far.
 so what is a
 digraph so a diagraph is uh shorthand
 for
-uh the notion of a directed graph and a
+uh the notion of a directed graph. and a
 directed graph
-is a very simple object it is a
+is a very simple object. it is a
 collection of nodes
 and arrows so a typical digraph might
-look something like this
+look something like this.
 so the thing to pay attention to here is
 we are looking at a figure
 where we have a bunch of like dots here
 which are labeled
 as v's with subscripts and then we have
 a bunch of arrows pointing in between
-these dots um these dots are called
-nodes and the arrows are called arrows
+these dots. um these dots are called
+nodes and the arrows are called arrows.
 and so for example in this figure
 we are looking at a directed graph or a
 digraph
@@ -30,33 +30,33 @@ three four five six and
 seven arrows so if we count the arrows
 we see there's one two
 um three four five six
-seven and why are digraphs interesting
+seven. and why are digraphs interesting
 and worth talking
-about um well in applications digraphs
+about. um well in applications digraphs
 are used
 to describe relationships between
-objects
+objects.
 so if you're thinking about something
 that you care about in the world and
 that thing can be
 explained at least modeled by um
 uh things that have relationships with
-one another
+one another.
 um a digraph might be a useful tool to
-study the thing you care about
+study the thing you care about.
 so here's a sort of typical kind of
 example so we can
 imagine like our financial network as
 just a giant
-digraph and here the idea is that um
+digraph.and here the idea is that um
 each node in this diagraph represents
-some financial institution so here i
+some financial institution. so here i
 have
 the logos for three famous banks um
 and uh the arrows pointing between these
 uh uh nodes
 might represent transactions between
-these banks
+these banks.
 so this first arrow here t1 might
 represent
 um a transaction where wells fargo sends
@@ -66,42 +66,42 @@ transaction where chase
 sends wells fargo some money and these
 other transactions represent
 other uh banks sending other banks money
-um so here the idea is that we're
+um. so here the idea is that we're
 modeling transactions between
 financial institutions and
 of course this is a very simplified uh
-model uh if we wanted to account for all
+model. uh if we wanted to account for all
 transactions in
 you know maybe all banks in the united
 states uh we'd have
-a much more complicated uh figure
+a much more complicated uh figure.
 search engines work can be modeled this
 way so search engines use hyperlink data
-to model the internet
+to model the internet.
 so here i have the logos of four famous
 websites
 and then i have arrows pointing between
-all these various websites
+all these various websites.
 uh maybe in this model the idea is that
 each arrow
 in this directed graph represents a link
-from one website to another
+from one website to another.
 so in this diagraph maybe wikipedia has
 a link
-labeled l1 from wikipedia to amazon
+labeled l1 from wikipedia to amazon.
 maybe l2 is another link from wikipedia
 to amazon
 um maybe on amazon there's a link to
 wikipedia
 maybe there's also a link to youtube so
-on and so forth
+on and so forth.
 so again here i just have a small
 example to illustrate a much
-larger model
+larger model.
 so here the idea is that we're modeling
-hyperlinks between web pages
+hyperlinks between web pages.
 um and social networks could be modeled
-this way if you wanted to
+this way if you wanted to.
 um here i have a figure uh i guess
 facebook released this i don't remember
 the year but i have the uh reference
@@ -114,5 +114,5 @@ to model their social network so the
 idea is that there's probably
 billions of arrows here representing
 connections
-between accounts
+between accounts.
 okay so let's see

@@ -172,13 +172,16 @@ def edit(recording_id):
         # deleting tags
         new_dict = {tag: value for (tag, value) in recording[9].items() if tag in tags}
         for tag in [x for x in recording[9] if x not in new_dict]:
-            # add to activity log if tag deleted
-            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Tag deleted", "Deleted tag: "+tag))
-            conn.commit()
+            if tag!="":
+                print("Tag deleted: "+tag+" end")
+                # add to activity log if tag deleted
+                cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Tag deleted", "Deleted tag: "+tag))
+                conn.commit()
 
         # adding new tags
         for tag in tags:
-            if tag not in originalTags:
+            if tag not in originalTags and tag!="":
+                print("Tag added: "+ tag+ " end")
                 new_dict[tag] = 0
                 # add to activity log if tag added
                 cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Tag added", "Added tag: "+tag))
@@ -201,11 +204,12 @@ def edit(recording_id):
 def hide(recording_id):
     conn = get_db_connection()
     cur = conn.cursor()
+    recording = get_recording(recording_id)
     change_visibility(conn, cur, recording_id, session.get('user'), session.get('email'))
     conn.commit()
     cur.close()
     conn.close()
-    flash('"{}" was successfully hidden!'.format(recording_id))
+    flash('"{}" was successfully hidden!'.format(recording[2]))
     return redirect(url_for('index'))
 
 
@@ -213,11 +217,12 @@ def hide(recording_id):
 def show(recording_id):
     conn = get_db_connection()
     cur = conn.cursor()
+    recording = get_recording(recording_id)
     change_visibility(conn, cur, recording_id, session.get('user'), session.get('email'), visible='TRUE')
     conn.commit()
     cur.close()
     conn.close()
-    flash('"{}" was successfully shown!'.format(recording_id))
+    flash('"{}" was successfully shown!'.format(recording[2]))
     return redirect(url_for('index'))
 
 
