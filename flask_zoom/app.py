@@ -171,6 +171,8 @@ def edit(recording_id):
         #     conn.commit()
 
         tags = request.form['tags'].split(',')
+        yvidurl = request.form['yvidurl']
+        vidurl = request.form['vidurl']
 
         # remove leading and trailing whitespaces
         for i in range(len(tags)):
