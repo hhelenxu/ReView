@@ -1,12 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="my-10" style="font-family:'Open Sans',sans-serif;">
-    <h1 class=" text-4xl tracking-wider" style="font-family:'EB Garamond',serif; color:#012169">{% block title %}
-        Admin Page {% endblock %}
-    </h1>
-</div>
-
+<br>
 <h4 class=" text-2xl tracking-wider" style="font-family:'EB Garamond',serif; color:#012169">Hidden Recordings</h4>
 <hr class="my-4">
 <div class="table-responsive">
@@ -39,8 +34,8 @@
       </td>
       <td>{{ recording[7] }}</td>
       <td>
-        <a href="{{ url_for('edit', recording_id=recording[0]) }}">
-          <span class="fa fa-edit td-edit"></span>
+        <a href="{{ url_for('show', recording_id=recording[0]) }}">
+          <span class="badge bg-primary td-edit">Show</span>
         </a>
       </td>
 

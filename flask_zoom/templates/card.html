@@ -1,61 +1,38 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="my-10" style="font-family:'Open Sans',sans-serif;">
-  <h1 class=" text-4xl tracking-wider" style="font-family:'EB Garamond',serif; color:#012169">{% block title %}
-    Recordings for Class Title {% endblock %}</h1>
-  <p class="py-4">Class description text. Any special instructions about how to use this site or any system that the
-    instructors and TAs use. </p>
-  <button><a href="{{ url_for('index')}}">
-      <div class="flex flex-row items-center">
-        <div>
-          <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="12" height="3" rx="0.5" fill="#00539B" />
-            <rect y="5" width="12" height="3" rx="0.5" fill="#00539B" />
-            <rect y="10" width="12" height="3" rx="0.5" fill="#00539B" />
-          </svg>
-        </div>
+<div class="homepage my-10">
 
-        <div class="pl-2 pr-4  font-medium hover:no-underline underline" style="border-color: #012169; color:#00539B">
-          TABLE VIEW</div>
-      </div>
-    </a>
-  </button>
-  <button class="px-2 rounded-sm" style="background-color: #E2E6ED;"><a href="{{ url_for('card')}}">
-      <div class=" flex flex-row items-center">
-        <div>
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="8" width="5.29412" height="5.29412" rx="0.5" fill="#012169" />
-            <rect width="5.29412" height="5.29412" rx="0.5" fill="#012169" />
-            <rect x="8" y="8" width="5.29412" height="5.29412" rx="0.5" fill="#012169" />
-            <rect y="8" width="5.29412" height="5.29412" rx="0.5" fill="#012169" />
-          </svg>
-        </div>
+  <div class="my-10">
+    <h1 class="md:text-4xl text-2xl" style="color:#012169">{% block title %}
+      Recordings for <span class="font-bold">Math 218: Matrices and Vector Spaces</span> {% endblock %}</h1>
+    <p class="my-4 md:text-xl">Class description text. Any special instructions about how to use this site or any system
+      that the instructors and TAs use. </p>
+  </div>
 
-        <div class="pl-2 font-bold" style="color:#012169">CARD VIEW</div>
-      </div>
-    </a>
-  </button>
-  <button class="px-4 rounded-sm "><a href="{{ url_for('cardview')}}">
-    <div class=" flex flex-row items-center">
-      <div>
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="8" width="5.29412" height="5.29412" rx="0.5" fill="#00539B" />
-          <rect width="5.29412" height="5.29412" rx="0.5" fill="#00539B" />
-          <rect x="8" y="8" width="5.29412" height="5.29412" rx="0.5" fill="#00539B" />
-          <rect y="8" width="5.29412" height="5.29412" rx="0.5" fill="#00539B" />
+  <div class="flex flex-row items-center mb-4">
+
+
+    <button class=" p-2 mr-2 rounded-lg text-gray-600 hover:text-white hover:bg-blue-900">
+      <a href="{{ url_for('index')}}" class="hover:text-white">
+        <svg class="" width="14" height="14" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="12" height="3" rx="0.5" fill="currentColor" />
+          <rect y="5" width="12" height="3" rx="0.5" fill="currentColor" />
+          <rect y="10" width="12" height="3" rx="0.5" fill="currentColor" />
         </svg>
-      </div>
-
-      <div class="pl-2 font-medium hover:no-underline underline" style="color:#00539B">CARD VIEW 2</div>
-    </div>
-  </a>
-</button>
-</div>
-
-<div style="font-family:'Open Sans',sans-serif;">
-  <div class="flex flex-row items-center">
-    <button class="hover:bg-gray-50 rounded-lg p-2 border border-gray-100">
+      </a>
+    </button>
+    <button class="p-2 bg-gray-50 border border-gray-100 mr-4 rounded-lg">
+      <a href="{{ url_for('card')}}" class="hover:text-white">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="#012169" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" width="5.29412" height="5.29412" rx="0.5" fill="012169" />
+          <rect width="5.29412" height="5.29412" rx="0.5" fill="012169" />
+          <rect x="8" y="8" width="5.29412" height="5.29412" rx="0.5" fill="012169" />
+          <rect y="8" width="5.29412" height="5.29412" rx="0.5" fill="012169" />
+        </svg>
+      </a>
+    </button>
+    <!-- <button class="hover:bg-gray-50 rounded-lg p-2 border border-gray-100">
       <div class="flex flex-row">
         <div>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -68,13 +45,26 @@
           Filters
         </div>
       </div>
-    </button>
-    <div class="mx-6 "> Popular Tags:
-
+    </button> -->
+    <div > Selected Tag: {{selected_tag}}
     </div>
   </div>
-  <hr class="my-4">
-  <div class="card-deck mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+
+  <!-- <div class="grid grid-cols-5 my-2 px-2 text-blue-900 rounded-md font-semibold">
+    <div class="col-span-1 flex flex-row">
+      <div class="bi bi-calendar-event mr-2"></div>
+      <div>DATE</div></div>
+      <div class="col-span-2 flex flex-row">
+        <div class="bi bi-type mr-2"></div>
+        <div>TOPIC</div></div>
+        <div class="col-span-2 flex flex-row">
+          <div class="bi bi-tags mr-2"></div>
+          <div>TAGS</div></div>
+  </div> -->
+  <hr class="mb-2">
+
+  <div class="card-deck md:mt-6 mt-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
     {% for recording in recordings %}
     <div class="card hover:shadow-md mb-3 max-w-md">
       
@@ -84,23 +74,37 @@
             {{ recording[3] }}
           </div>
           <div class="justify-self-end">
-            <a href="{{ url_for('edit', recording_id=recording[0]) }}">
-              <span class="fa fa-edit td-edit"></span>
-            </a>
+            <button
+          class="ml-3 hover:border bg-white hover:shadow hover:border-gray-600 rounded-lg p-1 hover:border hover:border-gray-100 text-gray-400 hover:text-blue-600">
+          <a href="{{ url_for('edit', recording_id=recording[0]) }}">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+          </svg>
+          </a>
+        </button>
           </div>
         </div>
         
-        <a href="{{ url_for('recording', recording_id=recording[0]) }}">
+        <a href="{{ url_for('recording', recording_id=recording[0]) }}" >
         <div class="card-body">
 
-          <h5 class="card-title text-2xl"> {{ recording[2] }}
+          <h5 class="card-title hover:underline font-semibold text-2xl"> {{ recording[2] }}
 
           </h5>
           <div class="my-2 self-start items-center">
-            {% for tag in recording[9] %}
-            <a href="{{ url_for('tagFilter', tag=tag) }}">
-            <span class="badge text-white bg-yellow-500 hover:bg-yellow-600">{{ tag }}</span></a>
-            {% endfor %}
+            {% for tag, value in recording[9] | dictsort(false, 'value', reverse=true) %}
+        {% if recording[9][tag] <= -3 %} <a href="{{ url_for('tagFilter', tag=tag) }}">
+          <span class="badge text-blue-400 bg-blue-50 hover:bg-blue-400 hover:text-white">{{ tag }}</span></a>
+          {% elif recording[9][tag] >= 3 %}
+          <a href="{{ url_for('tagFilter', tag=tag) }}">
+            <span class="badge text-blue-400 bg-blue-200 hover:bg-blue-400 hover:text-white">{{ tag }}</span></a>
+          {% else %}
+          <a href="{{ url_for('tagFilter', tag=tag) }}">
+            <span class="badge text-blue-400 bg-blue-100 hover:bg-blue-400 hover:text-white">{{ tag }}</span>
+          </a>
+          {% endif %}
+          {% endfor %}
           </div>
           <!-- <div class="bg-transparent" style="color:#666666"> {{ recording[3] }}</div> -->
       </a>
@@ -114,9 +118,11 @@
       </div>
       </div> -->
   </div>
-
-
   {% endfor %}
+
 </div>
-</div>
+
+
+
+
 {% endblock %}

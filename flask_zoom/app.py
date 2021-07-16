@@ -8,7 +8,8 @@ from zoom import *
 import databaseconfig as dbconfig
 import zoomconfig
 import vcmconfig
-
+from datetime import datetime
+import pytz
 
 def get_db_connection():
     conn = psycopg2.connect("dbname={} user={} password={}".format(dbconfig.database["db"], dbconfig.database["user"], dbconfig.database["password"]))
@@ -64,12 +65,9 @@ def index():
     session['dukeid'] = auth['dukeid']
     session['email'] = auth['sub']
     if "staff@duke.edu" in auth['eduPersonScopedAffiliation'] or "faculty@duke.edu" in auth['eduPersonScopedAffiliation']:
-    # if "staff@duke.edu" in auth['eduPersonScopedAffiliation'] or "student@duke.edu" in auth['eduPersonScopedAffiliation']:
         session['permission'] = True
-        print("has permission")
     else:
         session['permission'] = False
-        print("no permission")
 
     print(session.get('user'))
     print(session.get('permission'))
@@ -83,7 +81,7 @@ def index():
     cur.close()
     conn.close()
 
-    return render_template('index.html', recordings=recordings)
+    return render_template('index.html', recordings=recordings, selected_tag="", username=session.get('user'))
 
 @app.route('/auth_redirect')
 def auth_redirect():
@@ -91,8 +89,25 @@ def auth_redirect():
     return redirect(auth_url, 302)
 
 
-@app.route('/admin')
-def admin():
+@app.route('/admin/activity')
+def admin_activity():
+    if not session.get('permission'):
+        return redirect(url_for('index'))
+    else:
+        conn = get_db_connection()
+        cur = conn.cursor()
+
+        # get activity
+        cur.execute("SELECT * FROM activity")
+        activities = cur.fetchall()
+        cur.close()
+        conn.close()
+
+        return render_template('admin_activity.html', activities=activities)
+
+
+@app.route('/admin/hidden_recordings')
+def admin_hidden_recordings():
     if not session.get('permission'):
         return redirect(url_for('index'))
     else:
@@ -105,8 +120,7 @@ def admin():
         cur.close()
         conn.close()
 
-        return render_template('admin.html', hiddenRecordings=hiddenRecordings)
-
+        return render_template('admin_activity.html', hiddenRecordings=hiddenRecordings)
 
 @app.route('/card')
 def card():
@@ -121,32 +135,6 @@ def card():
 
     return render_template('card.html', recordings=recordings)
 
-@app.route('/tablecard')
-def tablecard():
-    conn = get_db_connection()
-    cur = conn.cursor()
-
-    # get recordings
-    cur.execute("SELECT * FROM recordings WHERE visible=TRUE")
-    recordings = cur.fetchall()
-    cur.close()
-    conn.close()
-
-    return render_template('tablecard.html', recordings=recordings)
-
-@app.route('/cardview')
-def cardview():
-    conn = get_db_connection()
-    cur = conn.cursor()
-
-    # get recordings
-    cur.execute("SELECT * FROM recordings WHERE visible=TRUE")
-    recordings = cur.fetchall()
-    cur.close()
-    conn.close()
-
-    return render_template('cardview.html', recordings=recordings)
-
 
 @app.route('/<string:recording_id>')
 def recording(recording_id):
@@ -156,13 +144,32 @@ def recording(recording_id):
 
 @app.route('/<string:recording_id>/edit', methods=('GET', 'POST'))
 def edit(recording_id):
+    conn = get_db_connection()
+    cur = conn.cursor()
     recording = get_recording(recording_id)
     originalTags = recording[9]
 
     if request.method == 'POST':
+        cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%m/%d/%Y %H:%M:%S"))
+
         title = request.form['title']
+        # add to activity log if title changed
+        if title != recording[2]:
+            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed title", ""))
+            conn.commit()
+
         summary = request.form['summary']
+        # add to activity log if summary changed
+        if summary != recording[7]:
+            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed summary", ""))
+            conn.commit()
+
         transcription = request.form['transcription']
+        # add to activity log if transcript changed
+        if transcription != recording[6]:
+            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed transcript", ""))
+            conn.commit()
+
         tags = request.form['tags'].split(',')
         yvidurl = request.form['yvidurl']
         vidurl = request.form['vidurl']
@@ -173,11 +180,21 @@ def edit(recording_id):
 
         # deleting tags
         new_dict = {tag: value for (tag, value) in recording[9].items() if tag in tags}
+        for tag in [x for x in recording[9] if x not in new_dict]:
+            if tag!="":
+                print("Deleted tag: "+tag+" end")
+                # add to activity log if tag deleted
+                cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Deleted tag", "Deleted tag: \""+tag+"\""))
+                conn.commit()
 
         # adding new tags
         for tag in tags:
-            if tag not in originalTags:
+            if tag not in originalTags and tag!="":
+                print("Added tag: "+ tag+ " end")
                 new_dict[tag] = 0
+                # add to activity log if tag added
+                cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Added tag", "Added tag: \""+tag+"\""))
+                conn.commit()
 
         if not title:
             flash('Title is required!')
@@ -189,20 +206,34 @@ def edit(recording_id):
             conn.commit()
             conn.close()
             return redirect(url_for('.recording', recording_id=recording_id))
-    print(session.get('permission'))
     return render_template('edit.html', recording=recording, permission=session.get('permission'))
 
 
-@app.route('/<string:recording_id>/delete', methods=('POST','GET'))
-def delete(recording_id):
+@app.route('/<string:recording_id>/hide', methods=('POST','GET'))
+def hide(recording_id):
     conn = get_db_connection()
     cur = conn.cursor()
+    recording = get_recording(recording_id)
     change_visibility(conn, cur, recording_id, session.get('user'), session.get('email'))
     conn.commit()
     cur.close()
     conn.close()
-    flash('"{}" was successfully deleted!'.format(recording_id))
+    flash('"{}" was successfully hidden!'.format(recording[2]))
     return redirect(url_for('index'))
+
+
+@app.route('/<string:recording_id>/show', methods=('POST','GET'))
+def show(recording_id):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    recording = get_recording(recording_id)
+    change_visibility(conn, cur, recording_id, session.get('user'), session.get('email'), visible='TRUE')
+    conn.commit()
+    cur.close()
+    conn.close()
+    flash('"{}" was successfully shown!'.format(recording[2]))
+    return redirect(url_for('index'))
+
 
 @app.route('/tagFilter/<string:tag>')
 def tagFilter(tag):
@@ -214,7 +245,7 @@ def tagFilter(tag):
     recordings = cur.fetchall()
     cur.close()
     conn.close()
-    return render_template('index.html', recordings=recordings)
+    return render_template('index.html', recordings=recordings, selected_tag=tag)
 
 
 @app.route('/<string:id>/<string:tag>/upvote', methods=('POST','GET'))

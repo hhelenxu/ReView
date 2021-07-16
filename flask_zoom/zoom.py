@@ -22,7 +22,7 @@ import json
 name = "Test User1" # "testuser1.zoom@gmail.com"
 # TOKEN stored in zoomconfig file (hidden by .gitignore)
 stop_words = set(stopwords.words('english'))
-now = datetime.now()
+# now = datetime.now()
 
 def get_users(conn, cur, headers):
     url = "https://api.zoom.us/v2/users"
@@ -48,7 +48,7 @@ def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1
     meetings_json = response.json()
 
     # get useful info
-    for meeting in meetings_json["meetings"]:
+    for meeting in meetings_json["meetings"].reverse():
         print("Processing meeting")
         cur.execute("SELECT EXISTS(SELECT zoom_id FROM recordings WHERE zoom_id=%s)", (meeting["uuid"],))
         
@@ -261,9 +261,9 @@ def vote_tags(conn, cur, id, tag, vote, user, email):
     print(cur.fetchone())
 
     if vote==1:
-        vote_type = "upvote"
+        vote_type = "Upvote"
     else:
-        vote_type = "downvote"
+        vote_type = "Downvote"
     cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%m/%d/%Y %H:%M:%S"))
 
     # add to activity log

@@ -251,62 +251,136 @@ def vote_tags(conn, cur, zoom_id, tag, vote):
     cur.execute("UPDATE recordings SET tags=%s WHERE zoom_id=%s", (json.dumps(tags_dict), zoom_id))
     conn.commit()
      
+text = """
+now that we know how to complete the
+Square, we can apply that a process to under to
+better understand definiteness.
+so if we complete the square for a
+generic quadratic form, 
+again that means we represent the
+quadratic form with a real symmetric
+matrix.
+we find a spectral factorization and
+write the quadratic form
+as lambda times our change of variable
+y1 squared
+plus lambda 2 times our change of
+variable y2 squared,
+and then we keep going until we get to
+our last eigenvalue
+multiplied by yn squared.
+the thing to point out here, is that
+when we do this process, what we're doing
+is we're taking a linear combination
+of square terms. so if we if we care
+about the sign of the quadratic form,
+what we really care about are the signs
+of the eigenvalues. here
+so the eigenvalues of the symmetric
+matrix representing the quadratic form
+controls the definiteness of the
+quadratic form.
+explicitly what we're saying is that
+being
+positive definite is the same thing as
+saying that the eigenvalues are all
+positive numbers. being positive
+semi-definite
+is the same thing as saying that the
+eigenvalues are all non-negative.
+negative definite means the eigenvalues
+are all strictly negative.
+negative semi-definite means that the
+eigenvalues are all non-positive,
+and indefinite means there is at least
+one positive eigenvalue,
+and at least one negative eigenvalue.
+so if you know the eigenvalues of the
+symmetric matrix representing your
+quadratic form
+you immediately know the definiteness of
+your quadratic form.
+and the reason you know your
+definiteness is because of the method of
+completing the square.
+so here's an example here we're looking
+at the quadratic form
+represented by this real symmetric
+matrix.
+s i bothered to find the eigenvalues
+and i found that the eigenvalues of s
+here are negative 2
+negative 1 and what does that tell me
+well the eigenvalues here are all
+non-positive.
+they're all not positive numbers um but
+i do have zero on the list of
+eigenvalues so they're not
+strictly negative. so this tells me that
+my quadratic form
+is negative semi-definite but not
+negative definite.
+so if you know your eigenvalues you know
+the definiteness of your quadratic form.
+"""
 
-# connect to database
-conn = psycopg2.connect("dbname={} user={} password={}".format(dbconfig.database["db"], dbconfig.database["user"], dbconfig.database["password"]))
-cur = conn.cursor()
+print(generate_summary(text, 1))
 
-# get users
-headers = {
-    'Authorization': "Bearer " + zoomconfig.TOKEN,
-}
-get_users(conn, cur, headers)
+# # connect to database
+# conn = psycopg2.connect("dbname={} user={} password={}".format(dbconfig.database["db"], dbconfig.database["user"], dbconfig.database["password"]))
+# cur = conn.cursor()
 
-# get user "test user 1"
-cur.execute("SELECT email FROM users WHERE name=%s", (name,))
-user = cur.fetchone()[0]
-print(user)
-print()
+# # get users
+# headers = {
+#     'Authorization': "Bearer " + zoomconfig.TOKEN,
+# }
+# get_users(conn, cur, headers)
 
-start_date = "2021-06-01"
-end_date = "2021-06-17"
-num_sentences = 1
+# # get user "test user 1"
+# cur.execute("SELECT email FROM users WHERE name=%s", (name,))
+# user = cur.fetchone()[0]
+# print(user)
+# print()
+
+# start_date = "2021-06-01"
+# end_date = "2021-06-17"
+# num_sentences = 1
     
-# get meetings and summarize transcripts
-get_meetings(conn, cur, user, headers, start_date, end_date, num_sentences)
-# get_summaries(conn, cur, num_sentences)
+# # get meetings and summarize transcripts
+# get_meetings(conn, cur, user, headers, start_date, end_date, num_sentences)
+# # get_summaries(conn, cur, num_sentences)
 
-# cur.execute("SELECT * FROM recordings")
+# # cur.execute("SELECT * FROM recordings")
+# # for recording in cur.fetchall():
+# #     change_visibility(conn, cur, recording[0], 'FALSE')
+
+# # print info
+# cur.execute("SELECT * FROM recordings WHERE visible=TRUE")
 # for recording in cur.fetchall():
-#     change_visibility(conn, cur, recording[0], 'FALSE')
+#     print(recording[0]) # id
+#     print(recording[1]) # visible (T/F)
+#     print(recording[2]) # topic
+#     print(recording[3]) # start time and date
+#     print(recording[4]) # video link
+#     # print(recording[5]) # transcript link
+#     # print(recording[6]) # processed text of transcript
+#     print(recording[7]) # summary
+#     # print(recording[8]) # token
+#     print(recording[9]) # tags
+#     print(recording[10]) # meeting id
+#     print()
 
-# print info
-cur.execute("SELECT * FROM recordings WHERE visible=TRUE")
-for recording in cur.fetchall():
-    print(recording[0]) # id
-    print(recording[1]) # visible (T/F)
-    print(recording[2]) # topic
-    print(recording[3]) # start time and date
-    print(recording[4]) # video link
-    # print(recording[5]) # transcript link
-    # print(recording[6]) # processed text of transcript
-    print(recording[7]) # summary
-    # print(recording[8]) # token
-    print(recording[9]) # tags
-    print(recording[10]) # meeting id
-    print()
+# # search for phrase in transcript
+# search_phrase = "zoom app"
+# search_results = search(conn, cur, search_phrase)
+# print('Search results for "{}":'.format(search_phrase))
+# print(search_results)
 
-# search for phrase in transcript
-search_phrase = "zoom app"
-search_results = search(conn, cur, search_phrase)
-print('Search results for "{}":'.format(search_phrase))
-print(search_results)
+# # upvote tag
+# print()
+# vote_tags(conn, cur, "qTVdsPJiRLSeIAPFachU/g==", "yeah", 1)
+# cur.execute("SELECT tags FROM recordings WHERE zoom_id=%s", ("qTVdsPJiRLSeIAPFachU/g==",))
+# print(cur.fetchall())
 
-# upvote tag
-print()
-vote_tags(conn, cur, "qTVdsPJiRLSeIAPFachU/g==", "yeah", 1)
-cur.execute("SELECT tags FROM recordings WHERE zoom_id=%s", ("qTVdsPJiRLSeIAPFachU/g==",))
-print(cur.fetchall())
-
-cur.close()
-conn.close()
+# cur.close()
+# conn.close()
