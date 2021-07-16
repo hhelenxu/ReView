@@ -81,7 +81,7 @@ def index():
     cur.close()
     conn.close()
 
-    return render_template('index.html', recordings=recordings, selected_tag="")
+    return render_template('index.html', recordings=recordings, selected_tag="", username=session.get('user'))
 
 @app.route('/auth_redirect')
 def auth_redirect():
