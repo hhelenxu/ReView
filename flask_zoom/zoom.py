@@ -12,79 +12,49 @@ import numpy as np
 import networkx as nx
 import psycopg2
 import databaseconfig as dbconfig
-import zoomconfig
 from datetime import date, datetime
-from dateutil import tz
 import pytz
+from dateutil import tz
 from sklearn.feature_extraction.text import CountVectorizer
 import json
+import os
 
-name = "Test User1" # "testuser1.zoom@gmail.com"
-# TOKEN stored in zoomconfig file (hidden by .gitignore)
 stop_words = set(stopwords.words('english'))
-# now = datetime.now()
 
-def get_users(conn, cur, headers):
-    url = "https://api.zoom.us/v2/users"
-    response = requests.get(url=url, headers=headers)
-    json = response.json()
+def get_meetings(conn, cur, start=None, end=None, num_sentences=1):
+    os.chdir("../sample_transcripts")
+    print(os.getcwd())
+    day = 1
+    available_files = ["definiteness.txt", "diagonalization.txt", "digraphs.txt", "linear_independence.txt"]
+    video_link_arr = ["https://www.youtube.com/embed/viQLqM5bSgA"]
+    for file in os.listdir():
+        id = file
+        # print(str(file))
+        if file.endswith(".txt") and str(file) in available_files:
+            title = str(file)[:-4].replace("_", " ").title()
+            print(title)
+            date = "Jan " + str(day) + ", 2021 12:00 AM"
+            day+=1
+            video_link = video_link_arr[0]
+            with open(file, 'r') as f:
+                text = f.read().replace("\n"," ")
 
-    for u in json["users"]:
-        # add to database
-        cur.execute("INSERT INTO users (name, id, email) VALUES (%s , %s, %s) ON CONFLICT (id) DO NOTHING", (u["first_name"]+" "+u["last_name"], u["id"], u["email"]))
-        conn.commit()
+            # create list of tokens for text search
+            cur.execute("SELECT to_tsvector(%s)", (text,))
+            tokens = cur.fetchone()[0]
 
+            # calculate keywords for tags
+            keywords = find_keywords(text)
+            keywords_dict = {tag: 0 for tag in keywords}
 
-def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1):
-    # get meetings
-    url = "https://api.zoom.us/v2/users/" + user + "/recordings"
-    if start != None and end != None:
-        url += "?from=" + start + "&to=" + end
-    elif start != None:
-        url += "?from=" + start
-    elif end != None:
-        url += "?to=" + end
-    response = requests.request("GET", url, headers=headers)
-    meetings_json = response.json()
+            # generate summary
+            # *** summary doesn't work if there are no periods in the transcript
+            summary = generate_summary(text, 1)
+            print(summary)
 
-    # get useful info
-    for meeting in meetings_json["meetings"].reverse():
-        print("Processing meeting")
-        cur.execute("SELECT EXISTS(SELECT zoom_id FROM recordings WHERE zoom_id=%s)", (meeting["uuid"],))
-        
-        # if recording already exists in database
-        if cur.fetchone()[0]:
-            continue
-
-        # format date and start time    
-        date = format_date(meeting["start_time"]) 
-
-        transcript_link = ""
-        for file in meeting["recording_files"]:
-            # video link
-            if file["file_type"] == "MP4":
-                video_link = file["play_url"]
-            # transcript download link
-            elif file["file_type"] == "TRANSCRIPT":
-                transcript_link = file["download_url"]
-    
-        # transcript text
-        text = parse_transcripts(transcript_link)
-
-        # create list of tokens for text search
-        cur.execute("SELECT to_tsvector(%s)", (text,))
-        tokens = cur.fetchone()[0]
-
-        # calculate keywords for tags
-        keywords = find_keywords(text)
-        keywords_dict = {tag: 0 for tag in keywords}
-
-        # generate summary
-        summary = generate_summary(text, num_sentences)
-
-        # add to database
-        cur.execute("INSERT INTO recordings(topic, start_time, video, transcript, text, tokens, tags, summary, visible, zoom_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, TRUE, %s) ON CONFLICT (zoom_id) DO NOTHING", (meeting["topic"], date, video_link, transcript_link, text, tokens, json.dumps(keywords_dict), summary, meeting["uuid"]))
-        conn.commit()
+            # add to database
+            cur.execute("INSERT INTO recordings(topic, start_time, video, transcript, text, tokens, tags, summary, visible, zoom_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, TRUE, %s) ON CONFLICT (zoom_id) DO NOTHING", (title, date, video_link, "", text, tokens, json.dumps(keywords_dict), summary, id))
+            conn.commit()
 
 
 def format_date(date_str):
@@ -97,20 +67,6 @@ def format_date(date_str):
     to_zone = tz.gettz('America/New_York') # convert to ET
     time = utc_time.astimezone(to_zone)
     return time.strftime("%b %d, %Y %I:%M %p")
-
-
-def parse_transcripts(transcript_link):
-    # get transcript text
-    if transcript_link == "":
-        return ""
-    t_url = transcript_link+"?access_token="+zoomconfig.TOKEN
-    t_response = requests.request("GET", t_url)
-
-    # process transcripts to remove unnecessary info (time, speaker)
-    lines = []
-    for string in t_response.text.split(": ")[1:]:
-        lines.append(string.split("\r")[0])
-    return " ".join(lines)
 
 
 # get keywords from transcript
@@ -231,7 +187,6 @@ def search(conn, cur, words):
     cur.execute("SELECT id FROM recordings WHERE tokens @@ to_tsquery(%s)", (or_search,)) 
     return cur.fetchall()
 
-
 def change_visibility(conn, cur, meeting_id, user, email, visible='FALSE'):
     cur.execute("UPDATE recordings SET visible=%s WHERE id=%s", (visible, meeting_id))
     conn.commit()
@@ -245,10 +200,12 @@ def change_visibility(conn, cur, meeting_id, user, email, visible='FALSE'):
     # add to activity log
     cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, user, email, meeting_id, cur_action, ""))
     conn.commit()
-    
+
 
 # upvote or downvote tags
 def vote_tags(conn, cur, id, tag, vote, user, email):
+    print(tag)
+    print(id)
     # vote should either be 1 for upvote or -1 for downvote
     cur.execute("SELECT tags FROM recordings WHERE id=%s", (id,))
     tags_dict = cur.fetchone()[0]
@@ -271,6 +228,7 @@ def vote_tags(conn, cur, id, tag, vote, user, email):
     conn.commit()
 
 
+
 def main():
     print(stop_words)
     # add additional stopwords
@@ -282,30 +240,10 @@ def main():
     # connect to database
     conn = psycopg2.connect("dbname={} user={} host='localhost' password={}".format(dbconfig.database["db"], dbconfig.database["user"], dbconfig.database["password"]))
     cur = conn.cursor()
-
-    # get users
-    headers = {
-        'Authorization': "Bearer " + zoomconfig.TOKEN,
-    }
-    get_users(conn, cur, headers)
-
-    # get user "test user 1"
-    cur.execute("SELECT email FROM users WHERE name=%s", (name,))
-    user = cur.fetchone()[0]
-    print(user)
-    print()
-
-    today = date.today().strftime("%Y-%m-%d")
-    start_date = "2021-06-01"
-    # end_date = today
-    end_date="2021-06-17"
-    num_sentences = 3
-        
-    # get meetings and summarize transcripts
-    get_meetings(conn, cur, user, headers, start_date, end_date, num_sentences)
-
+    get_meetings(conn, cur)
     cur.close()
     conn.close()
+    
 
 if __name__ == "__main__":
     main()
