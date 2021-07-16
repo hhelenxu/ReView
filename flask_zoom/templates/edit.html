@@ -1,13 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<<<<<<< HEAD
-
-
-<div class="my-10" style="font-family:'Open Sans',sans-serif;">
-    <h1 class="pb-4 text-4xl tracking-wide" style="font-family:'EB Garamond',serif; color:#012169">{% block title %} Edit "{{ recording[2] }}" Details {% endblock %}</h1>
-
-=======
 <div class="my-10">
     <form>
         <div class="flex flex-row">
@@ -21,7 +14,6 @@
     <h1 class="md:text-4xl text-2xl" style="color:#012169">{% block title %} Edit <span class="font-bold">"{{ recording[2] }}"</span> Details {% endblock %}</h1>
 </div>
   
->>>>>>> 3a1290334eebd47cdac74eb0d16bcd5b4d41c3d0
     <form method="post">
 
         <div class="form-group my-4">
@@ -51,7 +43,6 @@
                   class="form-control">{{ request.form['transcription'] or recording[6] }}</textarea>
     </div> -->
 
-<<<<<<< HEAD
     <div class="form-group py-2">
         <label for='yvidurl'>Embed YouTube Video<br/>Enter video ID from shareable link below: https://youtu.be/</label>
         <input class="form-control" type="text" id="txtsource"></input>
@@ -125,7 +116,6 @@
     
     
     <div class="flex flex-row items-center">
-=======
     <!-- <div> -->
         <!-- <form>
             Enter video URL here:
@@ -135,7 +125,6 @@
     <!-- </div> -->
 
     <div class="flex flex-row items-center my-4">
->>>>>>> 3a1290334eebd47cdac74eb0d16bcd5b4d41c3d0
         <div class="form-group py-2 mr-4">
             <button type="submit" class="btn border border-2 py-2 border-blue-500 rounded-lg text-white hover:bg-blue-700 bg-blue-900 px-12">Save</button>
         </div>
@@ -156,16 +145,11 @@
                 <button class="btn border border-2 hover:border-red-500 px-4 py-2 rounded-lg bg-white "><a
                         href="{{ url_for('show', recording_id=recording[0]) }}">Show</a></button>
             </div>
-<<<<<<< HEAD
-        {% endif %}
-    </div>
-=======
             {% endif %}
             {% endif %}
         </div>
 
 
->>>>>>> 3a1290334eebd47cdac74eb0d16bcd5b4d41c3d0
 </div>
 </form>
 </div>
