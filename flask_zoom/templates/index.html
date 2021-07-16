@@ -47,34 +47,40 @@
         </div>
       </div>
     </button> -->
-    <div > Selected Tag: {{selected_tag}}
+
+  
+    <div> Selected Tag: {{selected_tag}}
     </div>
+
   </div>
 
   <hr>
 
   <div class="grid grid-cols-5 my-2 px-2 text-blue-900 rounded-md font-semibold">
     <div class="col-span-1 flex flex-row">
-      <div class="bi bi-calendar-event md:mr-2"></div>
-      <div>DATE</div></div>
-      <div class="col-span-2 flex flex-row">
-        <div class="bi bi-type md:mr-2"></div>
-        <div>TOPIC</div></div>
-        <div class="col-span-2 flex flex-row">
-          <div class="bi bi-tags md:mr-2"></div>
-          <div>TAGS</div></div>
+      <div class="bi bi-calendar-event hidden md:block md:mr-2"></div>
+      <div>DATE</div>
+    </div>
+    <div class="col-span-2 flex flex-row">
+      <div class="bi bi-type hidden md:block md:mr-2"></div>
+      <div>TOPIC</div>
+    </div>
+    <div class="col-span-2 flex flex-row">
+      <div class="bi bi-tags hidden md:block md:mr-2"></div>
+      <div>TAGS</div>
+    </div>
   </div>
   <hr class="mb-2">
   {% for recording in recordings %}
-  <div class="grid grid-cols-5 my-2 p-2 rounded border border-gray-800 shadow-sm hover:shadow-lg hover:bg-gray-50">
+  <div
+    class="grid grid-cols-5 my-2 p-2 rounded border border-gray-800 shadow-sm hover:shadow-lg hover:bg-gray-50 overflow-x-auto min-w-full">
     <div class="col-span-1 ">{{recording[3]}}</div>
     <div class="col-span-2 font-semibold">
       <a href="{{ url_for('recording', recording_id=recording[0]) }}">
         <div class="flex flex-row items-center hover:text-blue-600">
           <div class=" underline">{{recording[2]}}</div>
-          <button
-            class="ml-3 hover:border bg-white hover:shadow hover:border-gray-600 rounded-lg p-1 hover:border hover:border-gray-100">
-            <div class="flex flex-row items-center text-gray-400">
+          <button class="ml-3 bg-white rounded-lg p-1">
+            <div class="flex flex-row items-center text-gray-400 hover:text-blue-600 hover:border ">
               <div><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="none">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M3 8V4m0 0h4M3 4l4 4m8 0V4m0 0h-4m4 0l-4 4m-8 4v4m0 0h4m-4 0l4-4m8 4l-4-4m4 4v-4m0 4h-4" />
@@ -105,10 +111,11 @@
         <button
           class="ml-3 hover:border bg-white hover:shadow hover:border-gray-600 rounded-lg p-1 hover:border hover:border-gray-100 text-gray-400 hover:text-blue-600">
           <a href="{{ url_for('edit', recording_id=recording[0]) }}">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-          </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
           </a>
         </button>
 
