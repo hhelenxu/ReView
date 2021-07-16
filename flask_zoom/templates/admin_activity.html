@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="my-10" style="font-family:'Open Sans',sans-serif;">
+    <h1 class=" text-4xl tracking-wider" style="font-family:'EB Garamond',serif; color:#012169">{% block title %}
+        Admin Page {% endblock %}
+    </h1>
+</div>
+
+<h4 class=" text-2xl tracking-wider" style="font-family:'EB Garamond',serif; color:#012169">Activity Log</h4>
+<hr class="my-4">
+<div class="table-responsive">
+<table id="table_id" class="table py-2">
+  <thead class="border border-2 border-black" style="background-color: #E2E6ED;">
+    <tr>
+      <th class="w-2/12 col">Time</th>
+      <th class="w-2/12 col">Name</th>
+      <th class="w-3/12 col no-sort">Email</th>
+      <th class="w-2/12 col no-sort">Recording ID</th>
+      <th class="w-4/12 col no-sort">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for activity in activities %}
+    <tr class="hover:bg-gray-100">
+      <td>{{ activity[0] }}</td>
+      <td>{{ activity[1] }}</td>
+      <td>{{ activity[2] }}</td>
+      <td>{{ activity[3] }}</td>
+      <td>{{ activity[4] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+
+{% endblock %}
