@@ -46,8 +46,7 @@
         </div>
       </div>
     </button> -->
-    <div > Selected Tag: {{selected_tag}}
-    </div>
+
   </div>
 
 
@@ -94,7 +93,9 @@
           </h5>
           <div class="my-2 self-start items-center">
             {% for tag, value in recording[9] | dictsort(false, 'value', reverse=true) %}
-        {% if recording[9][tag] <= -3 %} <a href="{{ url_for('tagFilter', tag=tag) }}">
+            {% if tag == selected_tag %} 
+            <span class="badge bg-blue-400 text-white">{{ tag }}</span>
+            {% elif recording[9][tag] <= -3 %} <a href="{{ url_for('tagFilter', tag=tag) }}">
           <span class="badge text-blue-400 bg-blue-50 hover:bg-blue-400 hover:text-white">{{ tag }}</span></a>
           {% elif recording[9][tag] >= 3 %}
           <a href="{{ url_for('tagFilter', tag=tag) }}">
