@@ -120,7 +120,7 @@ def admin_hidden_recordings():
         cur.close()
         conn.close()
 
-        return render_template('admin_activity.html', hiddenRecordings=hiddenRecordings, username=session.get('user'))
+        return render_template('admin_hidden.html', hiddenRecordings=hiddenRecordings, username=session.get('user'))
 
 @app.route('/card')
 def card():
