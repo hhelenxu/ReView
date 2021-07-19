@@ -48,7 +48,7 @@ def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1
     meetings_json = response.json()
 
     # get useful info
-    for meeting in meetings_json["meetings"].reverse():
+    for meeting in meetings_json["meetings"]:
         print("Processing meeting")
         cur.execute("SELECT EXISTS(SELECT zoom_id FROM recordings WHERE zoom_id=%s)", (meeting["uuid"],))
         
@@ -83,7 +83,7 @@ def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1
         summary = generate_summary(text, num_sentences)
 
         # add to database
-        cur.execute("INSERT INTO recordings(topic, start_time, video, transcript, text, tokens, tags, summary, visible, zoom_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, TRUE, %s) ON CONFLICT (zoom_id) DO NOTHING", (meeting["topic"], date, video_link, transcript_link, text, tokens, json.dumps(keywords_dict), summary, meeting["uuid"]))
+        cur.execute("INSERT INTO recordings(topic, start_time, video, transcript, text, tokens, tags, summary, visible, zoom_id, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, TRUE, %s, %s) ON CONFLICT (zoom_id) DO NOTHING", (meeting["topic"], date, video_link, transcript_link, text, tokens, json.dumps(keywords_dict), summary, meeting["uuid"], meeting["start_time"]))
         conn.commit()
 
 
@@ -214,36 +214,39 @@ def search(conn, cur, words):
 
     # search for phrase
     phrase = " <-> ".join(words)
-    cur.execute("SELECT id FROM recordings WHERE tokens @@ to_tsquery(%s)", (phrase,)) 
+    cur.execute("SELECT * FROM recordings WHERE tokens @@ to_tsquery(%s)", (phrase,)) 
     results = cur.fetchall()
     if len(results) > 0: # if results found
         return results
 
     # search for all words
     and_search = " & ".join(words)
-    cur.execute("SELECT id FROM recordings WHERE tokens @@ to_tsquery(%s)", (and_search,)) 
+    cur.execute("SELECT * FROM recordings WHERE tokens @@ to_tsquery(%s)", (and_search,)) 
     results = cur.fetchall()
     if len(results) > 0: # if results found
         return results
 
     # search for any word
     or_search = " | ".join(words)
-    cur.execute("SELECT id FROM recordings WHERE tokens @@ to_tsquery(%s)", (or_search,)) 
+    cur.execute("SELECT * FROM recordings WHERE tokens @@ to_tsquery(%s)", (or_search,)) 
     return cur.fetchall()
 
 
 def change_visibility(conn, cur, meeting_id, user, email, visible='FALSE'):
     cur.execute("UPDATE recordings SET visible=%s WHERE id=%s", (visible, meeting_id))
     conn.commit()
+    
+    cur.execute("SELECT topic FROM recordings WHERE id=%s", (meeting_id))
+    title = cur.fetchone()[0]
 
     if visible == 'FALSE':
         cur_action = "Hid recording"
     else:
         cur_action = "Made recording visible"
-    cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%m/%d/%Y %H:%M:%S"))
+    cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%b %d, %Y %I:%M %p"))
 
     # add to activity log
-    cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, user, email, meeting_id, cur_action, ""))
+    cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, user, email, meeting_id, cur_action, "", title, datetime.now()))
     conn.commit()
     
 
@@ -254,25 +257,28 @@ def vote_tags(conn, cur, id, tag, vote, user, email):
     tags_dict = cur.fetchone()[0]
     tags_dict[tag] = tags_dict[tag] + vote
     tags_dict = dict(sorted(tags_dict.items(), key=lambda item: item[1]))
-    print(json.dumps(tags_dict))
+    # print(json.dumps(tags_dict))
     cur.execute("UPDATE recordings SET tags=%s WHERE id=%s", (json.dumps(tags_dict), id))
     conn.commit()
-    cur.execute("SELECT tags FROM recordings WHERE id=%s", (id,))
-    print(cur.fetchone())
+    # cur.execute("SELECT tags FROM recordings WHERE id=%s", (id,))
+    # print(cur.fetchone())
+
+    cur.execute("SELECT topic FROM recordings WHERE id=%s", (id))
+    title = cur.fetchone()[0]
 
     if vote==1:
         vote_type = "Upvote"
     else:
         vote_type = "Downvote"
-    cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%m/%d/%Y %H:%M:%S"))
+    cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%b %d, %Y %I:%M %p"))
 
     # add to activity log
-    cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, user, email, id, vote_type, "Tag modified: " + tag))
+    cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, user, email, id, vote_type, "Tag modified: " + tag, title, datetime.now()))
     conn.commit()
 
 
 def main():
-    print(stop_words)
+    # print(stop_words)
     # add additional stopwords
     with open('stopwords.txt') as f:
         words = f.read().splitlines()

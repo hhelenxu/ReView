@@ -76,7 +76,7 @@ def index():
     cur = conn.cursor()
 
     # get recordings
-    cur.execute("SELECT * FROM recordings WHERE visible=TRUE")
+    cur.execute("SELECT * FROM recordings WHERE visible=TRUE ORDER BY unformat_time DESC")
     recordings = cur.fetchall()
     cur.close()
     conn.close()
@@ -98,7 +98,7 @@ def admin_activity():
         cur = conn.cursor()
 
         # get activity
-        cur.execute("SELECT * FROM activity")
+        cur.execute("SELECT * FROM activity ORDER BY unformat_time DESC")
         activities = cur.fetchall()
         cur.close()
         conn.close()
@@ -115,7 +115,7 @@ def admin_hidden_recordings():
         cur = conn.cursor()
 
         # get recordings
-        cur.execute("SELECT * FROM recordings WHERE visible=FALSE")
+        cur.execute("SELECT * FROM recordings WHERE visible=FALSE ORDER BY unformat_time DESC")
         hiddenRecordings = cur.fetchall()
         cur.close()
         conn.close()
@@ -128,12 +128,12 @@ def card():
     cur = conn.cursor()
 
     # get recordings
-    cur.execute("SELECT * FROM recordings WHERE visible=TRUE")
+    cur.execute("SELECT * FROM recordings WHERE visible=TRUE ORDER BY unformat_time DESC")
     recordings = cur.fetchall()
     cur.close()
     conn.close()
 
-    return render_template('card.html', recordings=recordings, username=session.get('user'))
+    return render_template('card.html', recordings=recordings, selected_tag="", username=session.get('user'))
 
 
 @app.route('/<string:recording_id>')
@@ -150,18 +150,18 @@ def edit(recording_id):
     originalTags = recording[9]
 
     if request.method == 'POST':
-        cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%m/%d/%Y %H:%M:%S"))
+        cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%b %d, %Y %I:%M %p"))
 
         title = request.form['title']
         # add to activity log if title changed
         if title != recording[2]:
-            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed title", ""))
+            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed title", "Changed title to "+title, recording[2], datetime.now()))
             conn.commit()
 
         summary = request.form['summary']
         # add to activity log if summary changed
         if summary != recording[7]:
-            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed summary", ""))
+            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed summary", "", recording[2], datetime.now()))
             conn.commit()
 
         # transcription = request.form['transcription']
@@ -171,9 +171,6 @@ def edit(recording_id):
         #     conn.commit()
 
         tags = request.form['tags'].split(',')
-        # yvidurl = request.form['yvidurl']
-        # vidurl = request.form['vidurl']
-
         # remove leading and trailing whitespaces
         for i in range(len(tags)):
             tags[i] = tags[i].strip()
@@ -184,7 +181,7 @@ def edit(recording_id):
             if tag!="":
                 print("Deleted tag: "+tag+" end")
                 # add to activity log if tag deleted
-                cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Deleted tag", "Deleted tag: \""+tag+"\""))
+                cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Deleted tag", "Deleted tag: \""+tag+"\"", recording[2], datetime.now()))
                 conn.commit()
 
         # adding new tags
@@ -193,15 +190,27 @@ def edit(recording_id):
                 print("Added tag: "+ tag+ " end")
                 new_dict[tag] = 0
                 # add to activity log if tag added
-                cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Added tag", "Added tag: \""+tag+"\""))
+                cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Added tag", "Added tag: \""+tag+"\"", recording[2], datetime.now()))
                 conn.commit()
+
+        yvidurl = request.form['yvidurl']
+        vidurl = request.form['vidurl']
+        new_vid = recording[4]
+        if yvidurl:
+            new_vid = yvidurl.replace("https://youtu.be/", "https://www.youtube.com/embed/")
+        elif vidurl:
+            new_vid = vidurl
+        # add to activity log if video link changed
+        if new_vid!=recording[4]:
+            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed video url", vidurl, recording[2], datetime.now()))
+            conn.commit()
 
         if not title:
             flash('Title is required!')
         else:
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute('UPDATE recordings SET topic = %s, summary = %s, tags = %s where id = %s', (title, summary, json.dumps(new_dict), recording_id))
+            cur.execute('UPDATE recordings SET topic = %s, summary = %s, tags = %s, video = %s where id = %s', (title, summary, json.dumps(new_dict), new_vid, recording_id))
             cur.close()
             conn.commit()
             conn.close()
@@ -235,17 +244,29 @@ def show(recording_id):
     return redirect(url_for('index'))
 
 
-@app.route('/tagFilter/<string:tag>')
-def tagFilter(tag):
+@app.route('/index/<string:tag>')
+def indexTagFilter(tag):
     conn = get_db_connection()
     cur = conn.cursor()
 
     # get recordings
-    cur.execute('SELECT * FROM recordings WHERE tags::jsonb ? %s',(tag,))
+    cur.execute('SELECT * FROM recordings WHERE tags::jsonb ? %s ORDER BY unformat_time DESC',(tag,))
     recordings = cur.fetchall()
     cur.close()
     conn.close()
     return render_template('index.html', recordings=recordings, selected_tag=tag, username=session.get('user'))
+
+@app.route('/card/<string:tag>')
+def cardTagFilter(tag):
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    # get recordings
+    cur.execute('SELECT * FROM recordings WHERE tags::jsonb ? %s ORDER BY unformat_time DESC',(tag,))
+    recordings = cur.fetchall()
+    cur.close()
+    conn.close()
+    return render_template('card.html', recordings=recordings, selected_tag=tag, username=session.get('user'))
 
 
 @app.route('/<string:id>/<string:tag>/upvote', methods=('POST','GET'))
@@ -270,3 +291,12 @@ def downvote_tag(id, tag):
 
     recording = get_recording(id)
     return redirect(url_for('.recording', recording_id=id))
+
+@app.route('/search/<string:keyword>')
+def search_word(keyword):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    recordings = search(conn, cur, keyword)
+    cur.close()
+    conn.close()
+    return render_template('index.html', recordings=recordings, selected_tag="", username=session.get('user'))
