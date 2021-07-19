@@ -60,6 +60,21 @@
 
   </div>
 
+  <!-- search bar -->
+  <form method="post">
+    <div class="form-group">
+        <input type="search" name="keyword" placeholder=""
+               class="form-control"
+               value="{{ request.form['keyword'] }}">
+        </input>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+    </div>
+  </form>
+  <br>
+
   <hr>
 
   <div class="grid grid-cols-5 my-2 px-2 text-blue-900 rounded-md font-semibold">
