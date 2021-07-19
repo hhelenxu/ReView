@@ -53,3 +53,17 @@ th {
 .h1 {
     color:#012169;
 }
+
+.searchButton {
+    width: 40px;
+    height: 36px;
+    border: 1px solid #012169;
+    background: #012169;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+  }
+
+  
