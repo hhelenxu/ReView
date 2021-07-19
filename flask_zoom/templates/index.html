@@ -65,7 +65,7 @@
     <div class="form-group">
         <input type="search" name="keyword" placeholder=""
                class="form-control"
-               value="{{ request.form['keyword'] }}">
+               value="{{ request.form['keyword'] }}" onkeyup="this.value = this.value.replace(/[^A-Za-z0-9_-\s]/g, '')">
         </input>
     </div>
 
@@ -80,7 +80,10 @@
   <div class="grid grid-cols-5 my-2 px-2 text-blue-900 rounded-md font-semibold">
     <div class="col-span-1 flex flex-row">
       <div class="bi bi-calendar-event hidden md:block md:mr-2"></div>
-      <div>DATE</div>
+      <!-- <div>DATE</div> -->
+      <div class=" hidden md:block md:mr-2">DATE</div>
+      <!-- make this a button/link to reverse order of recordings -->
+      <a href="{{ url_for('index') }}"  class="bi bi-arrow-down-up hidden md:block md:mr-2"></a>
     </div>
     <div class="col-span-2 flex flex-row">
       <div class="bi bi-type hidden md:block md:mr-2"></div>
