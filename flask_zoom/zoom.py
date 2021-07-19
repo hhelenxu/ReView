@@ -214,21 +214,21 @@ def search(conn, cur, words):
 
     # search for phrase
     phrase = " <-> ".join(words)
-    cur.execute("SELECT id FROM recordings WHERE tokens @@ to_tsquery(%s)", (phrase,)) 
+    cur.execute("SELECT * FROM recordings WHERE tokens @@ to_tsquery(%s)", (phrase,)) 
     results = cur.fetchall()
     if len(results) > 0: # if results found
         return results
 
     # search for all words
     and_search = " & ".join(words)
-    cur.execute("SELECT id FROM recordings WHERE tokens @@ to_tsquery(%s)", (and_search,)) 
+    cur.execute("SELECT * FROM recordings WHERE tokens @@ to_tsquery(%s)", (and_search,)) 
     results = cur.fetchall()
     if len(results) > 0: # if results found
         return results
 
     # search for any word
     or_search = " | ".join(words)
-    cur.execute("SELECT id FROM recordings WHERE tokens @@ to_tsquery(%s)", (or_search,)) 
+    cur.execute("SELECT * FROM recordings WHERE tokens @@ to_tsquery(%s)", (or_search,)) 
     return cur.fetchall()
 
 
@@ -263,7 +263,7 @@ def vote_tags(conn, cur, id, tag, vote, user, email):
     # cur.execute("SELECT tags FROM recordings WHERE id=%s", (id,))
     # print(cur.fetchone())
 
-    cur.execute("SELECT topic FROM recordings WHERE id=%s", (meeting_id))
+    cur.execute("SELECT topic FROM recordings WHERE id=%s", (id))
     title = cur.fetchone()[0]
 
     if vote==1:
