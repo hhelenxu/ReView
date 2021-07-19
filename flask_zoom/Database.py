@@ -56,7 +56,8 @@ try:
         email VARCHAR,
         recording_id INTEGER,
         action VARCHAR,
-        notes VARCHAR
+        notes VARCHAR,
+        recording_title VARCHAR
     );
     """)
     conn.commit()

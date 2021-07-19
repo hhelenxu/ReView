@@ -155,13 +155,13 @@ def edit(recording_id):
         title = request.form['title']
         # add to activity log if title changed
         if title != recording[2]:
-            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed title", ""))
+            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title) VALUES (%s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed title", "Changed title to "+title, recording[2]))
             conn.commit()
 
         summary = request.form['summary']
         # add to activity log if summary changed
         if summary != recording[7]:
-            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed summary", ""))
+            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title) VALUES (%s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed summary", "", recording[2]))
             conn.commit()
 
         # transcription = request.form['transcription']
@@ -181,7 +181,7 @@ def edit(recording_id):
             if tag!="":
                 print("Deleted tag: "+tag+" end")
                 # add to activity log if tag deleted
-                cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Deleted tag", "Deleted tag: \""+tag+"\""))
+                cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title) VALUES (%s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Deleted tag", "Deleted tag: \""+tag+"\"", recording[2]))
                 conn.commit()
 
         # adding new tags
@@ -190,18 +190,19 @@ def edit(recording_id):
                 print("Added tag: "+ tag+ " end")
                 new_dict[tag] = 0
                 # add to activity log if tag added
-                cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Added tag", "Added tag: \""+tag+"\""))
+                cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title) VALUES (%s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Added tag", "Added tag: \""+tag+"\"", recording[2]))
                 conn.commit()
 
         yvidurl = request.form['yvidurl']
         vidurl = request.form['vidurl']
+        new_vid = recording[4]
         if yvidurl:
             new_vid = yvidurl.replace("https://youtu.be/", "https://www.youtube.com/embed/")
         elif vidurl:
             new_vid = vidurl
         # add to activity log if video link changed
         if new_vid!=recording[4]:
-            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed video url", vidurl))
+            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title) VALUES (%s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed video url", vidurl, recording[2]))
             conn.commit()
 
         if not title:
