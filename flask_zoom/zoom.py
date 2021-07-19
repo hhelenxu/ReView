@@ -83,7 +83,7 @@ def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1
         summary = generate_summary(text, num_sentences)
 
         # add to database
-        cur.execute("INSERT INTO recordings(topic, start_time, video, transcript, text, tokens, tags, summary, visible, zoom_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, TRUE, %s) ON CONFLICT (zoom_id) DO NOTHING", (meeting["topic"], date, video_link, transcript_link, text, tokens, json.dumps(keywords_dict), summary, meeting["uuid"]))
+        cur.execute("INSERT INTO recordings(topic, start_time, video, transcript, text, tokens, tags, summary, visible, zoom_id, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, TRUE, %s, %s) ON CONFLICT (zoom_id) DO NOTHING", (meeting["topic"], date, video_link, transcript_link, text, tokens, json.dumps(keywords_dict), summary, meeting["uuid"], meeting["start_time"]))
         conn.commit()
 
 
@@ -243,10 +243,10 @@ def change_visibility(conn, cur, meeting_id, user, email, visible='FALSE'):
         cur_action = "Hid recording"
     else:
         cur_action = "Made recording visible"
-    cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%m/%d/%Y %H:%M:%S"))
+    cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%b %d, %Y %I:%M %p"))
 
     # add to activity log
-    cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title) VALUES (%s, %s, %s, %s, %s, %s, %s)", (cur_time, user, email, meeting_id, cur_action, "", title))
+    cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, user, email, meeting_id, cur_action, "", title, datetime.now()))
     conn.commit()
     
 
@@ -270,10 +270,10 @@ def vote_tags(conn, cur, id, tag, vote, user, email):
         vote_type = "Upvote"
     else:
         vote_type = "Downvote"
-    cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%m/%d/%Y %H:%M:%S"))
+    cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%b %d, %Y %I:%M %p"))
 
     # add to activity log
-    cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title) VALUES (%s, %s, %s, %s, %s, %s, %s)", (cur_time, user, email, id, vote_type, "Tag modified: " + tag, title))
+    cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, user, email, id, vote_type, "Tag modified: " + tag, title, datetime.now()))
     conn.commit()
 
 
