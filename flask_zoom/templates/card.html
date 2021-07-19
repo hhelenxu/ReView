@@ -32,35 +32,20 @@
         </svg>
       </a>
     </button>
-    <!-- <button class="hover:bg-gray-50 rounded-lg p-2 border border-gray-100">
-      <div class="flex flex-row">
-        <div>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M14 6L4 6M6 12H4H6ZM6 12C6 12.5304 6.21071 13.0391 6.58579 13.4142C6.96086 13.7893 7.46957 14 8 14C8.53043 14 9.03914 13.7893 9.41421 13.4142C9.78929 13.0391 10 12.5304 10 12L6 12ZM6 12C6 11.4696 6.21071 10.9609 6.58579 10.5858C6.96086 10.2107 7.46957 10 8 10C8.53043 10 9.03914 10.2107 9.41421 10.5858C9.78929 10.9609 10 11.4696 10 12L6 12ZM18 18C18 17.4696 17.7893 16.9609 17.4142 16.5858C17.0391 16.2107 16.5304 16 16 16C15.4696 16 14.9609 16.2107 14.5858 16.5858C14.2107 16.9609 14 17.4696 14 18H18ZM18 18C18 18.5304 17.7893 19.0391 17.4142 19.4142C17.0391 19.7893 16.5304 20 16 20C15.4696 20 14.9609 19.7893 14.5858 19.4142C14.2107 19.0391 14 18.5304 14 18H18ZM18 18H20H18ZM14 18L4 18L14 18ZM10 12L20 12L10 12ZM18 6C18 5.46957 17.7893 4.96086 17.4142 4.58579C17.0391 4.21071 16.5304 4 16 4C15.4696 4 14.9609 4.21071 14.5858 4.58579C14.2107 4.96086 14 5.46957 14 6H18ZM18 6C18 6.53043 17.7893 7.03914 17.4142 7.41421C17.0391 7.78929 16.5304 8 16 8C15.4696 8 14.9609 7.78929 14.5858 7.41421C14.2107 7.03914 14 6.53043 14 6H18ZM18 6H20H18Z"
-              stroke="#B5B5B5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </div>
-        <div class="px-2">
-          Filters
-        </div>
-      </div>
-    </button> -->
+  
+    {% if selected_tag != "" %}
+    <div > Selected Tag:
+      <a href="{{ url_for('card')}}" class="hover:text-blue-400">
+        <span class="badge bg-blue-400 text-white hover:bg-blue-100">
+          {{selected_tag}}
+        </span>
+      </a>
+    </div>
+    {% endif %}
 
   </div>
 
 
-  <!-- <div class="grid grid-cols-5 my-2 px-2 text-blue-900 rounded-md font-semibold">
-    <div class="col-span-1 flex flex-row">
-      <div class="bi bi-calendar-event mr-2"></div>
-      <div>DATE</div></div>
-      <div class="col-span-2 flex flex-row">
-        <div class="bi bi-type mr-2"></div>
-        <div>TOPIC</div></div>
-        <div class="col-span-2 flex flex-row">
-          <div class="bi bi-tags mr-2"></div>
-          <div>TAGS</div></div>
-  </div> -->
   <hr class="mb-2">
 
   <div class="card-deck md:mt-6 mt-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -95,13 +80,13 @@
             {% for tag, value in recording[9] | dictsort(false, 'value', reverse=true) %}
             {% if tag == selected_tag %} 
             <span class="badge bg-blue-400 text-white">{{ tag }}</span>
-            {% elif recording[9][tag] <= -3 %} <a href="{{ url_for('tagFilter', tag=tag) }}">
+            {% elif recording[9][tag] <= -3 %} <a href="{{ url_for('cardTagFilter', tag=tag) }}">
           <span class="badge text-blue-400 bg-blue-50 hover:bg-blue-400 hover:text-white">{{ tag }}</span></a>
           {% elif recording[9][tag] >= 3 %}
-          <a href="{{ url_for('tagFilter', tag=tag) }}">
+          <a href="{{ url_for('cardTagFilter', tag=tag) }}">
             <span class="badge text-blue-400 bg-blue-200 hover:bg-blue-400 hover:text-white">{{ tag }}</span></a>
           {% else %}
-          <a href="{{ url_for('tagFilter', tag=tag) }}">
+          <a href="{{ url_for('cardTagFilter', tag=tag) }}">
             <span class="badge text-blue-400 bg-blue-100 hover:bg-blue-400 hover:text-white">{{ tag }}</span>
           </a>
           {% endif %}

@@ -133,7 +133,7 @@ def card():
     cur.close()
     conn.close()
 
-    return render_template('card.html', recordings=recordings, username=session.get('user'))
+    return render_template('card.html', recordings=recordings, selected_tag="", username=session.get('user'))
 
 
 @app.route('/<string:recording_id>')
@@ -244,8 +244,8 @@ def show(recording_id):
     return redirect(url_for('index'))
 
 
-@app.route('/tagFilter/<string:tag>')
-def tagFilter(tag):
+@app.route('/index/<string:tag>')
+def indexTagFilter(tag):
     conn = get_db_connection()
     cur = conn.cursor()
 
@@ -255,6 +255,18 @@ def tagFilter(tag):
     cur.close()
     conn.close()
     return render_template('index.html', recordings=recordings, selected_tag=tag, username=session.get('user'))
+
+@app.route('/card/<string:tag>')
+def cardTagFilter(tag):
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    # get recordings
+    cur.execute('SELECT * FROM recordings WHERE tags::jsonb ? %s ORDER BY unformat_time DESC',(tag,))
+    recordings = cur.fetchall()
+    cur.close()
+    conn.close()
+    return render_template('card.html', recordings=recordings, selected_tag=tag, username=session.get('user'))
 
 
 @app.route('/<string:id>/<string:tag>/upvote', methods=('POST','GET'))
