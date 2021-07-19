@@ -171,9 +171,6 @@ def edit(recording_id):
         #     conn.commit()
 
         tags = request.form['tags'].split(',')
-        yvidurl = request.form['yvidurl']
-        vidurl = request.form['vidurl']
-
         # remove leading and trailing whitespaces
         for i in range(len(tags)):
             tags[i] = tags[i].strip()
@@ -196,12 +193,23 @@ def edit(recording_id):
                 cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Added tag", "Added tag: \""+tag+"\""))
                 conn.commit()
 
+        yvidurl = request.form['yvidurl']
+        vidurl = request.form['vidurl']
+        if yvidurl:
+            new_vid = yvidurl.replace("https://youtu.be/", "https://www.youtube.com/embed/")
+        elif vidurl:
+            new_vid = vidurl
+        # add to activity log if video link changed
+        if new_vid!=recording[4]:
+            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed video url", vidurl))
+            conn.commit()
+
         if not title:
             flash('Title is required!')
         else:
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute('UPDATE recordings SET topic = %s, summary = %s, tags = %s where id = %s', (title, summary, json.dumps(new_dict), recording_id))
+            cur.execute('UPDATE recordings SET topic = %s, summary = %s, tags = %s, video = %s where id = %s', (title, summary, json.dumps(new_dict), new_vid, recording_id))
             cur.close()
             conn.commit()
             conn.close()
