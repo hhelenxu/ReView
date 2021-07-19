@@ -279,3 +279,12 @@ def downvote_tag(id, tag):
 
     recording = get_recording(id)
     return redirect(url_for('.recording', recording_id=id))
+
+@app.route('/search/<string:keyword>')
+def search_word(keyword):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    recordings = search(conn, cur, keyword)
+    cur.close()
+    conn.close()
+    return render_template('index.html', recordings=recordings, selected_tag="", username=session.get('user'))
