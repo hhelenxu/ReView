@@ -103,7 +103,7 @@ def admin_activity():
         cur.close()
         conn.close()
 
-        return render_template('admin_activity.html', activities=activities)
+        return render_template('admin_activity.html', activities=activities, username=session.get('user'))
 
 
 @app.route('/admin/hidden_recordings')
@@ -120,7 +120,7 @@ def admin_hidden_recordings():
         cur.close()
         conn.close()
 
-        return render_template('admin_activity.html', hiddenRecordings=hiddenRecordings)
+        return render_template('admin_hidden.html', hiddenRecordings=hiddenRecordings, username=session.get('user'))
 
 @app.route('/card')
 def card():
@@ -133,13 +133,13 @@ def card():
     cur.close()
     conn.close()
 
-    return render_template('card.html', recordings=recordings)
+    return render_template('card.html', recordings=recordings, username=session.get('user'))
 
 
 @app.route('/<string:recording_id>')
 def recording(recording_id):
     recording = get_recording(recording_id)
-    return render_template('recording.html', recording=recording)
+    return render_template('recording.html', recording=recording, username=session.get('user'))
 
 
 @app.route('/<string:recording_id>/edit', methods=('GET', 'POST'))
@@ -164,15 +164,15 @@ def edit(recording_id):
             cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed summary", ""))
             conn.commit()
 
-        transcription = request.form['transcription']
-        # add to activity log if transcript changed
-        if transcription != recording[6]:
-            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed transcript", ""))
-            conn.commit()
+        # transcription = request.form['transcription']
+        # # add to activity log if transcript changed
+        # if transcription != recording[6]:
+        #     cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed transcript", ""))
+        #     conn.commit()
 
         tags = request.form['tags'].split(',')
-        yvidurl = request.form['yvidurl']
-        vidurl = request.form['vidurl']
+        # yvidurl = request.form['yvidurl']
+        # vidurl = request.form['vidurl']
 
         # remove leading and trailing whitespaces
         for i in range(len(tags)):
@@ -201,12 +201,12 @@ def edit(recording_id):
         else:
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute('UPDATE recordings SET topic = %s, summary = %s, text = %s, tags = %s where id = %s', (title, summary, transcription, json.dumps(new_dict), recording_id), yvidurl or vidurl)
+            cur.execute('UPDATE recordings SET topic = %s, summary = %s, tags = %s where id = %s', (title, summary, json.dumps(new_dict), recording_id))
             cur.close()
             conn.commit()
             conn.close()
             return redirect(url_for('.recording', recording_id=recording_id))
-    return render_template('edit.html', recording=recording, permission=session.get('permission'))
+    return render_template('edit.html', recording=recording, permission=session.get('permission'), username=session.get('user'))
 
 
 @app.route('/<string:recording_id>/hide', methods=('POST','GET'))
@@ -245,7 +245,7 @@ def tagFilter(tag):
     recordings = cur.fetchall()
     cur.close()
     conn.close()
-    return render_template('index.html', recordings=recordings, selected_tag=tag)
+    return render_template('index.html', recordings=recordings, selected_tag=tag, username=session.get('user'))
 
 
 @app.route('/<string:id>/<string:tag>/upvote', methods=('POST','GET'))
