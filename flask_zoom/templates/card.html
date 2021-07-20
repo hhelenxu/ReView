@@ -32,7 +32,7 @@
         </svg>
       </a>
     </button>
-  
+    
     {% if selected_tag != "" %}
     <div > Selected Tag:
       <a href="{{ url_for('card')}}" class="hover:text-blue-400">
@@ -44,8 +44,20 @@
     {% endif %}
 
   </div>
+  <!-- search bar -->
+  <form method="post">
+    <div class="form-group">
+        <input type="search" name="keyword" placeholder=""
+               class="form-control"
+               value="{{ request.form['keyword'] }}" onkeyup="this.value = this.value.replace(/[^A-Za-z0-9_-\s]/g, '')">
+        </input>
+    </div>
 
-
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+    </div>
+  </form>
+    <br/>
   <hr class="mb-2">
 
   <div class="card-deck md:mt-6 mt-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
