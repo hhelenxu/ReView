@@ -25,6 +25,26 @@ def get_recording(recording_id):
         abort(404)
     return recording
 
+def searchForKeyword(keyword, tag=""):
+    if keyword == "":
+        conn = get_db_connection()
+        cur = conn.cursor()
+        # get recordings
+        if tag:
+            cur.execute('SELECT * FROM recordings WHERE tags::jsonb ? %s ORDER BY unformat_time DESC',(tag,))
+        else:
+            cur.execute("SELECT * FROM recordings WHERE visible=TRUE ORDER BY unformat_time DESC")
+        recordings = cur.fetchall()
+        cur.close()
+        conn.close()
+        return render_template('index.html', recordings=recordings, selected_tag=tag, username=session.get('user'))
+    conn = get_db_connection()
+    cur = conn.cursor()
+    recordings = search(conn, cur, keyword)
+    cur.close()
+    conn.close()
+    return render_template('index.html', recordings=recordings, selected_tag=tag, username=session.get('user'))
+
 def authenticate(token):
     # jwks = "https://go.fuqua.duke.edu/auth/jwks"
     # jwks_client = PyJWKClient(jwks)
@@ -45,8 +65,12 @@ app.secret_key = 'NlcPJLmeyeXMn4KpISh0hGQ3cWQIQbbnE0WwfpeZxjiftirfP2sCNI0GA6P96k
 # app.config['SESSION_TYPE'] = 'redis'
 # Session(app)
 
-@app.route('/')
+@app.route('/', methods=('GET', 'POST'))
 def index():
+    # search
+    if request.method == 'POST':
+        return searchForKeyword(request.form['keyword'])
+
     # authentication and determine permissions
     if not request.cookies.get('_FSB_SHIB'):
         return redirect(url_for('auth_redirect'))
@@ -244,8 +268,11 @@ def show(recording_id):
     return redirect(url_for('index'))
 
 
-@app.route('/index/<string:tag>')
+@app.route('/index/<string:tag>', methods=('POST','GET'))
 def indexTagFilter(tag):
+    # search
+    if request.method == 'POST':
+        return searchForKeyword(request.form['keyword'], tag)
     conn = get_db_connection()
     cur = conn.cursor()
 
@@ -291,12 +318,3 @@ def downvote_tag(id, tag):
 
     recording = get_recording(id)
     return redirect(url_for('.recording', recording_id=id))
-
-@app.route('/search/<string:keyword>')
-def search_word(keyword):
-    conn = get_db_connection()
-    cur = conn.cursor()
-    recordings = search(conn, cur, keyword)
-    cur.close()
-    conn.close()
-    return render_template('index.html', recordings=recordings, selected_tag="", username=session.get('user'))
