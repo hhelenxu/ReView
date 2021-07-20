@@ -25,7 +25,11 @@ def get_recording(recording_id):
         abort(404)
     return recording
 
-def searchForKeyword(keyword, tag=""):
+def searchForKeyword(keyword, tag="", view="index"):
+    if view == "index":
+        file = 'index.html'
+    else:
+        file = 'card.html'
     if keyword == "":
         conn = get_db_connection()
         cur = conn.cursor()
@@ -37,13 +41,14 @@ def searchForKeyword(keyword, tag=""):
         recordings = cur.fetchall()
         cur.close()
         conn.close()
-        return render_template('index.html', recordings=recordings, selected_tag=tag, username=session.get('user'))
+        return render_template(file, recordings=recordings, selected_tag=tag, username=session.get('user'))
     conn = get_db_connection()
     cur = conn.cursor()
     recordings = search(conn, cur, keyword)
     cur.close()
     conn.close()
-    return render_template('index.html', recordings=recordings, selected_tag=tag, username=session.get('user'))
+    return render_template(file, recordings=recordings, selected_tag=tag, username=session.get('user'))
+
 
 def authenticate(token):
     # jwks = "https://go.fuqua.duke.edu/auth/jwks"
@@ -195,12 +200,16 @@ def admin_hidden_recordings():
 
         return render_template('admin_hidden.html', hiddenRecordings=hiddenRecordings, username=session.get('user'))
 
-@app.route('/card')
+@app.route('/card', methods=('GET', 'POST'))
 def card():
     # authentication and determine permissions
     if not request.cookies.get('_FSB_SHIB'):
         return redirect(url_for('auth_redirect'))
     login()
+
+    # search
+    if request.method == 'POST':
+        return searchForKeyword(keyword=request.form['keyword'], view="card")
 
     conn = get_db_connection()
     cur = conn.cursor()
@@ -362,12 +371,15 @@ def indexTagFilter(tag):
     conn.close()
     return render_template('index.html', recordings=recordings, selected_tag=tag, username=session.get('user'))
 
-@app.route('/card/<string:tag>')
+@app.route('/card/<string:tag>', methods=('GET', 'POST'))
 def cardTagFilter(tag):
     # authentication and determine permissions
     if not request.cookies.get('_FSB_SHIB'):
         return redirect(url_for('auth_redirect'))
     login()
+    
+    if request.method == 'POST':
+        return searchForKeyword(keyword=request.form['keyword'], tag=tag, view="card")
 
     conn = get_db_connection()
     cur = conn.cursor()

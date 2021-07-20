@@ -4,35 +4,38 @@
 <div class="homepage my-10">
 
   <div class="my-10">
-    <h1 class="md:text-4xl text-2xl" style="color:#012169">{% block title %}
-      Recordings for <span class="font-bold">Math 218: Matrices and Vector Spaces</span> {% endblock %}</h1>
+    {% block title %} Home {% endblock %}
+    <h1 class="md:text-4xl text-2xl" style="color:#012169">
+      Recordings for <span class="font-bold">Math 218: Matrices and Vector Spaces</span></h1>
     <p class="my-4 md:text-xl">Class description text. Any special instructions about how to use this site or any system
       that the instructors and TAs use. </p>
   </div>
 
-  <div class="flex flex-row items-center mb-4">
-
-
-    <button class=" p-2 mr-2 rounded-lg text-gray-600 hover:text-white hover:bg-blue-900">
-      <a href="{{ url_for('index')}}" class="hover:text-white">
-        <svg class="" width="14" height="14" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="12" height="3" rx="0.5" fill="currentColor" />
-          <rect y="5" width="12" height="3" rx="0.5" fill="currentColor" />
-          <rect y="10" width="12" height="3" rx="0.5" fill="currentColor" />
-        </svg>
-      </a>
-    </button>
-    <button class="p-2 bg-gray-50 border border-gray-100 mr-4 rounded-lg">
-      <a href="{{ url_for('card')}}" class="hover:text-white">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="#012169" xmlns="http://www.w3.org/2000/svg">
-          <rect x="8" width="5.29412" height="5.29412" rx="0.5" fill="012169" />
-          <rect width="5.29412" height="5.29412" rx="0.5" fill="012169" />
-          <rect x="8" y="8" width="5.29412" height="5.29412" rx="0.5" fill="012169" />
-          <rect y="8" width="5.29412" height="5.29412" rx="0.5" fill="012169" />
-        </svg>
-      </a>
-    </button>
+  <div class="flex justify-between items-center mb-4">
+    <div class="flex flex-wrap md:flex-row items-center">
+       <!-- button for list view -->
+       <button class=" p-2 mr-2 rounded-lg text-gray-600 hover:text-white hover:bg-blue-900">
+        <a href="{{ url_for('index')}}" class="hover:text-white">
+          <svg class="" width="14" height="14" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="12" height="3" rx="0.5" fill="currentColor" />
+            <rect y="5" width="12" height="3" rx="0.5" fill="currentColor" />
+            <rect y="10" width="12" height="3" rx="0.5" fill="currentColor" />
+          </svg>
+        </a>
+      </button>
+      <!-- button for card view -->
+      <button class="p-2 bg-gray-50 border border-gray-100 mr-4 rounded-lg">
+        <a href="{{ url_for('card')}}" class="hover:text-white">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="#012169" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" width="5.29412" height="5.29412" rx="0.5" fill="012169" />
+            <rect width="5.29412" height="5.29412" rx="0.5" fill="012169" />
+            <rect x="8" y="8" width="5.29412" height="5.29412" rx="0.5" fill="012169" />
+            <rect y="8" width="5.29412" height="5.29412" rx="0.5" fill="012169" />
+          </svg>
+        </a>
+      </button>
   
+     <!-- Selected tag indication -->
     {% if selected_tag != "" %}
     <div > Selected Tag:
       <a href="{{ url_for('card')}}" class="hover:text-blue-400">
@@ -42,9 +45,21 @@
       </a>
     </div>
     {% endif %}
+  </div>
+    <!-- search bar -->
+    <form method="post">
+      <div class="">
+      <div class="form-group  flex flex-row">
+          <input type="search" name="keyword" placeholder="Search"
+                 class="form-control rounded-none rounded-l-md"
+                 value="{{ request.form['keyword'] }}" onkeyup="this.value = this.value.replace(/[^A-Za-z0-9_-\s]/g, '')">
+          </input>
+          <button type="submit" class="btn text-white rounded-none rounded-r-md bg-gray-600"><i class="fa fa-search"></i></button>
+      </div>
+    </div>
+    </form>
 
   </div>
-
 
   <hr class="mb-2">
 
