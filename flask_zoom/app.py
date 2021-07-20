@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, flash, redirect, session
+from flask import Flask, render_template, request, url_for, flash, redirect, session, make_response
 from flask_session import Session
 from werkzeug.exceptions import abort
 import jwt
@@ -58,23 +58,7 @@ def authenticate(token):
         options={"require": ["exp", "iss", "sub"]})
     return data
 
-
-app = Flask(__name__)
-# app.config['SECRET_KEY'] = 'NlcPJLmeyeXMn4KpISh0hGQ3cWQIQbbnE0WwfpeZxjiftirfP2sCNI0GA6P96kCP'  # used to secure sessions, which allow Flask to remember information from one request to another
-app.secret_key = 'NlcPJLmeyeXMn4KpISh0hGQ3cWQIQbbnE0WwfpeZxjiftirfP2sCNI0GA6P96kCP'
-# app.config['SESSION_TYPE'] = 'redis'
-# Session(app)
-
-@app.route('/', methods=('GET', 'POST'))
-def index():
-    # search
-    if request.method == 'POST':
-        return searchForKeyword(request.form['keyword'])
-
-    # authentication and determine permissions
-    if not request.cookies.get('_FSB_SHIB'):
-        return redirect(url_for('auth_redirect'))
-    
+def login():
     token = request.cookies.get('_FSB_SHIB')
     try:
         auth = authenticate(token)
@@ -96,6 +80,44 @@ def index():
     print(session.get('user'))
     print(session.get('permission'))
 
+
+app = Flask(__name__)
+# app.config['SECRET_KEY'] = 'NlcPJLmeyeXMn4KpISh0hGQ3cWQIQbbnE0WwfpeZxjiftirfP2sCNI0GA6P96kCP'  # used to secure sessions, which allow Flask to remember information from one request to another
+app.secret_key = 'NlcPJLmeyeXMn4KpISh0hGQ3cWQIQbbnE0WwfpeZxjiftirfP2sCNI0GA6P96kCP'
+# app.config['SESSION_TYPE'] = 'redis'
+# Session(app)
+
+@app.route('/', methods=('GET', 'POST'))
+def index():
+    # authentication and determine permissions
+    if not request.cookies.get('_FSB_SHIB'):
+        return redirect(url_for('auth_redirect'))
+    login()
+    # token = request.cookies.get('_FSB_SHIB')
+    # try:
+    #     auth = authenticate(token)
+    #     print(auth)
+    # except jwt.exceptions.DecodeError as e:
+    #     print("Error decoding JWT "+token)
+    #     return redirect(url_for('auth_redirect'))
+    # except jwt.exceptions.ExpiredSignatureError as e:
+    #     return redirect(url_for('auth_redirect'))
+
+    # session['user'] = auth['cn']
+    # session['dukeid'] = auth['dukeid']
+    # session['email'] = auth['sub']
+    # if "staff@duke.edu" in auth['eduPersonScopedAffiliation'] or "faculty@duke.edu" in auth['eduPersonScopedAffiliation']:
+    #     session['permission'] = True
+    # else:
+    #     session['permission'] = False
+
+    # print(session.get('user'))
+    # print(session.get('permission'))
+
+    # search
+    if request.method == 'POST':
+        return searchForKeyword(request.form['keyword'])
+
     conn = get_db_connection()
     cur = conn.cursor()
 
@@ -115,6 +137,11 @@ def auth_redirect():
 
 @app.route('/admin/activity')
 def admin_activity():
+    # authentication and determine permissions
+    if not request.cookies.get('_FSB_SHIB'):
+        return redirect(url_for('auth_redirect'))
+    login()
+
     if not session.get('permission'):
         return redirect(url_for('index'))
     else:
@@ -132,6 +159,11 @@ def admin_activity():
 
 @app.route('/admin/hidden_recordings')
 def admin_hidden_recordings():
+    # authentication and determine permissions
+    if not request.cookies.get('_FSB_SHIB'):
+        return redirect(url_for('auth_redirect'))
+    login()
+
     if not session.get('permission'):
         return redirect(url_for('index'))
     else:
@@ -148,6 +180,11 @@ def admin_hidden_recordings():
 
 @app.route('/card')
 def card():
+    # authentication and determine permissions
+    if not request.cookies.get('_FSB_SHIB'):
+        return redirect(url_for('auth_redirect'))
+    login()
+
     conn = get_db_connection()
     cur = conn.cursor()
 
@@ -162,12 +199,22 @@ def card():
 
 @app.route('/<string:recording_id>')
 def recording(recording_id):
+    # authentication and determine permissions
+    if not request.cookies.get('_FSB_SHIB'):
+        return redirect(url_for('auth_redirect'))
+    login()
+
     recording = get_recording(recording_id)
     return render_template('recording.html', recording=recording, username=session.get('user'))
 
 
 @app.route('/<string:recording_id>/edit', methods=('GET', 'POST'))
 def edit(recording_id):
+    # authentication and determine permissions
+    if not request.cookies.get('_FSB_SHIB'):
+        return redirect(url_for('auth_redirect'))
+    login()
+
     conn = get_db_connection()
     cur = conn.cursor()
     recording = get_recording(recording_id)
@@ -244,6 +291,11 @@ def edit(recording_id):
 
 @app.route('/<string:recording_id>/hide', methods=('POST','GET'))
 def hide(recording_id):
+    # authentication and determine permissions
+    if not request.cookies.get('_FSB_SHIB'):
+        return redirect(url_for('auth_redirect'))
+    login()
+
     conn = get_db_connection()
     cur = conn.cursor()
     recording = get_recording(recording_id)
@@ -257,6 +309,11 @@ def hide(recording_id):
 
 @app.route('/<string:recording_id>/show', methods=('POST','GET'))
 def show(recording_id):
+    # authentication and determine permissions
+    if not request.cookies.get('_FSB_SHIB'):
+        return redirect(url_for('auth_redirect'))
+    login()
+
     conn = get_db_connection()
     cur = conn.cursor()
     recording = get_recording(recording_id)
@@ -270,6 +327,11 @@ def show(recording_id):
 
 @app.route('/index/<string:tag>', methods=('POST','GET'))
 def indexTagFilter(tag):
+    # authentication and determine permissions
+    if not request.cookies.get('_FSB_SHIB'):
+        return redirect(url_for('auth_redirect'))
+    login()
+
     # search
     if request.method == 'POST':
         return searchForKeyword(request.form['keyword'], tag)
@@ -285,6 +347,11 @@ def indexTagFilter(tag):
 
 @app.route('/card/<string:tag>')
 def cardTagFilter(tag):
+    # authentication and determine permissions
+    if not request.cookies.get('_FSB_SHIB'):
+        return redirect(url_for('auth_redirect'))
+    login()
+
     conn = get_db_connection()
     cur = conn.cursor()
 
@@ -298,6 +365,11 @@ def cardTagFilter(tag):
 
 @app.route('/<string:id>/<string:tag>/upvote', methods=('POST','GET'))
 def upvote_tag(id, tag):  
+    # authentication and determine permissions
+    if not request.cookies.get('_FSB_SHIB'):
+        return redirect(url_for('auth_redirect'))
+    login()
+
     conn = get_db_connection()
     cur = conn.cursor()
     vote_tags(conn, cur, id, tag, 1, session.get('user'), session.get('email'))
@@ -310,6 +382,11 @@ def upvote_tag(id, tag):
 
 @app.route('/<string:id>/<string:tag>/downvote', methods=('POST','GET'))
 def downvote_tag(id, tag):  
+    # authentication and determine permissions
+    if not request.cookies.get('_FSB_SHIB'):
+        return redirect(url_for('auth_redirect'))
+    login()
+
     conn = get_db_connection()
     cur = conn.cursor()
     vote_tags(conn, cur, id, tag, -1, session.get('user'), session.get('email'))
