@@ -11,10 +11,9 @@
       <input type="button" class="bg-transparent" value="Back" onclick="history.back()">
     </div>
   </form>
-
+{% block title %} Recording Page {% endblock %}
   <ul class="list-group list-group-flush my-10">
-    <li class="list-group-item  md:text-4xl text-2xl" style="color:#012169">{% block title
-      %} Details for <span class="font-bold">{{ recording[2] }} </span>{% endblock %}
+    <li class="list-group-item  md:text-4xl text-2xl" style="color:#012169"> Details for <span class="font-bold">{{ recording[2] }} </span>
       <button
         class="justify-self-end hover:border bg-white hover:shadow hover:bg-blue-50 hover:border-gray-600 rounded-lg hover:border hover:border-gray-100 text-gray-400 hover:text-blue-600">
         <a href="{{ url_for('edit', recording_id=recording[0]) }}">
