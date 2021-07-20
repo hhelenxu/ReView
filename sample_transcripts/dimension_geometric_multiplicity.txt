@@ -1,0 +1,110 @@
+so we have our definition of dimension.
+it's the number of vectors and any basis
+for the space you care about.
+and the real punch line was from the the
+the section immediately preceding this.
+we know the dimensions of all four
+fundamental subspaces of a matrix.
+the dimension of the column space and
+the dimension of the row space
+is equal to the rank of the matrix. the
+dimension of the null space is the
+nullity of the matrix.
+and the dimension of the left null space
+is the nullity of the transpose.
+there's all sorts of interesting things
+we can say now for example.
+we now have a theorem that connects this
+idea of geometric multiplicity
+to the idea of eigenspaces and the
+theorem says that the geometric
+multiplicity
+of an eigenvalue of a matrix is the same
+thing as the dimension
+of the associated eigenspace. and the
+proof here isn't difficult at
+all it just ties together all these
+concepts. remember
+by definition the geometric multiplicity
+of an eigenvalue
+is the nullity of the associated
+characteristic matrix
+but the nullity of the associated
+characteristic matrix we now know
+is the dimension of its null space but
+its null space
+is what we define as the eigenspace. so i
+have a little typo here this should say
+dimension
+of the eigenspace at the end i'll
+correct that.
+so this is just saying this thing we
+call geometric multiplicity before
+is the dimension of the null space of
+the characteristic matrix
+but the null space of the characteristic
+matrix is the eigenspace.
+let's look at an example here. someone's
+been kind enough to take this three by
+three matrix
+and give us the eigenvalues. the
+eigenvalues are negative three
+and five. um well let's say that i wanted
+to describe
+everything in the eigenspace of this
+matrix where lambda equals negative 3.
+well how do we do this we're supposed to
+look at the null space
+of the characteristic matrix negative 3
+times the identity minus the matrix.
+and how do i look at the null space of a
+matrix well i typically will reduce
+that matrix. so i've bothered to find the
+reduced row echelon form
+of the characteristic matrix and here
+what i'm finding
+is that um there's only going to be one
+free variable.
+when i study the system uh that defines
+the null space of this matrix
+and i'll only get one linearly
+independent solution
+and all other solutions will be
+multiples of this one.
+so here i'm finding that i have one
+basis vector
+4 4 negative 1 for my eigenspace.
+this is telling me that the dimension of
+the eigenspace is 1
+and that is the same thing as the
+geometric multiplicity of
+the eigenvalue .let's look at it
+at the other eigenvalue the other
+eigenvalue is lambda
+equals five how do i describe
+everything in this eigenspace. well the
+way i describe everything in the
+eigenspace
+is by looking at the null space of the
+characteristic matrix 5 times the
+identity minus the matrix.
+and the way we study this null space is
+by row reducing that matrix
+i plugged this characteristic matrix
+into the computer and the computer told
+me
+that the reduced row echelon form was
+this matrix.
+and from here i see that i'll have two
+free variables in my associated system
+and this gives me two basis vectors for
+the eigenspace
+and that tells me that the eigenspace
+has dimension two
+which tells me that the geometric
+multiplicity equals two.
+so again we see this because the nullity
+of the characteristic matrix is two
+uh there are two uh um non-pivot columns
+as evidenced by the reduced row echelon
+form.

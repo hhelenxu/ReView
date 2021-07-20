@@ -1,0 +1,137 @@
+﻿every reputable linear algebra course needs to cover the concept of an eigenvalue and lucky for you we're doing it right now. so what is an eigenvalue um well before i can tell you what an eigenvalue is, i want to give you one piece of notation that's going to make all of this a little bit easier. 
+
+
+so this is the notion of the characteristic matrix of an n by n matrix a. so whenever we're discussing eigenvalues we're always talking about square matrices. so let's say we start with this n by n matrix called a. its characteristic matrix which i like to denote by capital x sub a of t is a matrix obtained by scaling the n by n identity matrix by a variable called t and then subtracting off the matrix you care about a. 
+
+
+let's see this with an example. so to construct the characteristic matrix we start by scaling the appropriately sized identity matrix. here i'm looking at a three by three example and what i'm doing is i'm taking the three by three identity matrix and then multiplying all of the entries by t. of course this is the same thing as constructing a three by three diagonal matrix where all of the entries on the diagonal are equal to three the next thing we do is we subtract off the matrix we care about. so in this example the matrix i care about is this three by three matrix uh where the the the first column is eleven negative four zero and so on. so that's the matrix i care about and i want to construct its characteristic matrix so i take t times the identity and subtract my matrix a and that gives me the characteristic matrix okay. 
+
+
+so this matrix turns out to be interesting for all sorts of of reasons and um the first reason for us that uh this is an interesting matrix is it allows us to easily define the notion of an eigenvalue of a scalar typically called lambda is an eigenvalue of a if when we plug in t equals lambda into the characteristic matrix we obtain a singular matrix. this is why we need to be comfortable with the language of singular and non-singular matrices because we want to study eigenvalues. 
+
+
+so remember a singular matrix is a square matrix that is rank deficient. so in this case our matrix is three by three so the idea is that if we replace t with a specific scalar called lambda and when we look at the result in the characteristic matrix if that matrix has rank less than 3 then we know that lambda was an eigenvalue. 
+
+
+so the example i chose here was i chose lamb to be lambda to be seven. so i'm plugging in t equals seven here that's my lambda and uh what does that do in the characteristic matrix. well i'm replacing the t's with seven and now the only thing i need to do is arithmetic on the diagonal here i need to figure out 7 minus 11 which i guess is negative 4 7 plus 9 which is 16 and 7 minus 7 which of course is 0. 
+
+
+so once we do that arithmetic now what we're looking at is the characteristic matrix of a with t equals lambda. and in this case i'm setting lambda equal to 7 and if we look at the resulting matrix here something interesting happens for one the bottom row is all zeros and if the bottom row is all zeros that means no matter what kind of row reductions i do i'll never get a pivot there. once i get to reduce row echelon form um so this means that uh the rank of this matrix is definitely not equal to 3. so that tells me that lambda equals 7 is an eigenvalue of a. 
+
+
+so just to recap to check whether or not a scalar is an eigenvalue, you set t equal to that scalar in the characteristic matrix and you check whether or not the result is singular which means you want to check whether or not it has full rank. 
+
+
+let's see this in an example. so again the major observation here is that this is a numerical thing if you want to check whether or not a scalar lambda is an eigenvalue of an n by n matrix a. you need to look at the characteristic matrix with t replaced with lambda and then you either check that the rank is less than n that's one thing you can say to be singular or equivalently you can check that the nullity is greater than zero. these two things are the same thing so here um we're given an example so um if we want to verify if lambda is an eigenvalue you ultimately want to say something about the rank or the nullity of the characteristic matrix. so you in general what that means is that you have to do some row reductions so here we're confronted with a rather ugly three by three matrix a and uh i am curious whether or not lambda equals negative four is an eigenvalue. so what i do is i construct the characteristic matrix with lambda equals negative four so that's negative four times the three by three identity minus a.     
+i look at that matrix and i ask myself well what is the rank and in this case to figure out the rank the numbers here are so bad that i just figured i'd use a computer and when i use the computer to calculate the reduced row echelon form here's what i got. i find that i have two pivots which means the rank is two and i have one non-pivot column which means that
+the nullity of this characteristic matrix equals 1. well the nullity is greater than 0. alternatively the rank is less than 3.
+so my conclusion for this example is that lambda equals negative 4 is an eigenvalue of a.
+so to recap i started with this terrible
+3x3 matrix a
+i wanted to check whether or not lambda
+equals negative 4 is an eigenvalue.
+so i looked at the characteristic matrix
+negative 4
+times the 3x3 identity minus a
+and i asked myself what is the rank or
+what is the nullity.
+in order to do that here i plugged this
+characteristic matrix into a computer.
+i asked what is the reduced row echelon
+form and i got a result
+and the result told me that the nullity
+is 1 which is greater than 0.
+so i am indeed looking at an eigenvalue
+when i study lambda equals negative 4.
+now it's extremely important to point
+out here that eigenvalues are rare.
+if you set lambda equal to some random
+number and then you're studying some
+matrix and you ask
+is lambda an eigenvalue almost always
+the answer is no.
+so here i have an example where i'm
+confronted with another 3x3 matrix a.
+what's the row reduction i'm doing here
+well you're looking right here at the
+characteristic matrix
+where we're setting the variable equal
+to 3. so
+what i'm trying to do here is i'm trying
+to verify whether or not lambda equals 3
+is an eigenvalue of this matrix a.
+so 3 times the by three identity minus a
+equals this matrix i've highlighted
+and when i did the row reductions or
+when a computer did the row reductions
+i got the three by three identity matrix.
+well the rank there is three and the
+size is three by three
+so that tells me that lambda equals 3
+here is definitely
+not an eigenvalue of a. so most of the
+time if you take
+just some random number and check
+whether or not it is an eigenvalue of
+some matrix you care about
+the answer will be no but sometimes the
+answer is yes and that's why the theory
+is interesting.
+um now i want to point out that if you
+if you start doing this a lot uh you can
+intuit
+uh certain things about the reduced row
+echelon form. so in other words
+sometimes if the matrix looks nice
+enough you can figure out the reduced
+form without actually doing any row
+reductions.
+here's a nice example illustrating this
+point. so here
+i have a three by three matrix a and
+i'm interested in whether or not the
+number six is an eigenvalue.
+so i look at the characteristic matrix
+six times the three by three identity
+minus a and that is this three by three
+matrix
+and if we look hard at this matrix we
+realize that it's kind of nice.
+remember when we're thinking about like
+the reduced form it's all about the
+column relations
+and this example is kind of nice because
+if we look at the second column
+we realize that the second column is
+really just equal to negative four
+times the first column and if we look at
+the third column
+we see that the third column is really
+just negative two times the first column.
+this is actually telling me what the
+reduced row echelon form is i have
+two non-pivot columns that relate to the
+first pivot column
+and those relations are summed up by by
+putting one pivot in the first column
+and then since the second two columns
+are non-pivot columns
+the only thing i need to account for are
+the column relations.
+column two was negative four times
+column one
+and column three was negative two times
+column one
+right away this tells me that the rank
+of the associated characteristic matrix
+is one.
+alternatively the nullity is two which
+tells me
+that the scalar lambda i was looking at
+in this case lambda equals six
+is an eigenvalue. and the reason is
+because the nullity of
+six times the identity minus a the
+matrix i care about
+is equal to two which is bigger than
+zero.

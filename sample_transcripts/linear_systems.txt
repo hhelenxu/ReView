@@ -2,73 +2,73 @@
 and one of the most classical
 applications
 of matrix theory is to the theory of
-systems of linear equations
+systems of linear equations.
 so here we're looking at a general
 system of
-m linear equations with n variables
+m linear equations with n variables.
 the idea here is that we're looking at a
 list of equations
 where the variables are given by x1 x2
-all the way up to xn so we have n
+all the way up to xn. so we have n
 variables
 and the idea is that we are scaling each
 of these variables
 by some constants which we're denoting
-by a's with subscripts here
+by a's with subscripts here.
 and then we add everything up and we set
 each equation equal to some other
 constant
 and on the right hand side we're using
-b's to denote those constants
+b's to denote those constants.
 we call this system linear because with
 each of the variables
 we're not doing anything fancy like
 squaring them or exponentiating or
-taking trig functions
+taking trig functions,
 we're only looking at the variables
-themselves
+themselves.
 a solution to a system of
 equations is a vector denoted maybe by
-x whose coordinates solve each equation
+x whose coordinates solve each equation.
 so we would say x here is a solution
 if when we plugged in all of these
 coordinates into all of the equations
-all of the equations were satisfied so
+all of the equations were satisfied. so
 the name of the game is if you give me a
 system
-can i find solutions
+can i find solutions.
 well systems that have solutions are
-called consistent
+called consistent.
 so a system is consistent if it has at
-least one solution
+least one solution.
 so here we have an example of a system
-of equations
+of equations.
 here it looks like we have four
 equations and three variables
 and i went home and i managed to find
-two solutions
+two solutions.
 i found that if you plug in x one equals
 five
 x two equals two and x three equals zero
 in the system all of the equations are
-satisfied
+satisfied.
 i also found that if you set x 1 equal
 to 6
 x 2 equal to 3 and x 3 equal to negative
 1
-also all of the equations are satisfied
+also all of the equations are satisfied.
 so evidently this system has at least
 two solutions and maybe there are others
 out there
 but the the point here is that the
 system is consistent because it has
-at least one solution
+at least one solution.
 on the other end of the spectrum we have
-inconsistent systems
+inconsistent systems.
 inconsistent systems are systems that
-have zero solutions or no solutions
+have zero solutions or no solutions.
 here we have an example of an
-inconsistent system of equations
+inconsistent system of equations.
 so here we have four equations with
 three variables
 and the thing i want to point out here
@@ -106,41 +106,41 @@ this system because if you did find a
 solution
 you could just add the equations
 together and conclude that zero equals
-one
+one.
 so this is an example of a system that
 has no solutions this is an
-inconsistent system
+inconsistent system.
 so how does all this relate to linear
-algebra and specifically matrices
+algebra and specifically matrices.
 well there are two ways we use matrices
 to represent
-systems the first in a
+systems. the first in a
 way with that we use matrices to
 represent systems is through what's
 called an
-augmented matrix an augmented matrix
+augmented matrix. an augmented matrix
 sort of concedes to the idea
 that the important thing about a system
 isn't the variables in the system
 it's the coefficients inside of the
-system
+system.
 so uh here's how we construct an
-augmented matrix to represent a system
+augmented matrix to represent a system.
 uh the first thing we do is we keep
 track of all
 of the coefficients of all of the
 variables
 in the system and we place them into a
-matrix
+matrix.
 so uh here we see in our system of
 equations
 that we have four equations with three
-variables
+variables.
 so in our augmented matrix we will have
 four rows and then the first three
 columns of this matrix
 will tell me the coefficients of each of
-the variables
+the variables.
 so uh the the coefficients in the
 equations for x1
 are 3 6 2 negative 7. so the first
@@ -160,46 +160,46 @@ we're ripping out all the coefficients
 from the system
 and we're placing all of those
 coefficients in the appropriate
-positions of this new matrix
+positions of this new matrix.
 sometimes when we're doing this i like
 to label the first
 columns of the matrix to remind myself
 which variable
-was placed where now
+was placed where. now
 the coefficient matrix itself doesn't
 convey all of the data of the system
 because we also need to know these
 constants that occur to the right of the
-equal signs
+equal signs.
 so what we do now is in our augmented
 matrix you'll see before i box things
-here
+here.
 we drew a vertical line this vertical
 line doesn't denote anything
 mathematically as far as the matrix is
 concerned it's really for
 a visual guide for us to remind us where
 the equal sign occurred
-in the equations and so what we do now
+in the equations. and so what we do now
 is we just take
 all of the coefficients that occurred to
 the right of the equal sign
 and place them into the last column of
 this matrix
 so that's to the right of that vertical
-bar
+bar.
 this is called the augmented column of
-our augmented matrix
+our augmented matrix.
 so the idea here is that if you give me
 the system i can represent it with an
 augmented matrix
 and conversely if you give me the
 augmented matrix i can recover the
-system
+system.
 so so uh what we're doing is we're
 re-representing or we're representing
 the data inside of the system
-using a matrix
+using a matrix.
 another way we use matrices to talk
 about systems of equations
 is with a matrix equation it turns out
@@ -208,7 +208,7 @@ coefficient matrix and the augmented
 column
 to write down a matrix equation that
 conveys the information
-in the system so this always manifests
+in the system. so this always manifests
 as a matrix equation of the form
 a times the variable vector x equals b
 where a is the coefficient matrix of the
@@ -216,12 +216,11 @@ system
 and b is the augmented column of the
 system or the
 the column of constants that occurs to
-the right of all the equal signs
+the right of all the equal signs.
 both of these perspectives will prove
-useful to us we'll find
+useful to us. we'll find
 that um augmented matrices are useful
 for algorithms we discuss
 and also matrix equations are useful as
 we start to learn more and more about
-matrix arithmetic
-English (auto-generated)
+matrix arithmetic.
