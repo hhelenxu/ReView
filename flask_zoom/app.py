@@ -120,14 +120,31 @@ def index():
 
     conn = get_db_connection()
     cur = conn.cursor()
+    cur_sort_order = 'date_desc'
 
     # get recordings
     cur.execute("SELECT * FROM recordings WHERE visible=TRUE ORDER BY unformat_time DESC")
     recordings = cur.fetchall()
+    # print(request.args['sort'])
+    if request.args and request.args['sort']=='date_asc':
+        # cur.execute("SELECT * FROM recordings WHERE visible=TRUE ORDER BY unformat_time ASC")
+        # recordings = cur.fetchall()
+        
+        recordings.reverse()
+        print("date asc")
+        # print(recordings)
+        cur_sort_order = 'date_asc'
+    elif request.args and not request.args['sort']=='date_desc':
+        # cur.execute("SELECT * FROM recordings WHERE visible=TRUE ORDER BY unformat_time DESC")
+        # recordings = cur.fetchall()
+        cur_sort_order = 'date_desc'
+        print("date desc")
+        # print(recordings)
     cur.close()
     conn.close()
+    # print(request.args)
 
-    return render_template('index.html', recordings=recordings, selected_tag="", username=session.get('user'))
+    return render_template('index.html', recordings=recordings, selected_tag="", username=session.get('user'), sort_order=cur_sort_order)
 
 @app.route('/auth_redirect')
 def auth_redirect():
@@ -395,3 +412,17 @@ def downvote_tag(id, tag):
 
     recording = get_recording(id)
     return redirect(url_for('.recording', recording_id=id))
+
+
+@app.route('/logout')
+def logout():
+    # authentication and determine permissions
+    if not request.cookies.get('_FSB_SHIB'):
+        return redirect(url_for('auth_redirect'))
+    login()
+    
+    resp = make_response(render_template('index.html'))
+    resp.delete_cookie('_FSB_SHIB')
+    resp.delete_cookie('session')
+    session.clear()
+    return redirect('https://shib.oit.duke.edu/cgi-bin/logout.pl')
