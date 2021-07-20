@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
 <script>
   // embed Youtube video
   var tag = document.createElement('script');
@@ -58,9 +59,10 @@
       <input type="button" class="bg-transparent" value="Back" onclick="history.back()">
     </div>
   </form>
-  <div class="my-10">
-    <h1 class="md:text-4xl text-2xl" style="color:#012169">{% block title %} Edit <span class="font-bold">"{{
-        recording[2] }}"</span> Details {% endblock %}</h1>
+  
+  <div class="my-10">{% block title %} Edit Page {% endblock %}
+    <h1 class="md:text-4xl text-2xl" style="color:#012169"> Edit <span class="font-bold">"{{
+        recording[2] }}"</span> Details </h1>
   </div>
 
   <form method="post">
