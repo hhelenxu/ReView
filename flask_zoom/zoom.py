@@ -25,8 +25,18 @@ def get_meetings(conn, cur, start=None, end=None, num_sentences=1):
     os.chdir("../sample_transcripts")
     print(os.getcwd())
     day = 1
-    available_files = ["definiteness.txt", "diagonalization.txt", "digraphs.txt", "linear_independence.txt"]
-    video_link_arr = ["https://www.youtube.com/embed/viQLqM5bSgA"]
+    available_files = ["definiteness.txt", "diagonalization.txt", "digraphs.txt", "linear_independence.txt", "Gauss_Jordan_Elimination.txt", "dimension_geometric_multiplicity.txt", "eigenvalues.txt", "eigenvalues_properties.txt", "linear_systems.txt", "null_spaces.txt"]
+    video_links = {"definiteness.txt": "https://www.youtube.com/embed/6fD1aYzIubE", 
+                   "diagonalization.txt": "https://www.youtube.com/embed/EgXxUKOcXSA", 
+                   "digraphs.txt": "https://www.youtube.com/embed/ZNfBLl4HL9M",
+                   "dimension_geometric_multiplicity.txt": "https://www.youtube.com/embed/XbckQx68kAA",
+                   "eigenvalues_properties.txt": "https://www.youtube.com/embed/4axGfLRLRs8",
+                   "eigenvalues.txt": "https://www.youtube.com/embed/m3p5-7lfi0Y",
+                   "Gauss_Jordan_Elimination.txt": "https://www.youtube.com/embed/ZUYckj1zolc",
+                   "linear_independence.txt": "https://www.youtube.com/embed/JQ2xpZWDtGs",
+                   "linear_systems.txt": "https://www.youtube.com/embed/F2oN6GyG_rA",
+                   "null_spaces.txt": "https://www.youtube.com/embed/rFy6xAe_l3w"
+    }
     for file in os.listdir():
         id = file
         # print(str(file))
@@ -35,7 +45,7 @@ def get_meetings(conn, cur, start=None, end=None, num_sentences=1):
             print(title)
             date = "Jan " + str(day) + ", 2021 12:00 AM"
             day+=1
-            video_link = video_link_arr[0]
+            # video_link = video_link_arr[0]
             with open(file, 'r') as f:
                 text = f.read().replace("\n"," ")
 
@@ -52,8 +62,10 @@ def get_meetings(conn, cur, start=None, end=None, num_sentences=1):
             summary = generate_summary(text, 1)
             print(summary)
 
+            cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%b %d, %Y %I:%M %p"))
+
             # add to database
-            cur.execute("INSERT INTO recordings(topic, start_time, video, transcript, text, tokens, tags, summary, visible, zoom_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, TRUE, %s) ON CONFLICT (zoom_id) DO NOTHING", (title, date, video_link, "", text, tokens, json.dumps(keywords_dict), summary, id))
+            cur.execute("INSERT INTO recordings(topic, start_time, video, transcript, text, tokens, tags, summary, visible, zoom_id, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, TRUE, %s, %s) ON CONFLICT (zoom_id) DO NOTHING", (title, date, video_links[str(file)], "", text, tokens, json.dumps(keywords_dict), summary, id, cur_time))
             conn.commit()
 
 

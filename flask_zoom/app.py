@@ -41,13 +41,13 @@ def searchForKeyword(keyword, tag="", view="index"):
         recordings = cur.fetchall()
         cur.close()
         conn.close()
-        return render_template(file, recordings=recordings, selected_tag=tag, username=session.get('user'))
+        return render_template(file, recordings=recordings, selected_tag=tag, username=session.get('user'), permission=session.get('permission'))
     conn = get_db_connection()
     cur = conn.cursor()
     recordings = search(conn, cur, keyword)
     cur.close()
     conn.close()
-    return render_template(file, recordings=recordings, selected_tag=tag, username=session.get('user'))
+    return render_template(file, recordings=recordings, selected_tag=tag, username=session.get('user'), permission=session.get('permission'))
 
 
 def authenticate(token):
@@ -77,7 +77,8 @@ def login():
     session['user'] = auth['cn']
     session['dukeid'] = auth['dukeid']
     session['email'] = auth['sub']
-    if "staff@duke.edu" in auth['eduPersonScopedAffiliation'] or "faculty@duke.edu" in auth['eduPersonScopedAffiliation']:
+    # if "staff@duke.edu" in auth['eduPersonScopedAffiliation'] or "faculty@duke.edu" in auth['eduPersonScopedAffiliation']:
+    if "faculty@duke.edu" in auth['eduPersonScopedAffiliation']:
         session['permission'] = True
     else:
         session['permission'] = False
@@ -149,7 +150,7 @@ def index():
     conn.close()
     # print(request.args)
 
-    return render_template('index.html', recordings=recordings, selected_tag="", username=session.get('user'), sort_order=cur_sort_order)
+    return render_template('index.html', recordings=recordings, selected_tag="", username=session.get('user'), sort_order=cur_sort_order, permission=session.get('permission'))
 
 @app.route('/auth_redirect')
 def auth_redirect():
@@ -176,7 +177,7 @@ def admin_activity():
         cur.close()
         conn.close()
 
-        return render_template('admin_activity.html', activities=activities, username=session.get('user'))
+        return render_template('admin_activity.html', activities=activities, username=session.get('user'), permission=session.get('permission'))
 
 
 @app.route('/admin/hidden_recordings')
@@ -198,7 +199,7 @@ def admin_hidden_recordings():
         cur.close()
         conn.close()
 
-        return render_template('admin_hidden.html', hiddenRecordings=hiddenRecordings, username=session.get('user'))
+        return render_template('admin_hidden.html', hiddenRecordings=hiddenRecordings, username=session.get('user'), permission=session.get('permission'))
 
 @app.route('/card', methods=('GET', 'POST'))
 def card():
@@ -220,7 +221,7 @@ def card():
     cur.close()
     conn.close()
 
-    return render_template('card.html', recordings=recordings, selected_tag="", username=session.get('user'))
+    return render_template('card.html', recordings=recordings, selected_tag="", username=session.get('user'), permission=session.get('permission'))
 
 
 @app.route('/<string:recording_id>')
@@ -231,7 +232,7 @@ def recording(recording_id):
     login()
 
     recording = get_recording(recording_id)
-    return render_template('recording.html', recording=recording, username=session.get('user'))
+    return render_template('recording.html', recording=recording, username=session.get('user'), permission=session.get('permission'))
 
 
 @app.route('/<string:recording_id>/edit', methods=('GET', 'POST'))
@@ -369,7 +370,7 @@ def indexTagFilter(tag):
     recordings = cur.fetchall()
     cur.close()
     conn.close()
-    return render_template('index.html', recordings=recordings, selected_tag=tag, username=session.get('user'))
+    return render_template('index.html', recordings=recordings, selected_tag=tag, username=session.get('user'), permission=session.get('permission'))
 
 @app.route('/card/<string:tag>', methods=('GET', 'POST'))
 def cardTagFilter(tag):
@@ -389,7 +390,7 @@ def cardTagFilter(tag):
     recordings = cur.fetchall()
     cur.close()
     conn.close()
-    return render_template('card.html', recordings=recordings, selected_tag=tag, username=session.get('user'))
+    return render_template('card.html', recordings=recordings, selected_tag=tag, username=session.get('user'), permission=session.get('permission'))
 
 
 @app.route('/<string:id>/<string:tag>/upvote', methods=('POST','GET'))
