@@ -19,7 +19,7 @@ import pytz
 from sklearn.feature_extraction.text import CountVectorizer
 import json
 
-name = "Test User1" # "testuser1.zoom@gmail.com"
+name = "Test User2" # "testuser2.zoom@gmail.com"
 # TOKEN stored in zoomconfig file (hidden by .gitignore)
 stop_words = set(stopwords.words('english'))
 # now = datetime.now()
@@ -296,7 +296,7 @@ def main():
     }
     get_users(conn, cur, headers)
 
-    # get user "test user 1"
+    # get user "test user 2"
     cur.execute("SELECT email FROM users WHERE name=%s", (name,))
     user = cur.fetchone()[0]
     print(user)
@@ -305,7 +305,7 @@ def main():
     today = date.today().strftime("%Y-%m-%d")
     start_date = "2021-06-01"
     # end_date = today
-    end_date="2021-06-17"
+    end_date="2021-07-22"
     num_sentences = 3
         
     # get meetings and summarize transcripts
