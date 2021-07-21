@@ -96,11 +96,11 @@
       <textarea name="transcription" placeholder="Transcription" rows="10"
                 class="form-control">{{ request.form['transcription'] or recording[6] }}</textarea>
   </div> -->
-
+<h1 style="text-decoration:underline;"> Embed Videos Below</h1>
     <div class="form-group py-2">
-      <label for="yvidurl">Embed YouTube Video<br />Enter Youtube video link: </label>
+      <label for="yvidurl"><br />Enter Youtube video link: </label>
       <div class="mt-1">
-        <input type="text" name="yvidurl" class="form-control rounded-md" id="txtsource" placeholder="Add Youtube URL"
+        <input type="text" name="yvidurl" class="form-control rounded-md" id="txtsource" placeholder="https://youtu.be/"
           value="" />
       </div>
       <input type="button" value="Save URL"
@@ -111,9 +111,9 @@
     <br />
 
     <div class="form-group py-2">
-      <label for="vidurl">Embed Non-YouTube Video<br />Enter link below:</label>
+      <label for="vidurl">Embed Non-YouTube Video</label>
       <div class="mt-1">
-        <input type="text" name="vidurl" class="form-control rounded-md" id="txtSRC" placeholder="Add video URL"
+        <input type="text" name="vidurl" class="form-control rounded-md" id="txtSRC" placeholder="Enter link here:"
           value="" />
       </div>
       <input type="button" value="Save URL" onclick="SetSrc();"></input>
