@@ -36,7 +36,7 @@ def get_meetings(conn, cur, start=None, end=None, num_sentences=1):
                    "linear_independence.txt": "https://www.youtube.com/embed/JQ2xpZWDtGs",
                    "linear_systems.txt": "https://www.youtube.com/embed/F2oN6GyG_rA",
                    "null_spaces.txt": "https://www.youtube.com/embed/rFy6xAe_l3w"
-    }
+                }
     for file in os.listdir():
         id = file
         # print(str(file))
@@ -62,10 +62,10 @@ def get_meetings(conn, cur, start=None, end=None, num_sentences=1):
             summary = generate_summary(text, 1)
             print(summary)
 
-            cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%b %d, %Y %I:%M %p"))
+            # cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%b %d, %Y %I:%M %p"))
 
             # add to database
-            cur.execute("INSERT INTO recordings(topic, start_time, video, transcript, text, tokens, tags, summary, visible, zoom_id, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, TRUE, %s, %s) ON CONFLICT (zoom_id) DO NOTHING", (title, date, video_links[str(file)], "", text, tokens, json.dumps(keywords_dict), summary, id, cur_time))
+            cur.execute("INSERT INTO recordings(topic, start_time, video, transcript, text, tokens, tags, summary, visible, zoom_id, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, TRUE, %s, %s) ON CONFLICT (zoom_id) DO NOTHING", (title, date, video_links[str(file)], "", text, tokens, json.dumps(keywords_dict), summary, id, date))
             conn.commit()
 
 
