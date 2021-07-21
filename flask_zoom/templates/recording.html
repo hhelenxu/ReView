@@ -11,24 +11,25 @@
       <input type="button" class="bg-transparent" value="Back" onclick="history.back()">
     </div>
   </form>
-
+  <br/>
+{% block title %} Recording Page {% endblock %}
   <ul class="list-group list-group-flush my-10">
-    <li class="list-group-item  md:text-4xl tex-2xl" style="color:#012169">{% block title
-      %} Details for <span class="font-bold">{{ recording[2] }} </span>{% endblock %}
+    <li class="list-group-item  md:text-4xl text-2xl" style="color:#012169"> Details for <span class="font-bold">{{ recording[2] }} </span>
       <button
         class="justify-self-end hover:border bg-white hover:shadow hover:bg-blue-50 hover:border-gray-600 rounded-lg hover:border hover:border-gray-100 text-gray-400 hover:text-blue-600">
         <a href="{{ url_for('edit', recording_id=recording[0]) }}">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-        </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+          </svg>
         </a>
       </button>
     </li>
     <li class="list-group-item items-center"><span class="font-bold" style="color:#012169">Date:</span> {{ recording[3]
       }}</li>
     <li class="list-group-item"><span class="font-bold" style="color:#012169">Summary:</span> {{ recording[7] }}</li>
-    <li class="list-group-item"><span class="font-bold">
+    <li class="list-group-item">
+      <span class="font-bold">
         <div class="flex flex-row items-center overflow-x-auto">
           <div class="mr-2" style="color:#012169">
             Tags:
@@ -50,13 +51,16 @@
         <br>
         {% endfor %}
 </div>
-</li>
+
+{% if 'https://www.youtube.com/embed/' in recording[4] %}
+<li class="list-group-item"><iframe src="{{ recording[4] }}" height="500px" width=100% title="YouTube video player"
+    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen></iframe></li>
+{% else %}
 <li class="list-group-item"><iframe src="{{ recording[4] }}" height="500px" width=100% title="Embedded Zoom Recording"
-  allowfullscreen="allowfullscreen"></iframe></li>
-
+    allowfullscreen="allowfullscreen"></iframe></li>
+{% endif %}
 </ul>
-
 </div>
-
 
 {% endblock %}

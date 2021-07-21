@@ -39,7 +39,8 @@ try:
         summary VARCHAR,
         tokens TSVECTOR,
         tags JSONB,
-        zoom_id varchar UNIQUE
+        zoom_id varchar UNIQUE,
+        unformat_time TIMESTAMP
     );
     """)
     conn.commit()
@@ -56,7 +57,9 @@ try:
         email VARCHAR,
         recording_id INTEGER,
         action VARCHAR,
-        notes VARCHAR
+        notes VARCHAR,
+        recording_title VARCHAR,
+        unformat_time TIMESTAMP
     );
     """)
     conn.commit()

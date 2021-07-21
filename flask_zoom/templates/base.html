@@ -33,32 +33,35 @@
 <body>
 
   <nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-      <a class="navbar-brand text-white" href="{{ url_for('index')}}"><span class="text-2xl" style="font-family:'EB Garamond',serif;">Duke</span> | Recording App</a>
-      <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="bi bi-list text-white"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle bi bi-person-circle text-white hover:text-blue-100" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Profile 
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-              <li><a class="dropdown-item" href="{{ url_for('admin_activity')}}">Admin Activity</a></li>
-              <li><a class="dropdown-item" href="{{ url_for('admin_hidden_recordings')}}">Admin Hidden Recordings</a></li>
-              <!-- <li><hr class="dropdown-divider"></li> -->
-              <li><a class="dropdown-item" href="#">Log Out</a></li>
-            </ul>
-          </li>
-        </ul>
+    <div class="container-fluid md:mx-4">
+      <div class="navbar-header">
+        <a class="navbar-brand text-white" href="{{ url_for('index')}}"><span class="text-2xl" style="font-family:'EB Garamond',serif;">Duke</span> | ReView</a>
+
+          <!-- <img src="/flask_zoom/templates/white@300x-8.png" alt="Duke | ReView"> -->
+        </a>
       </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle bi bi-person-circle text-white hover:text-blue-100" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ username }}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+            <li><a class="dropdown-item" href="{{ url_for('admin_activity')}}">Admin Activity</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('admin_hidden_recordings')}}">Admin Hidden</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('index')}}">Home</a></li>
+            <!-- <li><hr class="dropdown-divider"></li> -->
+            <li><a class="dropdown-item" href="{{ url_for('logout')}}">Log Out</a></li>
+          </ul>
+        </li>
+      </ul>
     </div>
   </nav>
 
+
   <div class="container">
     {% for message in get_flashed_messages() %}
-    <div class="alert alert-danger">{{ message }}</div>
+    <div class="alert alert-warning fade show" role="alert">{{ message }}
+    </div>
     {% endfor %}
     {% block content %} {% endblock %}
   </div>

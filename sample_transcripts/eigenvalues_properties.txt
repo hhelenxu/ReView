@@ -9,17 +9,17 @@ and check whether or not the result is
 singular
 usually by doing some row reductions to
 check that the rank is less than
-n or that the melody is greater than
-zero so the question now
+n or that the nullity is greater than
+zero. so the question now
 is well if i know something about the
 eigenvalues of a matrix what
-can i say about the matrix here's a
+can i say about the matrix. here's a
 first basic observation
 so let's say that we know lambda equals
 0 is an eigenvalue of a
-what does that mean well the rank of a
+what does that mean. well the rank of a
 is the same thing as the rank of
-negative a
+negative a.
 negative a is what you get if you just
 scale every row by negative one
 and row scalings don't change the rank
@@ -31,7 +31,7 @@ is an eigenvalue that tells you that the
 rank of this matrix
 must be less than the size of the matrix
 because being an eigenvalue means
-this characteristic matrix is singular
+this characteristic matrix is singular.
 so you know
 this rank will be less than n so this
 one observation tells us that
@@ -39,56 +39,56 @@ if you tell me lambda equals 0 is an
 eigenvalue
 i automatically know that the matrix a
 that i'm dealing with
-is singular so um
+is singular. so um
 that's a theorem an n by n matrix a is
 singular
 if and only if lambda equals zero is one
-of the eigenvalues of a
+of the eigenvalues of a.
 so here i'm looking at a particular
-three by three matrix
+three by three matrix.
 i went ahead and looked at some column
 relations
 and i actually was able to observe that
 the third column
 is three times the first minus the
-second
+second.
 that's one way of of inferring the
 reduced row echelon form without doing
-row reductions
+row reductions.
 of course if i didn't see that relation
 i could just plug this three by three
 matrix into a computer
 and ask what is the reduced row echelon
-form
+form.
 here what we're communicating is that
 the third column
 is three times the first minus the
 second
 and the punch line is that the rank here
-is two
+is two.
 but the size of the matrix is three
 so that means that the matrix itself is
 singular which tells us that lambda
 equals zero
-is an eigenvalue of this matrix
+is an eigenvalue of this matrix.
 um another way of interpreting this
 theorem is to say that a matrix is
 non-singular meaning that it is square
-with full rank
+with full rank.
 if lambda equals zero is not an
 eigenvalue
 so being singular is the same thing as
 saying that lambda equals 0
-is an eigenvalue being being
+is an eigenvalue. being
 non-singular
 is the same thing as saying that lambda
 equals 0 is not an
-eigenvalue so here's a terrible example
+eigenvalue. so here's a terrible example
 uh i think this matrix is a 10 by 10
 matrix
 so i meant i found this matrix somewhere
 and
-i managed to find its eigenvalues so
+i managed to find its eigenvalues. so
 somebody told me that the eigenvalues of
 this horrible 10 by 10 matrix
 are negative 11 0 4
@@ -96,28 +96,28 @@ and 5. now there's not much i can tell
 you about this matrix
 in the wild without or what i mean by
 that is if if you just hand me this
-matrix i don't know anything about it
+matrix i don't know anything about it.
 it's pretty big and if i want to say
 something intelligent about it i'd
-probably have to ask a computer
+probably have to ask a computer.
 but in this example someone is telling
 me what the eigenvalues are
 and one thing i can see is that lambda
 equals 0
-is an eigenvalue so i see 0 is on the
+is an eigenvalue. so i see 0 is on the
 list of eigenvalues here that someone
 gave me
 well as soon as i know that lambda
 equals 0 is an eigenvalue
 i immediately know that i can conclude
 that the matrix itself
-is singular so i i believe this matrix
+is singular. so i i believe this matrix
 is ten by ten
 one two three four five six seven
 eight nine so this matrix is ten by ten
 well because lambda equals zero
 is an eigenvalue i know this matrix is
-singular
+singular.
 so uh being singular means that the rank
 has to be less than the size
 so that so here the rank has to be less
@@ -125,25 +125,25 @@ than 10.
 so the maximum value of the rank in this
 example is 9
 because i know rank equals 10 would tell
-me that i'm non-singular
+me that i'm non-singular.
 so that's just one thing i can say in
-this particular example
+this particular example.
 um what about triangular matrices so
 one of the fundamental issues in in the
 theory of eigenvalues is that for a
 general matrix it's actually quite
 difficult to find
-eigenvalues however for some matrices
+eigenvalues. however for some matrices
 it's significantly less difficult and
 triangular matrices are a very nice
 class of matrix matrices because
 it's easy to find their eigenvalues
-let's look at an example here
+let's look at an example here.
 so in this example i'm looking at the
 characteristic matrix
-of an upper triangular matrix a here i
+of an upper triangular matrix a. here i
 have
-t times the 3x3 identity matrix here
+t times the 3x3 identity matrix. here
 i have my upper triangular matrix a
 and what happens when i take this
 difference when i take this difference i
@@ -152,34 +152,34 @@ still upper triangular so i still have
 zeros below the diagonal
 and i can look at the diagonal entries
 and they're given by t minus three
-t minus four and t plus eleven
+t minus four and t plus eleven.
 one thing to notice here is that if i
 manage to zero out
 any one of these three uh entries on the
 diagonal here
 the matrix will not have full rank
 because i won't be able to get a pivot
-in that position
+in that position.
 so this tells me that if i managed to
 set t equal to any number that would
 zero out any one of these three diagonal
 entries
 that t would be about a valid lambda
-meaning that it would be an eigenvalue
+meaning that it would be an eigenvalue.
 so here the eigenvalues have to be 3
 4 and negative 11. and of course the
 thing to notice here
 is that 3 4 and negative 11 are exactly
 the entries
 on the diagonal of this upper triangular
-matrix a
+matrix a.
 and it turns out that every triangular
-example works like this
+example works like this.
 so the eigenvalues we can say this is a
 theorem the eigenvalues of any
 triangular matrix whether or not your
 upper or lower triangular
-are always the diagonal entries so here
+are always the diagonal entries. so here
 i have a rather nasty i guess this is a
 five by five
 lower triangular matrix um well
@@ -187,7 +187,7 @@ it might be a big matrix and it might
 have lots of unruly numbers in it
 but since it's lower triangular i don't
 have to work hard at all to figure out
-the eigenvalues
+the eigenvalues.
 so um i i am lower triangular um
 but our theorem tells us that the
 eigenvalues are just whatever the
@@ -196,7 +196,7 @@ and if i look at the entries on the
 diagonal here i get the numbers negative
 148
 16 57 7
-and negative 148 again so if i wanted to
+and negative 148 again. so if i wanted to
 list all of the unique eigenvalues
 they would be negative 148 16
 57 and 7. again
@@ -209,4 +209,4 @@ that problem's hard but if you give me a
 random
 triangular matrix the problem is
 significantly easier i just need to plug
-out the diagonal entries
+out the diagonal entries.

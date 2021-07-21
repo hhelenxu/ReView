@@ -25,8 +25,9 @@ def get_meetings(conn, cur, start=None, end=None, num_sentences=1):
     os.chdir("../sample_transcripts")
     print(os.getcwd())
     day = 1
-    available_files = ["definiteness.txt", "diagonalization.txt", "digraphs.txt", "linear_independence.txt"]
-    video_link_arr = ["https://www.youtube.com/embed/viQLqM5bSgA"]
+    video_number = 0
+    available_files = ["definiteness.txt", "diagonalization.txt", "digraphs.txt", "dimension_geometric_multiplicity.txt", "eigenvalues_properties.txt", "eigenvalues.txt", "Gauss_Jordan_elimination.txt", "linear_independence.txt", "linear_systems.txt", "null_spaces.txt"]
+    video_link_arr = ["https://www.youtube.com/embed/6fD1aYzIubE", "https://www.youtube.com/embed/EgXxUKOcXSA", "https://www.youtube.com/embed/ZNfBLl4HL9M", "https://www.youtube.com/embed/XbckQx68kAA", "https://www.youtube.com/embed/4axGfLRLRs8", "https://www.youtube.com/embed/m3p5-7lfi0Y", "https://www.youtube.com/embed/ZUYckj1zolc", "https://www.youtube.com/embed/JQ2xpZWDtGs", "https://www.youtube.com/embed/F2oN6GyG_rA", "https://www.youtube.com/embed/rFy6xAe_l3w"]
     for file in os.listdir():
         id = file
         # print(str(file))
@@ -35,7 +36,8 @@ def get_meetings(conn, cur, start=None, end=None, num_sentences=1):
             print(title)
             date = "Jan " + str(day) + ", 2021 12:00 AM"
             day+=1
-            video_link = video_link_arr[0]
+            video_link = video_link_arr[video_number]
+            video_number += 1
             with open(file, 'r') as f:
                 text = f.read().replace("\n"," ")
 
@@ -170,35 +172,38 @@ def search(conn, cur, words):
 
     # search for phrase
     phrase = " <-> ".join(words)
-    cur.execute("SELECT id FROM recordings WHERE tokens @@ to_tsquery(%s)", (phrase,)) 
+    cur.execute("SELECT * FROM recordings WHERE tokens @@ to_tsquery(%s)", (phrase,)) 
     results = cur.fetchall()
     if len(results) > 0: # if results found
         return results
 
     # search for all words
     and_search = " & ".join(words)
-    cur.execute("SELECT id FROM recordings WHERE tokens @@ to_tsquery(%s)", (and_search,)) 
+    cur.execute("SELECT * FROM recordings WHERE tokens @@ to_tsquery(%s)", (and_search,)) 
     results = cur.fetchall()
     if len(results) > 0: # if results found
         return results
 
     # search for any word
     or_search = " | ".join(words)
-    cur.execute("SELECT id FROM recordings WHERE tokens @@ to_tsquery(%s)", (or_search,)) 
+    cur.execute("SELECT * FROM recordings WHERE tokens @@ to_tsquery(%s)", (or_search,)) 
     return cur.fetchall()
 
 def change_visibility(conn, cur, meeting_id, user, email, visible='FALSE'):
     cur.execute("UPDATE recordings SET visible=%s WHERE id=%s", (visible, meeting_id))
     conn.commit()
+    
+    cur.execute("SELECT topic FROM recordings WHERE id=%s", (meeting_id))
+    title = cur.fetchone()[0]
 
     if visible == 'FALSE':
         cur_action = "Hid recording"
     else:
         cur_action = "Made recording visible"
-    cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%m/%d/%Y %H:%M:%S"))
+    cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%b %d, %Y %I:%M %p"))
 
     # add to activity log
-    cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, user, email, meeting_id, cur_action, ""))
+    cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, user, email, meeting_id, cur_action, "", title, datetime.now()))
     conn.commit()
 
 
@@ -211,26 +216,29 @@ def vote_tags(conn, cur, id, tag, vote, user, email):
     tags_dict = cur.fetchone()[0]
     tags_dict[tag] = tags_dict[tag] + vote
     tags_dict = dict(sorted(tags_dict.items(), key=lambda item: item[1]))
-    print(json.dumps(tags_dict))
+    # print(json.dumps(tags_dict))
     cur.execute("UPDATE recordings SET tags=%s WHERE id=%s", (json.dumps(tags_dict), id))
     conn.commit()
-    cur.execute("SELECT tags FROM recordings WHERE id=%s", (id,))
-    print(cur.fetchone())
+    # cur.execute("SELECT tags FROM recordings WHERE id=%s", (id,))
+    # print(cur.fetchone())
+
+    cur.execute("SELECT topic FROM recordings WHERE id=%s", (id))
+    title = cur.fetchone()[0]
 
     if vote==1:
         vote_type = "Upvote"
     else:
         vote_type = "Downvote"
-    cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%m/%d/%Y %H:%M:%S"))
+    cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%b %d, %Y %I:%M %p"))
 
     # add to activity log
-    cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, user, email, id, vote_type, "Tag modified: " + tag))
+    cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, user, email, id, vote_type, "Tag modified: \"" + tag+"\"", title, datetime.now()))
     conn.commit()
 
 
 
 def main():
-    print(stop_words)
+    # print(stop_words)
     # add additional stopwords
     with open('stopwords.txt') as f:
         words = f.read().splitlines()

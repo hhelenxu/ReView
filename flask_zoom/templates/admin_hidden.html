@@ -1,58 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<<<<<<< HEAD:flask_zoom/templates/admin.html
+
 <div class="my-10">
   <div>
     <h1 class="md:text-4xl text-2xl" style="color:#012169">{% block title %}
         Admin Page {% endblock %}
     </h1>
   </div>
-<h4 class="md:text-2xl text-xl font-semibold my-4" style="color:#012169">Activity Log</h4>
-<hr class="">
-<div class="grid grid-cols-5 my-2 px-2 text-blue-900 rounded-md font-semibold">
-  <div class="col-span-1 flex flex-row">
-    <div class="bi bi-calendar-event mr-2"></div>
-    <div>DATE</div></div>
-    <div class="col-span-1 flex flex-row">
-      <div class="bi bi-person mr-2"></div>
-      <div>USER NAME</div></div>
-      <div class="col-span-1 flex flex-row">
-        <div class="bi bi-at mr-2"></div>
-        <div>EMAIL</div></div>
-        <div class="col-span-1 flex flex-row">
-          <div class="bi bi-hash mr-2"></div>
-          <div>RECORDING ID</div></div>
-      <div class="col-span-1 flex flex-row">
-        <div class="bi bi-hand-index-thumb mr-2"></div>
-        <div>ACTION</div></div>
-        
-</div>
-<hr class="">
-    {% for activity in activities %}
-    <div class="grid grid-cols-5 my-2 p-2 rounded border border-gray-800 shadow-sm hover:shadow-lg hover:bg-gray-50">
-      <div class="col-span-1">
-        
-        {{activity[0]}}</div>
-        <div class="col-span-1">
-          
-          {{activity[1]}}</div>
-          <div class="col-span-1">
-            
-            {{activity[2]}}</div>
-            <div class="col-span-1">
-              
-              {{activity[3]}}</div>
-          <div class="col-span-1">
-            
-            {{activity[4]}}</div>      
-    </div>
-    {% endfor %}
 
-</div>
-
-=======
->>>>>>> d324cd22195af2c119b3f44a460161d2c0955e48:flask_zoom/templates/admin_hidden.html
 <br>
 <h4 class="md:text-2xl text-xl font-semibold mb-4" style="color:#012169">Hidden Recordings</h4>
 <hr class="">
@@ -99,13 +55,13 @@
         <div class="col-span-9">
     
           {% for tag, value in recording[9] | dictsort(false, 'value', reverse=true) %}
-          {% if recording[9][tag] <= -3 %} <a href="{{ url_for('tagFilter', tag=tag) }}">
+          {% if recording[9][tag] <= -3 %} <a href="{{ url_for('indexTagFilter', tag=tag) }}">
             <span class="badge text-blue-400 bg-blue-50 hover:bg-blue-400 hover:text-white">{{ tag }}</span></a>
             {% elif recording[9][tag] >= 3 %}
-            <a href="{{ url_for('tagFilter', tag=tag) }}">
+            <a href="{{ url_for('indexTagFilter', tag=tag) }}">
               <span class="badge text-blue-400 bg-blue-200 hover:bg-blue-400 hover:text-white">{{ tag }}</span></a>
             {% else %}
-            <a href="{{ url_for('tagFilter', tag=tag) }}">
+            <a href="{{ url_for('indexTagFilter', tag=tag) }}">
               <span class="badge text-blue-400 bg-blue-100 hover:bg-blue-400 hover:text-white">{{ tag }}</span>
             </a>
             {% endif %}
@@ -125,6 +81,7 @@
       </div>
     </div>
     {% endfor %}
+</div>
 
 
 {% endblock %}
