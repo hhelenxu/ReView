@@ -96,8 +96,35 @@
       <textarea name="transcription" placeholder="Transcription" rows="10"
                 class="form-control">{{ request.form['transcription'] or recording[6] }}</textarea>
   </div> -->
+  <br /><br />
+  <div id="vidembed" style="display:none;">
+      <p style="text-decoration:underline; text-size:40px"> Embed Videos Below</p><br/>
+      <div class="form-group py-2">
+        <label for="yvidurl">Enter Youtube video link: </label>
+        <div class="mt-1">
+          <input type="text" name="yvidurl" class="form-control rounded-md" id="txtsource" placeholder="https://youtu.be/"
+            value="" />
+        </div>
+        <input type="button" value="Store URL"
+          onclick="onYouTubeIframeAPIReady(document.getElementById('txtsource').value)"></input>
+      </div>
+      <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+      <div id="player"></div>
+      <br />
 
-
+      <div class="form-group py-2">
+        <label for="vidurl">Embed Non-YouTube Video</label>
+        <div class="mt-1">
+          <input type="text" name="vidurl" class="form-control rounded-md" id="txtSRC" placeholder="Enter link here:"
+            value="" />
+        </div>
+        <input type="button" value="Store URL" onclick="SetSrc();"></input>
+      </div>
+      <iframe id="myIfreme" class="embedvideo" src="" frameborder="0" marginwidth="0"
+        referrerpolicy="origin-when-cross-origin" scrolling="yes"
+        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""
+        style="display:none; width:640px; height: 400px;"></iframe>
+  </div>
     <div class="flex flex-row items-center">
       <div class="flex flex-row items-center my-4">
         <div class="form-group py-2 mr-4">
