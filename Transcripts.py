@@ -17,7 +17,7 @@ from dateutil import tz
 from sklearn.feature_extraction.text import CountVectorizer
 import json
 
-name = "Test User1" # "testuser1.zoom@gmail.com"
+name = "Test User2" # "testuser1.zoom@gmail.com"
 # TOKEN stored in zoomconfig file (hidden by .gitignore)
 stop_words = set(stopwords.words('english'))
 
