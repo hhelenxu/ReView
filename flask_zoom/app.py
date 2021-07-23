@@ -206,6 +206,7 @@ def admin_hidden_recordings():
 
         return render_template('admin_hidden.html', hiddenRecordings=hiddenRecordings, username=session.get('user'), permission=session.get('permission'))
 
+
 @app.route('/card', methods=('GET', 'POST'))
 def card():
     # authentication and determine permissions
@@ -218,14 +219,22 @@ def card():
 
     conn = get_db_connection()
     cur = conn.cursor()
+    cur_sort_order = 'date_desc'
 
     # get recordings
     cur.execute("SELECT * FROM recordings WHERE visible=TRUE ORDER BY unformat_time DESC")
     recordings = cur.fetchall()
+    if request.args and request.args['sort']=='date_asc':
+        recordings.reverse()
+        cur_sort_order = 'date_asc'
+    elif request.args and not request.args['sort']=='date_desc':
+        cur_sort_order = 'date_desc'
+        print("date desc")
+    
     cur.close()
     conn.close()
 
-    return render_template('card.html', recordings=recordings, selected_tag="", username=session.get('user'), permission=session.get('permission'))
+    return render_template('card.html', recordings=recordings, selected_tag="", username=session.get('user'), permission=session.get('permission'), sort_order=cur_sort_order)
 
 
 @app.route('/<string:recording_id>')
