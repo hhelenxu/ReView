@@ -43,13 +43,15 @@
         </span>
       </a>
     </div>
+    {% else %}
+    <div> Click tag to search </div>
     {% endif %}
   </div>
     <!-- search bar -->
     <form method="post">
       <div class="">
       <div class="form-group  flex flex-row">
-          <input type="search" name="keyword" placeholder="Search"
+          <input type="search" name="keyword" placeholder="Search in video"
                  class="form-control rounded-none rounded-l-md"
                  value="{{ request.form['keyword'] }}" onkeyup="this.value = this.value.replace(/[^A-Za-z0-9_-\s]/g, '')">
           </input>
