@@ -97,15 +97,16 @@
                 class="form-control">{{ request.form['transcription'] or recording[6] }}</textarea>
   </div> -->
   <br /><br />
+  {% if permission %}
   <div id="vidembed">
-    <p style="text-decoration:underline; text-size:40px"> Embed Videos Below</p><br/>
+    <p style="text-decoration:underline; font-size:20px"> Embed Videos Below</p><br/>
     <div class="form-group py-2">
-      <label for="yvidurl">Enter Youtube video link: </label>
+      <label for="yvidurl">Enter Youtube video link (starting with https://youtu.be/): </label>
       <div class="mt-1">
-        <input type="text" name="yvidurl" class="form-control rounded-md" id="txtsource" placeholder="https://youtu.be/"
+        <input type="text" name="yvidurl" class="form-control rounded-md" id="txtsource" placeholder="Enter link here:"
           value="" />
       </div>
-      <input type="button" value="Store URL"
+      <input type="button" value="Save URL"
         onclick="onYouTubeIframeAPIReady(document.getElementById('txtsource').value)"></input>
     </div>
     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
@@ -113,18 +114,19 @@
     <br />
 
     <div class="form-group py-2">
-      <label for="vidurl">Embed Non-YouTube Video</label>
+      <label for="vidurl">Enter Non-YouTube video link: </label>
       <div class="mt-1">
         <input type="text" name="vidurl" class="form-control rounded-md" id="txtSRC" placeholder="Enter link here:"
           value="" />
       </div>
-      <input type="button" value="Store URL" onclick="SetSrc();"></input>
+      <input type="button" value="Save URL" onclick="SetSrc();"></input>
     </div>
     <iframe id="myIfreme" class="embedvideo" src="" frameborder="0" marginwidth="0"
       referrerpolicy="origin-when-cross-origin" scrolling="yes"
       allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""
       style="display:none; width:640px; height: 400px;"></iframe>
-</div>
+  </div>
+  {% endif %}
 
     <div class="flex flex-row items-center">
       <div class="flex flex-row items-center my-4">
