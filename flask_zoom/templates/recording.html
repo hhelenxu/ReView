@@ -11,10 +11,11 @@
       <input type="button" class="bg-transparent" value="Back" onclick="history.back()">
     </div>
   </form>
-  <br/>
+  <br />
   <h1 style="display:none">{% block title %} Recording Page {% endblock %}</h1>
   <ul class="list-group list-group-flush my-10">
-    <li class="list-group-item  md:text-4xl text-2xl" style="color:#012169"> Details for <span class="font-bold">{{ recording[2] }} </span>
+    <li class="list-group-item  md:text-4xl text-2xl" style="color:#012169"> Details for <span class="font-bold">{{
+        recording[2] }} </span>
       <button
         class="justify-self-end hover:border bg-white hover:shadow hover:bg-blue-50 hover:border-gray-600 rounded-lg hover:border hover:border-gray-100 text-gray-400 hover:text-blue-600">
         <a href="{{ url_for('edit', recording_id=recording[0]) }}">
@@ -36,12 +37,11 @@
           </div>
       </span>
       {% for tag, value in recording[9] | dictsort(false, 'value', reverse=true) %}
-      {% if value <= -3 %} <span
-        class="badge text-blue-400 bg-blue-100 hover:bg-blue-400 hover:text-white recording-tag">{{ tag }}</span>
+      {% if value <= -3 %} <span class="badge text-blue-400 bg-blue-100 recording-tag">{{ tag }}</span>
         {% elif value >= 3 %}
-        <span class="badge text-blue-400 bg-blue-100 hover:bg-blue-400 hover:text-white recording-tag">{{ tag }}</span>
+        <span class="badge text-blue-400 bg-blue-100 recording-tag">{{ tag }}</span>
         {% else %}
-        <span class="badge text-blue-400 bg-blue-100 hover:bg-blue-400 hover:text-white recording-tag">{{ tag }}</span>
+        <span class="badge text-blue-400 bg-blue-100 recording-tag">{{ tag }}</span>
         {% endif %}
         <a class="bi bi-arrow-up text-gray-400 hover:text-gray-900 voting mx-2"
           href="{{ url_for('upvote_tag', id=recording[0], tag=tag) }}"></a>
