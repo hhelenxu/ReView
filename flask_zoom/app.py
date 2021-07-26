@@ -318,82 +318,50 @@ def edit(recording_id):
 @app.route('/create', methods=('GET', 'POST'))
 def create():
     # authentication and determine permissions
-    if not request.cookies.get('_FSB_SHIB'):
-        return redirect(url_for('auth_redirect'))
-    login()
+    if not session or not request.cookies.get('_FSB_SHIB'):
+        return redirect(url_for('login'))
 
     conn = get_db_connection()
     cur = conn.cursor()
-    recording = get_recording()
-    originalTags = recording[9]
 
     if request.method == 'POST':
         cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%b %d, %Y %I:%M %p"))
 
         title = request.form['title']
-        # add to activity log if title changed
-        if title != recording[2]:
-            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed title", "Changed title to "+title, recording[2], datetime.now()))
-            conn.commit()
-
         summary = request.form['summary']
-        # add to activity log if summary changed
-        if summary != recording[7]:
-            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed summary", "", recording[2], datetime.now()))
-            conn.commit()
-
-        # transcription = request.form['transcription']
-        # # add to activity log if transcript changed
-        # if transcription != recording[6]:
-        #     cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes) VALUES (%s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed transcript", ""))
-        #     conn.commit()
-
+        recordingURL = request.form['recordingURL']
+        transcription = request.form['transcription']
         tags = request.form['tags'].split(',')
         # remove leading and trailing whitespaces
         for i in range(len(tags)):
             tags[i] = tags[i].strip()
-
-        # deleting tags
-        new_dict = {tag: value for (tag, value) in recording[9].items() if tag in tags}
-        for tag in [x for x in recording[9] if x not in new_dict]:
-            if tag!="":
-                print("Deleted tag: "+tag+" end")
-                # add to activity log if tag deleted
-                cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Deleted tag", "Deleted tag: \""+tag+"\"", recording[2], datetime.now()))
-                conn.commit()
-
         # adding new tags
+        tagsToAdd = {}
         for tag in tags:
-            if tag not in originalTags and tag!="":
+            if tag!="":
                 print("Added tag: "+ tag+ " end")
-                new_dict[tag] = 0
-                # add to activity log if tag added
-                cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Added tag", "Added tag: \""+tag+"\"", recording[2], datetime.now()))
-                conn.commit()
+                tagsToAdd[tag] = 0
 
         yvidurl = request.form['yvidurl']
         vidurl = request.form['vidurl']
-        new_vid = recording[4]
+        # new_vid = recording[4]
         if yvidurl:
             new_vid = yvidurl.replace("https://youtu.be/", "https://www.youtube.com/embed/")
         elif vidurl:
             new_vid = vidurl
-        # add to activity log if video link changed
-        if new_vid!=recording[4]:
-            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed video url", vidurl, recording[2], datetime.now()))
-            conn.commit()
 
         if not title:
             flash('Title is required!')
         else:
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute('UPDATE recordings SET topic = %s, summary = %s, tags = %s, video = %s where id = %s', (title, summary, json.dumps(new_dict), new_vid, recording_id))
+            cur.execute("INSERT INTO recordings(topic, start_time, video, transcript, text, tags, summary, visible, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, TRUE, %s)", (title, cur_time, recordingURL, "", transcription, json.dumps(tagsToAdd), summary, cur_time))
             cur.close()
             conn.commit()
             conn.close()
-            return redirect(url_for('.recording', recording_id=recording_id))
-    return render_template('create.html', recording=recording, permission=session.get('permission'), username=session.get('user'))
+            return redirect(url_for('index'))
+    return render_template('create.html')
+
 
 @app.route('/<string:recording_id>/hide', methods=('POST','GET'))
 def hide(recording_id):
