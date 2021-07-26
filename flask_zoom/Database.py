@@ -40,7 +40,8 @@ try:
         tokens TSVECTOR,
         tags JSONB,
         zoom_id varchar UNIQUE,
-        unformat_time TIMESTAMP
+        unformat_time TIMESTAMP,
+        notes TEXT[]
     );
     """)
     conn.commit()

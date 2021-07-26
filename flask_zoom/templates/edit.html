@@ -91,6 +91,14 @@
       </div>
     </div>
 
+    <div class="form-group my-2">
+      <label for="notes" class="block text-sm font-medium text-gray-700">Notes (visible to all)</label>
+      <div class="mt-1">
+        <textarea name="notes" placeholder="Video notes" rows="3"
+          class="form-control rounded-md">{{ request.form['notes'] or "\n".join(recording[12]) }}</textarea>
+      </div>
+    </div>
+
     <!-- <div class="form-group py-2">
       <label for="transcription">Transcription</label>
       <textarea name="transcription" placeholder="Transcription" rows="10"

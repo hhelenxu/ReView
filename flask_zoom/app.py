@@ -273,6 +273,12 @@ def edit(recording_id):
             cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed summary", "", recording[2], datetime.now()))
             conn.commit()
 
+        vid_notes = request.form['notes'].splitlines()
+        # add to activity log if notes changed
+        if recording[12] and vid_notes != recording[12]:
+            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed video notes", "", recording[2], datetime.now()))
+            conn.commit()
+
         # transcription = request.form['transcription']
         # # add to activity log if transcript changed
         # if transcription != recording[6]:
@@ -319,7 +325,7 @@ def edit(recording_id):
         else:
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute('UPDATE recordings SET topic = %s, summary = %s, tags = %s, video = %s where id = %s', (title, summary, json.dumps(new_dict), new_vid, recording_id))
+            cur.execute('UPDATE recordings SET topic = %s, summary = %s, tags = %s, video = %s, notes=%s where id = %s', (title, summary, json.dumps(new_dict), new_vid, vid_notes, recording_id))
             cur.close()
             conn.commit()
             conn.close()
