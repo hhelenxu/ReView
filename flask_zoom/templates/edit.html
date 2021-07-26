@@ -83,7 +83,7 @@
       </div>
     </div>
 
-    <div class="form-group my-2">
+    <div class="form-group my-4">
       <label for="summary" class="block text-sm font-medium text-gray-700">Summary</label>
       <div class="mt-1">
         <textarea name="summary" placeholder="Brief summary" rows="3"
@@ -92,7 +92,7 @@
     </div>
 
     <div class="form-group my-2">
-      <label for="notes" class="block text-sm font-medium text-gray-700">Notes (visible to all)</label>
+      <label for="notes" class="block text-sm font-medium text-gray-700">Notes (visible to all)- start each note on a new line</label>
       <div class="mt-1">
         <textarea name="notes" placeholder="Video notes" rows="3"
           class="form-control rounded-md">{{ request.form['notes'] or "\n".join(recording[12]) }}</textarea>

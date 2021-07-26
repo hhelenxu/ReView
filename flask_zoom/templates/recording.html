@@ -28,10 +28,10 @@
     </li>
     <li class="list-group-item items-center"><span class="font-bold" style="color:#012169">Date:</span> {{ recording[3] }}</li>
     <li class="list-group-item"><span class="font-bold" style="color:#012169">Summary:</span> {{ recording[7] }}</li>
-    <li class="list-group-item"><span class="font-bold" style="color:#012169">Notes:</span> 
+    <li class="list-group-item"><span class="font-bold" style="color:#012169">Student Notes:</span> 
       {% for note in recording[12] %}
-      <ul>
-        <li style='list-style-type: disc;'>{{ note }}</li>
+      <ul style="padding-left: 15px">
+        <li style="list-style-type: disc" >{{ note }}</li>
       </ul>
       {% endfor %}
     </li>
