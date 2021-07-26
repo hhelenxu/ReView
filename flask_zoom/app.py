@@ -264,7 +264,7 @@ def edit(recording_id):
         title = request.form['title']
         # add to activity log if title changed
         if title != recording[2]:
-            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed title", "Changed title to "+title, recording[2], datetime.now()))
+            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed title", "Changed title to \""+title+"\"", recording[2], datetime.now()))
             conn.commit()
 
         summary = request.form['summary']
