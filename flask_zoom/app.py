@@ -330,6 +330,8 @@ def create():
         title = request.form['title']
         summary = request.form['summary']
         recordingURL = request.form['recordingURL']
+        if "https://youtu.be/" in recordingURL:
+            recordingURL = recordingURL.replace("https://youtu.be/", "https://www.youtube.com/embed/")
         transcription = request.form['transcription']
         tags = request.form['tags'].split(',')
         # remove leading and trailing whitespaces
@@ -342,13 +344,14 @@ def create():
                 print("Added tag: "+ tag+ " end")
                 tagsToAdd[tag] = 0
 
-        yvidurl = request.form['yvidurl']
-        vidurl = request.form['vidurl']
-        # new_vid = recording[4]
-        if yvidurl:
-            new_vid = yvidurl.replace("https://youtu.be/", "https://www.youtube.com/embed/")
-        elif vidurl:
-            new_vid = vidurl
+        # yvidurl = request.form['yvidurl']
+        # vidurl = request.form['vidurl']
+        # # new_vid = recording[4]
+        # if yvidurl:
+        #     new_vid = yvidurl.replace("https://youtu.be/", "https://www.youtube.com/embed/")
+        # elif vidurl:
+        #     new_vid = vidurl
+        
 
         if not title:
             flash('Title is required!')
@@ -356,6 +359,12 @@ def create():
             conn = get_db_connection()
             cur = conn.cursor()
             cur.execute("INSERT INTO recordings(topic, start_time, video, transcript, text, tags, summary, visible, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, TRUE, %s)", (title, cur_time, recordingURL, "", transcription, json.dumps(tagsToAdd), summary, cur_time))
+            
+            cur.execute("SELECT id FROM recordings WHERE topic=%s and start_time=%s", (title, cur_time))
+            recording_id = cur.fetchone()[0]
+            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Created recording", "", title, datetime.now()))
+            conn.commit()
+            
             cur.close()
             conn.commit()
             conn.close()
