@@ -12,10 +12,9 @@ import numpy as np
 import networkx as nx
 import psycopg2
 import databaseconfig as dbconfig
-import zoomconfig
 from datetime import date, datetime
-from dateutil import tz
 import pytz
+from dateutil import tz
 from sklearn.feature_extraction.text import CountVectorizer
 import json
 
@@ -99,20 +98,6 @@ def format_date(date_str):
     to_zone = tz.gettz('America/New_York') # convert to ET
     time = utc_time.astimezone(to_zone)
     return time.strftime("%b %d, %Y %I:%M %p")
-
-
-def parse_transcripts(transcript_link):
-    # get transcript text
-    if transcript_link == "":
-        return ""
-    t_url = transcript_link+"?access_token="+zoomconfig.TOKEN
-    t_response = requests.request("GET", t_url)
-
-    # process transcripts to remove unnecessary info (time, speaker)
-    lines = []
-    for string in t_response.text.split(": ")[1:]:
-        lines.append(string.split("\r")[0])
-    return " ".join(lines)
 
 
 # get keywords from transcript
@@ -250,10 +235,12 @@ def change_visibility(conn, cur, meeting_id, user, email, visible='FALSE'):
     # add to activity log
     cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, user, email, meeting_id, cur_action, "", title, datetime.now()))
     conn.commit()
-    
+
 
 # upvote or downvote tags
 def vote_tags(conn, cur, id, tag, vote, user, email):
+    print(tag)
+    print(id)
     # vote should either be 1 for upvote or -1 for downvote
     cur.execute("SELECT tags FROM recordings WHERE id=%s", (id,))
     tags_dict = cur.fetchone()[0]
@@ -265,7 +252,7 @@ def vote_tags(conn, cur, id, tag, vote, user, email):
     # cur.execute("SELECT tags FROM recordings WHERE id=%s", (id,))
     # print(cur.fetchone())
 
-    cur.execute("SELECT topic FROM recordings WHERE id=%s", (id))
+    cur.execute("SELECT topic FROM recordings WHERE id=%s", (id,))
     title = cur.fetchone()[0]
 
     if vote==1:
@@ -279,6 +266,7 @@ def vote_tags(conn, cur, id, tag, vote, user, email):
     conn.commit()
 
 
+
 def main():
     # print(stop_words)
     # add additional stopwords
@@ -290,30 +278,10 @@ def main():
     # connect to database
     conn = psycopg2.connect("dbname={} user={} host='localhost' password={}".format(dbconfig.database["db"], dbconfig.database["user"], dbconfig.database["password"]))
     cur = conn.cursor()
-
-    # get users
-    headers = {
-        'Authorization': "Bearer " + zoomconfig.TOKEN,
-    }
-    get_users(conn, cur, headers)
-
-    # get user "test user 1"
-    cur.execute("SELECT email FROM users WHERE name=%s", (name,))
-    user = cur.fetchone()[0]
-    print(user)
-    print()
-
-    today = date.today().strftime("%Y-%m-%d")
-    start_date = "2021-06-01"
-    # end_date = today
-    end_date="2021-06-17"
-    num_sentences = 3
-        
-    # get meetings and summarize transcripts
-    get_meetings(conn, cur, user, headers, start_date, end_date, num_sentences)
-
+    get_meetings(conn, cur)
     cur.close()
     conn.close()
+    
 
 if __name__ == "__main__":
     main()

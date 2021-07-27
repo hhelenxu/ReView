@@ -49,6 +49,7 @@ def searchForKeyword(keyword, tag="", view="index"):
     conn.close()
     return render_template(file, recordings=recordings, selected_tag=tag, username=session.get('user'), permission=session.get('permission'))
 
+
 def authenticate(token):
     # jwks = "https://go.fuqua.duke.edu/auth/jwks"
     # jwks_client = PyJWKClient(jwks)
@@ -337,6 +338,62 @@ def edit(recording_id):
             conn.close()
             return redirect(url_for('.recording', recording_id=recording_id))
     return render_template('edit.html', recording=recording, permission=session.get('permission'), username=session.get('user'))
+
+@app.route('/create', methods=('GET', 'POST'))
+def create():
+    # authentication and determine permissions
+    if not session or not request.cookies.get('_FSB_SHIB'):
+        return redirect(url_for('login'))
+
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    if request.method == 'POST':
+        cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%b %d, %Y %I:%M %p"))
+
+        title = request.form['title']
+        summary = request.form['summary']
+        recordingURL = request.form['recordingURL']
+        if "https://youtu.be/" in recordingURL:
+            recordingURL = recordingURL.replace("https://youtu.be/", "https://www.youtube.com/embed/")
+        transcription = request.form['transcription']
+        tags = request.form['tags'].split(',')
+        # remove leading and trailing whitespaces
+        for i in range(len(tags)):
+            tags[i] = tags[i].strip()
+        # adding new tags
+        tagsToAdd = {}
+        for tag in tags:
+            if tag!="":
+                print("Added tag: "+ tag+ " end")
+                tagsToAdd[tag] = 0
+
+        # yvidurl = request.form['yvidurl']
+        # vidurl = request.form['vidurl']
+        # # new_vid = recording[4]
+        # if yvidurl:
+        #     new_vid = yvidurl.replace("https://youtu.be/", "https://www.youtube.com/embed/")
+        # elif vidurl:
+        #     new_vid = vidurl
+        
+
+        if not title:
+            flash('Title is required!')
+        else:
+            conn = get_db_connection()
+            cur = conn.cursor()
+            cur.execute("INSERT INTO recordings(topic, start_time, video, transcript, text, tags, summary, visible, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, TRUE, %s)", (title, cur_time, recordingURL, "", transcription, json.dumps(tagsToAdd), summary, cur_time))
+            
+            cur.execute("SELECT id FROM recordings WHERE topic=%s and start_time=%s", (title, cur_time))
+            recording_id = cur.fetchone()[0]
+            cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Created recording", "", title, datetime.now()))
+            conn.commit()
+            
+            cur.close()
+            conn.commit()
+            conn.close()
+            return redirect(url_for('index'))
+    return render_template('create.html')
 
 
 @app.route('/<string:recording_id>/hide', methods=('POST','GET'))
