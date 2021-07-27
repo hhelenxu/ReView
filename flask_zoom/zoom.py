@@ -12,6 +12,7 @@ import numpy as np
 import networkx as nx
 import psycopg2
 import databaseconfig as dbconfig
+import zoomconfig
 from datetime import date, datetime
 import pytz
 from dateutil import tz
@@ -278,9 +279,31 @@ def main():
     # connect to database
     conn = psycopg2.connect("dbname={} user={} host='localhost' password={}".format(dbconfig.database["db"], dbconfig.database["user"], dbconfig.database["password"]))
     cur = conn.cursor()
-    get_meetings(conn, cur)
+
+    # get users
+    headers = {
+        'Authorization': "Bearer " + zoomconfig.TOKEN,
+    }
+    get_users(conn, cur, headers)
+
+    # get user "test user 1"
+    cur.execute("SELECT email FROM users WHERE name=%s", (name,))
+    user = cur.fetchone()[0]
+    print(user)
+    print()
+
+    today = date.today().strftime("%Y-%m-%d")
+    start_date = "2021-06-01"
+    # end_date = today
+    end_date="2021-06-17"
+    num_sentences = 3
+        
+    # get meetings and summarize transcripts
+    get_meetings(conn, cur, user, headers, start_date, end_date, num_sentences)
+
     cur.close()
     conn.close()
+
     
 
 if __name__ == "__main__":

@@ -370,7 +370,7 @@ def create():
             conn = get_db_connection()
             cur = conn.cursor()
 
-            cur.execute("INSERT INTO recordings(topic, start_time, video, transcript, text, tags, summary, visible, unformat_time, notes) VALUES (%s, %s, %s, %s, %s, %s, %s, TRUE, %s, %s)", (title, cur_time, recordingURL, "", transcription, json.dumps(tags), summary, cur_time, vid_notes))
+            cur.execute("INSERT INTO recordings(topic, start_time, video, transcript, text, tags, summary, visible, unformat_time, notes, summary_approved) VALUES (%s, %s, %s, %s, %s, %s, %s, TRUE, %s, %s, FALSE)", (title, cur_time, recordingURL, "", transcription, json.dumps(tags), summary, cur_time, vid_notes))
             conn.commit()
 
             cur.execute("SELECT id FROM recordings WHERE topic=%s and start_time=%s", (title, cur_time))
