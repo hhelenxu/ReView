@@ -59,7 +59,6 @@
       <input type="button" class="bg-transparent" value="Back" onclick="history.back()">
     </div>
   </form>
-
   <div class="my-10">
     <h1 style="display:none;">{% block title %} Edit Page {% endblock %}</h1>
     <h1 class="md:text-4xl text-2xl" style="color:#012169"> Edit <span class="font-bold">"{{
@@ -109,7 +108,7 @@
   </div> -->
     <br /><br />
     {% if permission %}
-    <div id="vidembed">
+    <div id="vidembed" style="display:none;">
       <p style="text-decoration:underline; font-size:20px"> Embed Videos Below</p><br />
       <div class="form-group py-2">
         <label for="yvidurl">Enter Youtube video link (starting with https://youtu.be/): </label>
@@ -170,3 +169,4 @@
   </form>
 </div>
 {% endblock %}
+<!-- Add Notes Section -->

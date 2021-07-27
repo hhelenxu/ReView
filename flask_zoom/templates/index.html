@@ -4,11 +4,14 @@
 <div class="homepage my-10">
 
   <div class="my-10">
-    <h1 style="display:none">{% block title %} Home {% endblock %}</h1>
-    <h1 class="md:text-4xl text-2xl" style="color:#012169"><span class="font-bold">Math 218: Matrices and Vector
-        Spaces</span> </h1>
-    <p class="my-4 md:text-xl">Welcome! You have found the homepage of the Spring 2021 manifestation of Math 218. Filter
-      recordings by clicking on a tag. </p>
+    <h1 style="display:none;"> {% block title %} Home {% endblock %} </h1>
+      <h1 class="md:text-4xl text-2xl" style="color:#012169">
+        <span class="font-bold">Math 218: Matrices and Vector Spaces</span>
+        {% if permission %} 
+          <a href="{{ url_for('create') }}" class="bi bi-plus-circle text-right"></a> 
+        {% endif %}
+      </h1>    
+    <p class="my-4 md:text-xl">Welcome! You have found the homepage of the Spring 2021 manifestation of Math 218. </p>
   </div>
 
   <!-- row above table header -->
