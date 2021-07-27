@@ -11,18 +11,18 @@ except:
 cur = conn.cursor()
 
 # create users table
-# try:
-#     cur.execute("""
-#     CREATE TABLE IF NOT EXISTS users (
-#         name VARCHAR,
-#         id VARCHAR UNIQUE,
-#         email VARCHAR UNIQUE
-#     );
-#     """)
-#     conn.commit()
-#     print("Created users table.")
-# except:
-#     print("Failed to create users table.")
+try:
+    cur.execute("""
+    CREATE TABLE IF NOT EXISTS users (
+        name VARCHAR,
+        id VARCHAR UNIQUE,
+        email VARCHAR UNIQUE
+    );
+    """)
+    conn.commit()
+    print("Created users table.")
+except:
+    print("Failed to create users table.")
 
 # create zoom recordings table
 try:
