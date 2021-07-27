@@ -203,7 +203,7 @@ def change_visibility(conn, cur, meeting_id, user, email, visible='FALSE'):
     cur.execute("UPDATE recordings SET visible=%s WHERE id=%s", (visible, meeting_id))
     conn.commit()
     
-    cur.execute("SELECT topic FROM recordings WHERE id=%s", (meeting_id))
+    cur.execute("SELECT topic FROM recordings WHERE id=%s", (meeting_id,))
     title = cur.fetchone()[0]
 
     if visible == 'FALSE':
