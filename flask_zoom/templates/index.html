@@ -7,7 +7,8 @@
     <h1 style="display:none">{% block title %} Home {% endblock %}</h1>
     <h1 class="md:text-4xl text-2xl" style="color:#012169"><span class="font-bold">Math 218: Matrices and Vector
         Spaces</span> </h1>
-    <p class="my-4 md:text-xl">Welcome! You have found the homepage of the Spring 2021 manifestation of Math 218. Filter recordings by clicking on a tag. </p>
+    <p class="my-4 md:text-xl">Welcome! You have found the homepage of the Spring 2021 manifestation of Math 218. Filter
+      recordings by clicking on a tag. </p>
   </div>
 
   <!-- row above table header -->
@@ -66,18 +67,32 @@
   <hr class="mb-2">
 
   <div class="grid grid-cols-5 my-2 px-2 text-blue-900 rounded-md font-semibold">
-    <div class="col-span-1 flex flex-row">
+    <div class="col-span-1 flex flex-row items-center">
       <div class="bi bi-calendar-event hidden md:block md:mr-2"></div>
       <!-- <div>DATE</div> -->
       <div class="hidden md:block md:mr-2">DATE</div>
       <form method="get">
         <div class="form-group">
           {% if sort_order=='date_desc' %}
-          <button type="submit"
-            class="bi bi-arrow-down text-gray-400 hover:text-blue-600 hidden md:block md:mr-2"></button>
+
+          <button type="submit" class="text-blue-900 hover:text-blue-600 hidden md:block md:mr-2">
+            <svg width="16" height="16" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 6L6 1M6 1L11 6M6 1V13" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path d="M11 12L16 17M16 17L21 12M16 17V5" stroke="currentColor" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </button>
           {% else %}
-          <button type="submit"
-            class="bi bi-arrow-up text-gray-400 hover:text-blue-600 hidden md:block md:mr-2"></button>
+
+
+          <button type="submit" class="text-blue-900 hover:text-blue-600 hidden md:block md:mr-2">
+            <svg width="16" height="16" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 6L6 1M6 1L11 6M6 1V13" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M11 12L16 17M16 17L21 12M16 17V5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </button>
           {% endif %}
         </div>
         <input type="hidden" id="sort" name="sort" value={{'date_asc' if sort_order=='date_desc' else 'date_desc' }}>
