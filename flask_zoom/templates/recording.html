@@ -14,8 +14,7 @@
   <br />
   <h1 style="display:none">{% block title %} Recording Page {% endblock %}</h1>
   <ul class="list-group list-group-flush my-10">
-    <li class="list-group-item  md:text-4xl text-2xl" style="color:#012169"> Details for <span class="font-bold">{{
-        recording[2] }} </span>
+    <li class="list-group-item  md:text-4xl text-2xl" style="color:#012169"> Details for <span class="font-bold">{{ recording[2] }} </span>
       <button
         class="justify-self-end hover:border bg-white hover:shadow hover:bg-blue-50 hover:border-gray-600 rounded-lg hover:border hover:border-gray-100 text-gray-400 hover:text-blue-600">
         <a href="{{ url_for('edit', recording_id=recording[0]) }}">
@@ -49,11 +48,13 @@
     </li>
     
     <li class="list-group-item"><span class="font-bold" style="color:#012169">Student Notes:</span> 
-      {% for note in recording[12] %}
-      <ul style="padding-left: 15px">
-        <li style="list-style-type: disc" >{{ note }}</li>
-      </ul>
-      {% endfor %}
+      {% if recording[12] %}
+        {% for note in recording[12] %}
+          <ul style="padding-left: 15px">
+            <li style="list-style-type: disc" >{{ note }}</li>
+          </ul>
+        {% endfor %}
+      {% endif %}
     </li>
     <li class="list-group-item">
       <span class="font-bold">
@@ -78,11 +79,11 @@
         {% endfor %}
 </div>
 
-{% if 'https://www.youtube.com/embed/' in recording[4] %}
+{% if recording[4] and 'https://www.youtube.com/embed/' in recording[4] %}
 <li class="list-group-item"><iframe src="{{ recording[4] }}" height="500px" width=100% title="YouTube video player"
     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowfullscreen></iframe></li>
-{% else %}
+{% elif recording[4] %}
 <li class="list-group-item"><iframe src="{{ recording[4] }}" height="500px" width=100% title="Embedded Zoom Recording"
     allowfullscreen="allowfullscreen"></iframe></li>
 {% endif %}
