@@ -85,7 +85,7 @@ def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1
         summary = ". ".join([word.capitalize() for word in sentences])
 
         # add to database
-        cur.execute("INSERT INTO recordings(topic, start_time, video, transcript, text, tokens, tags, summary, visible, zoom_id, unformat_time, notes) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, TRUE, %s, %s, %s) ON CONFLICT (zoom_id) DO NOTHING", (meeting["topic"], date, video_link, transcript_link, text, tokens, json.dumps(keywords_dict), summary, meeting["uuid"], meeting["start_time"], '{}'))
+        cur.execute("INSERT INTO recordings(topic, start_time, video, transcript, text, tokens, tags, summary, visible, zoom_id, unformat_time, notes, summary_approved) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, TRUE, %s, %s, %s, FALSE) ON CONFLICT (zoom_id) DO NOTHING", (meeting["topic"], date, video_link, transcript_link, text, tokens, json.dumps(keywords_dict), summary, meeting["uuid"], meeting["start_time"], '{}'))
         conn.commit()
 
 

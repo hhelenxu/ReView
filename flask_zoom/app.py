@@ -235,11 +235,19 @@ def card():
     return render_template('card.html', recordings=recordings, selected_tag="", username=session.get('user'), permission=session.get('permission'), sort_order=cur_sort_order)
 
 
-@app.route('/<string:recording_id>')
+@app.route('/<string:recording_id>', methods=('GET', 'POST'))
 def recording(recording_id):
     # authentication and determine permissions
     if not session or not request.cookies.get('_FSB_SHIB'):
         return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        conn = get_db_connection()
+        cur = conn.cursor()
+        cur.execute('UPDATE recordings SET summary_approved = NOT summary_approved WHERE id=%s', (recording_id,))
+        conn.commit()
+        cur.close()
+        conn.close()
 
     recording = get_recording(recording_id)
     return render_template('recording.html', recording=recording, username=session.get('user'), permission=session.get('permission'))

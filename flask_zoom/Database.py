@@ -41,7 +41,8 @@ try:
         tags JSONB,
         zoom_id varchar UNIQUE,
         unformat_time TIMESTAMP,
-        notes TEXT[]
+        notes TEXT[],
+        summary_approved BOOLEAN
     );
     """)
     conn.commit()
