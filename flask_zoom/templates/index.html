@@ -12,7 +12,7 @@
   </div>
 
   <!-- row above table header -->
-  <div class="flex justify-between items-center mb-4">
+  <div class="flex flex-wrap md:justify-between items-center mb-4">
     <div class="flex flex-wrap md:flex-row items-center">
       <!-- button for list view -->
       <button class="bg-gray-50 p-2 mr-2 rounded-lg border border-gray-100">
@@ -70,7 +70,7 @@
     <div class="col-span-1 flex flex-row items-center">
       <div class="bi bi-calendar-event hidden md:block md:mr-2"></div>
       <!-- <div>DATE</div> -->
-      <div class="hidden md:block md:mr-2">DATE</div>
+      <div class="block md:mr-2">DATE</div>
       <form method="get">
         <div class="form-group">
           {% if sort_order=='date_desc' %}

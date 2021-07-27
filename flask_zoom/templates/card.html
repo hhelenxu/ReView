@@ -11,10 +11,10 @@
       recordings by clicking on a tag.</p>
   </div>
 
-  <div class="flex justify-between items-center mb-4">
-    <div class="flex flex-row items-center">
+  <div class="flex flex-wrap md:justify-between items-center mb-4">
+    <div class="flex flex-wrap md:flex-row items-center">
       <!-- button for list view -->
-      <button class=" p-2 mr-2 rounded-lg text-gray-600 hover:text-white hover:bg-blue-900">
+      <button class=" p-2 mr-2 rounded-lg text-gray-600 w-8 h-8 hover:text-white hover:bg-blue-900">
         <a href="{{ url_for('index')}}" class="hover:text-white">
           <svg class="" width="14" height="14" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="12" height="3" rx="0.5" fill="currentColor" />
@@ -24,7 +24,7 @@
         </a>
       </button>
       <!-- button for card view -->
-      <button class="p-2 bg-gray-50 border border-gray-100 mr-4 rounded-lg">
+      <button class="p-2 bg-gray-50 border border-gray-100 mr-4 w-8 h-8 rounded-lg">
         <a href="{{ url_for('card')}}" class="hover:text-white">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="#012169" xmlns="http://www.w3.org/2000/svg">
             <rect x="8" width="5.29412" height="5.29412" rx="0.5" fill="012169" />
@@ -37,7 +37,7 @@
 
       <!-- Date Filter -->
       <form method="get">
-        <div class="form-group hover:bg-gray-50 rounded-lg border px-2 h-8 mr-4 flex flex-row border-gray-100">
+        <div class="form-group hover:bg-gray-50 rounded-lg border px-2 w-44 h-8 mr-4 flex flex-row border-gray-100">
           {% if sort_order=='date_desc' %}
           <button type="submit" class="flex flex-row items-center text-gray-600 hover:text-blue-600"><svg class="mr-2"
               width="16" height="16" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -75,8 +75,8 @@
     </div>
     <!-- search bar -->
     <form method="post">
-      <div class="">
-        <div class="form-group  flex flex-row">
+      <div>
+        <div class="form-group flex flex-row">
           <input type="search" name="keyword" placeholder="Search in video"
             class="form-control rounded-none rounded-l-md" value="{{ request.form['keyword'] }}"
             onkeyup="this.value = this.value.replace(/[^A-Za-z0-9_-\s]/g, '')">
