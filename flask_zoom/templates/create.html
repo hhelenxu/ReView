@@ -93,7 +93,7 @@
     </div>
 
     <div class="form-group my-2">
-      <label for="recordingURL" class="block text-sm font-medium text-gray-700">Recording URL</label>
+      <label for="recordingURL" class="block text-sm font-medium text-gray-700">Recording URL(To add youtube videos, you must input either the shareable link or the embed link)</label>
       <div class="mt-1">
         <textarea name="recordingURL" placeholder="Paste video URL here"
           class="form-control rounded-md">{{ request.form[recordingURL] }}</textarea>
@@ -108,6 +108,7 @@
 
 
   <br /><br />
+  
   <div id="vidembed" style="display:none;">
       <p style="text-decoration:underline;"> Embed Videos Below</p><br/>
       <div class="form-group py-2">
@@ -134,7 +135,7 @@
       <iframe id="myIfreme" class="embedvideo" src="" frameborder="0" marginwidth="0"
         referrerpolicy="origin-when-cross-origin" scrolling="yes"
         allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""
-        style="display:none; width:640px; height: 400px;"></iframe>
+        style="display:none; width:640px; height: 500px;"></iframe>
   </div>
     <div class="flex flex-row items-center">
       <div class="flex flex-row items-center my-4">
