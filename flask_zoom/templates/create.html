@@ -50,46 +50,39 @@
 </script>
 <!-- I think Icon -->
 <div class="my-10">
-  <form>
-    <div class="flex flex-row">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-      </svg>
-      <input type="button" class="bg-transparent" value="Back" onclick="history.back()">
-    </div>
-  </form>
   <div class="my-10">
     <h1 class="md:text-4xl text-2xl" style="color:#012169">{% block title %} Create <span class="font-bold">"{\{
         recording[2] }\}"</span> Details {% endblock %}</h1>
   </div>
-<!-- Title text box -->
+  <!-- Title text box -->
   <form method="post">
     <div class="form-group my-4">
-      <label for="title" class="block text-sm font-medium text-gray-700">Title (give your video the appropriate title)</label>
+      <label for="title" class="block text-sm font-medium text-gray-700">Title (give your video the appropriate
+        title)</label>
       <div class="mt-1">
         <input type="text" name="title" class="form-control rounded-md" placeholder="Post Title"
           value="{{ request.form['title'] or recording[2] }}" />
       </div>
     </div>
-<!-- Tags text box -->
+    <!-- Tags text box -->
     <div class="form-group my-4">
-      <label for="tags" class="block text-sm font-medium text-gray-700">Tags (include the appropriate content tags for your video)</label>
+      <label for="tags" class="block text-sm font-medium text-gray-700">Tags (include the appropriate content tags for
+        your video)</label>
       <div class="mt-1">
         <input id="tags" name="tags" value="{{ request.form['tags'] or " , ".join(recording[9]) }}"
           data-role="tagsinput" type="text" placeholder="Add tags" class="form-control" />
       </div>
     </div>
-<!-- Summary text box -->
+    <!-- Summary text box -->
     <div class="form-group my-2">
       <label for="summary" class="block text-sm font-medium text-gray-700">Summary (summarize your video below)</label>
       <div class="mt-1">
-        <textarea name="summary" placeholder="Brief summary" rows="3"
-          class="form-control rounded-md"></textarea>
+        <textarea name="summary" placeholder="Brief summary" rows="3" class="form-control rounded-md"></textarea>
       </div>
     </div>
 
-    
-<!-- YouTube video embed text box -->
+
+    <!-- YouTube video embed text box -->
     <div class="form-group py-2">
       <label for="yvidurl">Embed YouTube Video<br />Enter Youtube video link: </label>
       <div class="mt-1">
@@ -102,7 +95,7 @@
     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
     <div id="player"></div>
     <br />
-<!-- Non-Youtube embed text box -->
+    <!-- Non-Youtube embed text box -->
     <div class="form-group py-2">
       <label for="vidurl">Embed Non-YouTube Video<br />Enter link below:</label>
       <div class="mt-1">
@@ -115,7 +108,7 @@
       referrerpolicy="origin-when-cross-origin" scrolling="yes"
       allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""
       style="display:none; width:640px; height: 400px;"></iframe>
-<!-- Save, Cancel, Show, and Hide Buttons -->
+    <!-- Save, Cancel, Show, and Hide Buttons -->
     <div class="flex flex-row items-center">
       <div class="flex flex-row items-center my-4">
         <div class="form-group py-2 mr-4">
