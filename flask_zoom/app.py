@@ -49,7 +49,6 @@ def searchForKeyword(keyword, tag="", view="index"):
     conn.close()
     return render_template(file, recordings=recordings, selected_tag=tag, username=session.get('user'), permission=session.get('permission'))
 
-
 def authenticate(token):
     # jwks = "https://go.fuqua.duke.edu/auth/jwks"
     # jwks_client = PyJWKClient(jwks)
@@ -69,6 +68,7 @@ app = Flask(__name__)
 app.secret_key = 'NlcPJLmeyeXMn4KpISh0hGQ3cWQIQbbnE0WwfpeZxjiftirfP2sCNI0GA6P96kCP'
 # app.config['SESSION_TYPE'] = 'redis'
 # Session(app)
+
 
 @app.route('/', methods=('GET', 'POST'))
 def index():
@@ -114,27 +114,25 @@ def index():
     if request.args and request.args['sort']=='date_asc':
         # cur.execute("SELECT * FROM recordings WHERE visible=TRUE ORDER BY unformat_time ASC")
         # recordings = cur.fetchall()
-        
         recordings.reverse()
         print("date asc")
-        # print(recordings)
         cur_sort_order = 'date_asc'
-    elif request.args and not request.args['sort']=='date_desc':
+    elif request.args and request.args['sort']=='date_desc':
         # cur.execute("SELECT * FROM recordings WHERE visible=TRUE ORDER BY unformat_time DESC")
         # recordings = cur.fetchall()
         cur_sort_order = 'date_desc'
         print("date desc")
-        # print(recordings)
     cur.close()
     conn.close()
-    # print(request.args)
 
     return render_template('index.html', recordings=recordings, selected_tag="", username=session.get('user'), sort_order=cur_sort_order, permission=session.get('permission'))
+
 
 @app.route('/auth_redirect')
 def auth_redirect():
     auth_url = "https://go.fuqua.duke.edu/auth/shibboleth?service="+vcmconfig.VCM+"/login"
     return redirect(auth_url, 302)
+
 
 @app.route('/login')
 def login():
@@ -385,6 +383,7 @@ def indexTagFilter(tag):
     cur.close()
     conn.close()
     return render_template('index.html', recordings=recordings, selected_tag=tag, username=session.get('user'), permission=session.get('permission'))
+
 
 @app.route('/card/<string:tag>', methods=('GET', 'POST'))
 def cardTagFilter(tag):
