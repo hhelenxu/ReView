@@ -1,54 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<!-- Add to dropdown or make a button on index page -->
-<!-- <script>
-  // embed Youtube video
-  var tag = document.createElement('script');
-  tag.src = "https://www.youtube.com/iframe_api";
-  var firstScriptTag = document.getElementsByTagName('script')[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-  var player;
-  function onYouTubeIframeAPIReady(link) {
-    newID = link.replace("https://youtu.be/", "")
-    if (newID) {
-      player = new YT.Player('player', {
-        height: '390',
-        width: '640',
-        videoId: newID,
-        playerVars: {
-          'playsinline': 1
-        },
-        events: {
-          'onReady': onPlayerReady,
-          'onStateChange': onPlayerStateChange
-        }
-      });
-    }
-  }
-
-  function onPlayerReady(event) {
-    event.target.playVideo();
-  }
-
-  var done = false;
-  function onPlayerStateChange(event) {
-    if (event.data == YT.PlayerState.PLAYING && !done) {
-      setTimeout(stopVideo, 6000);
-      done = true;
-    }
-  }
-
-  function stopVideo() {
-    player.stopVideo();
-  }
-
-  // embed non-Youtube videos
-  function SetSrc() {
-    document.getElementById("myIfreme").src = document.getElementById("txtSRC").value;
-    document.getElementById("myIfreme").style.display = "inline";
-  }
-</script> -->
 
 <div class="my-10">
   <form>
@@ -63,7 +15,7 @@
   <div class="my-10">
     <h1 style="display:none;">{% block title %} Create Page {% endblock %}</h1>
     <h1 class="md:text-4xl text-2xl" style="color:#012169">Create a New Recording </h1>
-    <p class="my-4 md:text-xl">Create a new recording using video url</p>
+    <!-- <p class="my-4 md:text-xl">Create a new recording using video url</p> -->
   </div>
 
 
@@ -71,8 +23,16 @@
     <div class="form-group my-4">
       <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
       <div class="mt-1">
-        <input type="text" name="title" class="form-control rounded-md" placeholder="Post Title"
+        <input type="text" name="title" class="form-control rounded-md" placeholder="Recording title"
           value="{{ request.form['title']}}" />
+      </div>
+    </div>
+
+    <div class="form-group my-2">
+      <label for="recordingURL" class="block text-sm font-medium text-gray-700">Recording URL</label>
+      <div class="mt-1">
+        <textarea name="recordingURL" placeholder="Video URL"
+          class="form-control rounded-md">{{ request.form[recordingURL] }}</textarea>
       </div>
     </div>
 
@@ -93,10 +53,10 @@
     </div>
 
     <div class="form-group my-2">
-      <label for="recordingURL" class="block text-sm font-medium text-gray-700">Recording URL</label>
+      <label for="notes" class="block text-sm font-medium text-gray-700">Video Notes (each note on new line)</label>
       <div class="mt-1">
-        <textarea name="recordingURL" placeholder="Paste video URL here"
-          class="form-control rounded-md">{{ request.form[recordingURL] }}</textarea>
+        <textarea name="notes" placeholder="Video notes" rows="3"
+          class="form-control rounded-md">{{ request.form['notes'] }}</textarea>
       </div>
     </div>
 
@@ -104,38 +64,10 @@
       <label for="transcription">Transcription</label>
       <textarea name="transcription" placeholder="Transcription" rows="10"
                 class="form-control">{{ request.form['transcription'] }}</textarea>
-  </div>
+    </div>
 
 
   <br /><br />
-  <div id="vidembed" style="display:none;">
-      <p style="text-decoration:underline;"> Embed Videos Below</p><br/>
-      <div class="form-group py-2">
-        <label for="yvidurl">Enter Youtube video link: </label>
-        <div class="mt-1">
-          <input type="text" name="yvidurl" class="form-control rounded-md" id="txtsource" placeholder="https://youtu.be/"
-            value="" />
-        </div>
-        <input type="button" value="Store URL"
-          onclick="onYouTubeIframeAPIReady(document.getElementById('txtsource').value)"></input>
-      </div>
-      <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-      <div id="player"></div>
-      <br />
-
-      <div class="form-group py-2">
-        <label for="vidurl">Embed Non-YouTube Video</label>
-        <div class="mt-1">
-          <input type="text" name="vidurl" class="form-control rounded-md" id="txtSRC" placeholder="Enter link here:"
-            value="" />
-        </div>
-        <input type="button" value="Store URL" onclick="SetSrc();"></input>
-      </div>
-      <iframe id="myIfreme" class="embedvideo" src="" frameborder="0" marginwidth="0"
-        referrerpolicy="origin-when-cross-origin" scrolling="yes"
-        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""
-        style="display:none; width:640px; height: 400px;"></iframe>
-  </div>
     <div class="flex flex-row items-center">
       <div class="flex flex-row items-center my-4">
         <div class="form-group py-2 mr-4">
@@ -143,8 +75,7 @@
             class="btn border border-2 py-2 border-blue-500 rounded-lg text-white hover:bg-blue-700 bg-blue-900 px-12">Save</button>
         </div>
         <div class="mr-4">
-          <button class=" btn border border-2 px-4 py-2 rounded-lg bg-white "><a
-              href="{{ url_for('recording', recording_id=0) }}">
+          <button class=" btn border border-2 px-4 py-2 rounded-lg bg-white "><a href="{{ url_for('index') }}">
               Cancel
             </a>
           </button>

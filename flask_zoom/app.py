@@ -172,17 +172,17 @@ def admin_activity():
 
     if not session.get('permission'):
         return redirect(url_for('index'))
-    else:
-        conn = get_db_connection()
-        cur = conn.cursor()
+    
+    conn = get_db_connection()
+    cur = conn.cursor()
 
-        # get activity
-        cur.execute("SELECT * FROM activity ORDER BY unformat_time DESC")
-        activities = cur.fetchall()
-        cur.close()
-        conn.close()
+    # get activity
+    cur.execute("SELECT * FROM activity ORDER BY unformat_time DESC")
+    activities = cur.fetchall()
+    cur.close()
+    conn.close()
 
-        return render_template('admin_activity.html', activities=activities, username=session.get('user'), permission=session.get('permission'))
+    return render_template('admin_activity.html', activities=activities, username=session.get('user'), permission=session.get('permission'))
 
 
 @app.route('/admin/hidden_recordings')
@@ -193,17 +193,17 @@ def admin_hidden_recordings():
 
     if not session.get('permission'):
         return redirect(url_for('index'))
-    else:
-        conn = get_db_connection()
-        cur = conn.cursor()
+    
+    conn = get_db_connection()
+    cur = conn.cursor()
 
-        # get recordings
-        cur.execute("SELECT * FROM recordings WHERE visible=FALSE ORDER BY unformat_time DESC")
-        hiddenRecordings = cur.fetchall()
-        cur.close()
-        conn.close()
+    # get recordings
+    cur.execute("SELECT * FROM recordings WHERE visible=FALSE ORDER BY unformat_time DESC")
+    hiddenRecordings = cur.fetchall()
+    cur.close()
+    conn.close()
 
-        return render_template('admin_hidden.html', hiddenRecordings=hiddenRecordings, username=session.get('user'), permission=session.get('permission'))
+    return render_template('admin_hidden.html', hiddenRecordings=hiddenRecordings, username=session.get('user'), permission=session.get('permission'))
 
 
 @app.route('/card', methods=('GET', 'POST'))
@@ -345,6 +345,9 @@ def create():
     if not session or not request.cookies.get('_FSB_SHIB'):
         return redirect(url_for('login'))
 
+    if not session.get('permission'):
+        return redirect(url_for('index'))
+
     conn = get_db_connection()
     cur = conn.cursor()
 
@@ -353,47 +356,32 @@ def create():
 
         title = request.form['title']
         summary = request.form['summary']
+        transcription = request.form['transcription']
+        vid_notes = request.form['notes'].splitlines()
+        tags = {tag.strip(): 0 for tag in request.form['tags'].split(',')}
+
         recordingURL = request.form['recordingURL']
         if "https://youtu.be/" in recordingURL:
-            recordingURL = recordingURL.replace("https://youtu.be/", "https://www.youtube.com/embed/")
-        transcription = request.form['transcription']
-        tags = request.form['tags'].split(',')
-        # remove leading and trailing whitespaces
-        for i in range(len(tags)):
-            tags[i] = tags[i].strip()
-        # adding new tags
-        tagsToAdd = {}
-        for tag in tags:
-            if tag!="":
-                print("Added tag: "+ tag+ " end")
-                tagsToAdd[tag] = 0
-
-        # yvidurl = request.form['yvidurl']
-        # vidurl = request.form['vidurl']
-        # # new_vid = recording[4]
-        # if yvidurl:
-        #     new_vid = yvidurl.replace("https://youtu.be/", "https://www.youtube.com/embed/")
-        # elif vidurl:
-        #     new_vid = vidurl
-        
+            recordingURL = recordingURL.replace("https://youtu.be/", "https://www.youtube.com/embed/")        
 
         if not title:
             flash('Title is required!')
         else:
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute("INSERT INTO recordings(topic, start_time, video, transcript, text, tags, summary, visible, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, TRUE, %s)", (title, cur_time, recordingURL, "", transcription, json.dumps(tagsToAdd), summary, cur_time))
-            
+
+            cur.execute("INSERT INTO recordings(topic, start_time, video, transcript, text, tags, summary, visible, unformat_time, notes) VALUES (%s, %s, %s, %s, %s, %s, %s, TRUE, %s, %s)", (title, cur_time, recordingURL, "", transcription, json.dumps(tags), summary, cur_time, vid_notes))
+            conn.commit()
+
             cur.execute("SELECT id FROM recordings WHERE topic=%s and start_time=%s", (title, cur_time))
             recording_id = cur.fetchone()[0]
             cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Created recording", "", title, datetime.now()))
             conn.commit()
             
             cur.close()
-            conn.commit()
             conn.close()
             return redirect(url_for('index'))
-    return render_template('create.html')
+    return render_template('create.html', permission=session.get('permission'), username=session.get('user'))
 
 
 @app.route('/<string:recording_id>/hide', methods=('POST','GET'))
