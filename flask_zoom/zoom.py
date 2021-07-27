@@ -89,6 +89,20 @@ def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1
         conn.commit()
 
 
+def parse_transcripts(transcript_link):
+    # get transcript text
+    if transcript_link == "":
+        return ""
+    t_url = transcript_link+"?access_token="+zoomconfig.TOKEN
+    t_response = requests.request("GET", t_url)
+
+    # process transcripts to remove unnecessary info (time, speaker)
+    lines = []
+    for string in t_response.text.split(": ")[1:]:
+        lines.append(string.split("\r")[0])
+    return " ".join(lines)
+
+
 def format_date(date_str):
     # time originally in UTC
     utc_time = datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%SZ')
