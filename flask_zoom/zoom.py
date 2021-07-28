@@ -14,8 +14,8 @@ import psycopg2
 import databaseconfig as dbconfig
 import zoomconfig
 from datetime import date, datetime
-from dateutil import tz
 import pytz
+from dateutil import tz
 from sklearn.feature_extraction.text import CountVectorizer
 import json
 
@@ -89,18 +89,6 @@ def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1
         conn.commit()
 
 
-def format_date(date_str):
-    # time originally in UTC
-    utc_time = datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%SZ')
-    utc_time = utc_time.replace(tzinfo=tz.gettz('UTC'))
-
-    # convert time zones and format
-    # to_zone = tz.tzlocal() # convert to local time
-    to_zone = tz.gettz('America/New_York') # convert to ET
-    time = utc_time.astimezone(to_zone)
-    return time.strftime("%b %d, %Y %I:%M %p")
-
-
 def parse_transcripts(transcript_link):
     # get transcript text
     if transcript_link == "":
@@ -113,6 +101,18 @@ def parse_transcripts(transcript_link):
     for string in t_response.text.split(": ")[1:]:
         lines.append(string.split("\r")[0])
     return " ".join(lines)
+
+
+def format_date(date_str):
+    # time originally in UTC
+    utc_time = datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%SZ')
+    utc_time = utc_time.replace(tzinfo=tz.gettz('UTC'))
+
+    # convert time zones and format
+    # to_zone = tz.tzlocal() # convert to local time
+    to_zone = tz.gettz('America/New_York') # convert to ET
+    time = utc_time.astimezone(to_zone)
+    return time.strftime("%b %d, %Y %I:%M %p")
 
 
 # get keywords from transcript
@@ -250,10 +250,12 @@ def change_visibility(conn, cur, meeting_id, user, email, visible='FALSE'):
     # add to activity log
     cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, user, email, meeting_id, cur_action, "", title, datetime.now()))
     conn.commit()
-    
+
 
 # upvote or downvote tags
 def vote_tags(conn, cur, id, tag, vote, user, email):
+    print(tag)
+    print(id)
     # vote should either be 1 for upvote or -1 for downvote
     cur.execute("SELECT tags FROM recordings WHERE id=%s", (id,))
     tags_dict = cur.fetchone()[0]
@@ -265,7 +267,7 @@ def vote_tags(conn, cur, id, tag, vote, user, email):
     # cur.execute("SELECT tags FROM recordings WHERE id=%s", (id,))
     # print(cur.fetchone())
 
-    cur.execute("SELECT topic FROM recordings WHERE id=%s", (id))
+    cur.execute("SELECT topic FROM recordings WHERE id=%s", (id,))
     title = cur.fetchone()[0]
 
     if vote==1:
@@ -277,6 +279,7 @@ def vote_tags(conn, cur, id, tag, vote, user, email):
     # add to activity log
     cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, user, email, id, vote_type, "Tag modified: \"" + tag+"\"", title, datetime.now()))
     conn.commit()
+
 
 
 def main():
@@ -314,6 +317,8 @@ def main():
 
     cur.close()
     conn.close()
+
+    
 
 if __name__ == "__main__":
     main()
