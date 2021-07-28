@@ -1,6 +1,105 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+<div class="my-10">
+  <h1 style="display:none;">{% block title %} Recording Page {% endblock %}</h1>
+  <ul class="list-group list-group-flush my-10">
+    <li class="list-group-item flex justify-between md:text-4xl text-2xl" style="color:#012169"> Details for
+      {{
+      recording[2] }}
+      <button
+        class="justify-self-end hover:border bg-white hover:shadow hover:bg-blue-50 hover:border-gray-600 rounded-lg hover:border hover:border-gray-100 text-gray-400 hover:text-blue-600">
+        <a href="{{ url_for('edit', recording_id=recording[0]) }}">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+          </svg>
+        </a>
+      </button>
+    </li>
+    <li class="list-group-item items-center"><span class="font-bold" style="color:#012169">Date:</span> {{ recording[3]
+      }}</li>
+    <li class="list-group-item">
+      <span class="font-bold" style="color:#012169">
+        Summary:
+        {% if recording[13] %} <span class="bg-green-50 py-1 px-2 text-sm rounded-full text-green-600">
+          Instructor approved <i class="bi bi-check-circle-fill"></i> <br> </span>
+        {% endif %}
+        <!-- maybe move to right corner? -->
+
+      </span>
+
+      {{ recording[7] }}
+      {% if permission %}
+      <form method="post" class="flex flex-row-reverse items-center">
+        <label for="approved" class="text-sm font-medium text-gray-700">Approve summary</label>
+        {% if recording[13] %}
+        <input class="mr-2" type="checkbox" id="approved" name="approved" onChange="this.form.submit()"
+          value="{{ request.form['approved'] }}" checked> <br>
+        {% else %}
+        <input class="mr-2" type="checkbox" id="approved" name="approved" onChange="this.form.submit()"
+          value="{{ request.form['approved'] }}"> <br>
+        {% endif %}
+      </form>
+      {% endif %}
+    </li>
+
+    <li class="list-group-item"><span class="font-bold" style="color:#012169">Video Notes:</span>
+      {% if recording[12] %}
+      {% for note in recording[12] %}
+      <ul style="padding-left: 15px">
+        <li style="list-style-type: disc">{{ note }}</li>
+      </ul>
+      {% endfor %}
+      {% endif %}
+    </li>
+    <li class="list-group-item">
+      <span class="font-bold">
+        <div class="flex flex-row items-center overflow-x-auto">
+          <div class="mr-2" style="color:#012169">
+            Tags:
+          </div>
+      </span>
+      {% for tag, value in recording[9] | dictsort(false, 'value', reverse=true) %}
+      {% if value <= -3 %} <span class="badge text-blue-400 bg-blue-100 recording-tag">{{ tag }}</span>
+        {% elif value >= 3 %}
+        <span class="badge text-blue-400 bg-blue-100 recording-tag">{{ tag }}</span>
+        {% else %}
+        <span class="badge text-blue-400 bg-blue-100 recording-tag">{{ tag }}</span>
+        {% endif %}
+        <a class="bi bi-arrow-up text-gray-400 hover:text-gray-900 voting mx-2"
+          href="{{ url_for('upvote_tag', id=recording[0], tag=tag) }}"></a>
+        {{ value }}
+        <a class="bi bi-arrow-down text-gray-400 hover:text-gray-900 voting mx-2 pr-4"
+          href="{{ url_for('downvote_tag', id=recording[0], tag=tag) }}"></a>
+        <br>
+        {% endfor %}
+</div>
+</div>
+<!-- <iframe width="840" height="473" src="{{ recording[4] }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+<!-- <iframe id="player" type="text/html" width="100%" height="500px"
+  src="http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1" frameborder="0"></iframe> -->
+<!-- <iframe src="{{ recording[4] }}" height="500px" width=100% title="Embedded Zoom Recording"
+  allowfullscreen="allowfullscreen"></iframe> -->
+<!--This is for if people want to embed a video through the create page-->
+<!-- <iframe id="myIfreme" src="" frameborder="0" marginwidth="0" scrolling="yes"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen></iframe> -->
+
+{% if recording[4] and 'https://www.youtube.com/embed/' in recording[4] %}
+<li class="list-group-item"><iframe src="{{ recording[4] }}" height="500px" width=100% title="YouTube video player"
+    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen></iframe></li>
+{% elif recording[4] %}
+<li class="list-group-item"><iframe src="{{ recording[4] }}" height="500px" width=100% title="Embedded Zoom Recording"
+    allowfullscreen="allowfullscreen"></iframe></li>
+{% endif %}
+</ul>
+</div>
+
+{% endblock %}
+
 <script type="text/javascript">
   function SetSrc() {
     document.getElementById("myIfreme").src = document.getElementById("txtSRC").value;
@@ -50,91 +149,3 @@
     player.stopVideo();
   }
 </script>
-
-<div class="my-10">
-  <h1 style="display:none">{% block title %} Recording Page {% endblock %}</h1>
-  <ul class="list-group list-group-flush my-10">
-    <li class="list-group-item  md:text-4xl text-2xl" style="color:#012169"> Details for <span class="font-bold">{{
-        recording[2] }} </span>
-      <button
-        class="justify-self-end hover:border bg-white hover:shadow hover:bg-blue-50 hover:border-gray-600 rounded-lg hover:border hover:border-gray-100 text-gray-400 hover:text-blue-600">
-        <a href="{{ url_for('edit', recording_id=recording[0]) }}">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-          </svg>
-        </a>
-      </button>
-    </li>
-    <li class="list-group-item items-center"><span class="font-bold" style="color:#012169">Date:</span> {{ recording[3]
-      }}</li>
-    <li class="list-group-item"><span class="font-bold" style="color:#012169">Autogenerated Summary:</span>
-      {% if permission %}
-      <form method="post">
-        <label for="approved">Approve summary</label>
-        {% if recording[13] %}
-        <input type="checkbox" id="approved" name="approved" onChange="this.form.submit()"
-          value="{{ request.form['approved'] }}" checked> <br>
-        {% else %}
-        <input type="checkbox" id="approved" name="approved" onChange="this.form.submit()"
-          value="{{ request.form['approved'] }}"> <br>
-        {% endif %}
-      </form>
-      {% else %}
-      <br>
-      {% endif %}
-      {{ recording[7] }}
-    </li>
-
-    <li class="list-group-item"><span class="font-bold" style="color:#012169">Student Notes:</span>
-      {% for note in recording[12] %}
-      <ul style="padding-left: 15px">
-        <li style="list-style-type: disc">{{ note }}</li>
-      </ul>
-      {% endfor %}
-    </li>
-    <li class="list-group-item">
-      <span class="font-bold">
-        <div class="flex flex-row items-center overflow-x-auto">
-          <div class="mr-2" style="color:#012169">
-            Tags:
-          </div>
-      </span>
-      {% for tag, value in recording[9] | dictsort(false, 'value', reverse=true) %}
-      {% if value <= -3 %} <span class="badge text-blue-400 bg-blue-100 recording-tag">{{ tag }}</span>
-        {% elif value >= 3 %}
-        <span class="badge text-blue-400 bg-blue-100 recording-tag">{{ tag }}</span>
-        {% else %}
-        <span class="badge text-blue-400 bg-blue-100 recording-tag">{{ tag }}</span>
-        {% endif %}
-        <a class="bi bi-arrow-up text-gray-400 hover:text-gray-900 voting mx-2"
-          href="{{ url_for('upvote_tag', id=recording[0], tag=tag) }}"></a>
-        {{ value }}
-        <a class="bi bi-arrow-down text-gray-400 hover:text-gray-900 voting mx-2 pr-4"
-          href="{{ url_for('downvote_tag', id=recording[0], tag=tag) }}"></a>
-        <br>
-        {% endfor %}
-</div>
-</div>
-<!-- <iframe width="840" height="473" src="{{ recording[4] }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-<!-- <iframe id="player" type="text/html" width="100%" height="500px"
-  src="http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1" frameborder="0"></iframe> -->
-<!-- <iframe src="{{ recording[4] }}" height="500px" width=100% title="Embedded Zoom Recording"
-  allowfullscreen="allowfullscreen"></iframe> -->
-<!--This is for if people want to embed a video through the create page-->
-<!-- <iframe id="myIfreme" src="" frameborder="0" marginwidth="0" scrolling="yes"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowfullscreen></iframe> -->
-
-{% if recording[4] and 'https://www.youtube.com/embed/' in recording[4] %}
-<li class="list-group-item"><iframe src="{{ recording[4] }}" height="500px" width=100% title="YouTube video player"
-    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen></iframe></li>
-{% elif recording[4] %}
-<li class="list-group-item"><iframe src="{{ recording[4] }}" height="500px" width=100% title="Embedded Zoom Recording"
-    allowfullscreen="allowfullscreen"></iframe></li>
-{% endif %}
-</ul>
-</div>
-
-{% endblock %}

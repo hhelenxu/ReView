@@ -47,16 +47,24 @@
       </div>
       <ul class="nav navbar-nav navbar-right">
         <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle bi bi-gear-fill text-white hover:text-blue-100" href="#"
+            id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Settings
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+            {% if permission %}
+            <li><a class="dropdown-item" href="{{ url_for('admin_activity')}}">User Activity</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('admin_hidden_recordings')}}">Hidden Recordings</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('create') }}">Add Recording</a></li>
+            {% endif %}
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle bi bi-person-circle text-white hover:text-blue-100" href="#"
             id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             {{ username }}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-            {% if permission %}
-            <li><a class="dropdown-item" href="{{ url_for('admin_activity')}}">Admin Activity</a></li>
-            <li><a class="dropdown-item" href="{{ url_for('admin_hidden_recordings')}}">Admin Hidden</a></li>
-            {% endif %}
-            <!-- <li><hr class="dropdown-divider"></li> -->
             <li><a class="dropdown-item" href="{{ url_for('logout')}}">Log Out</a></li>
           </ul>
         </li>

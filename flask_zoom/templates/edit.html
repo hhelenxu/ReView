@@ -2,55 +2,15 @@
 
 {% block content %}
 
-<script>
-  // embed Youtube video
-  var tag = document.createElement('script');
-  tag.src = "https://www.youtube.com/iframe_api";
-  var firstScriptTag = document.getElementsByTagName('script')[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-  var player;
-  function onYouTubeIframeAPIReady(link) {
-    newID = link.replace("https://youtu.be/", "")
-    if (newID) {
-      player = new YT.Player('player', {
-        height: '390',
-        width: '640',
-        videoId: newID,
-        playerVars: {
-          'playsinline': 1
-        },
-        events: {
-          'onReady': onPlayerReady,
-          'onStateChange': onPlayerStateChange
-        }
-      });
-    }
-  }
-
-  function onPlayerReady(event) {
-    event.target.playVideo();
-  }
-
-  var done = false;
-  function onPlayerStateChange(event) {
-    if (event.data == YT.PlayerState.PLAYING && !done) {
-      setTimeout(stopVideo, 6000);
-      done = true;
-    }
-  }
-
-  function stopVideo() {
-    player.stopVideo();
-  }
-
-  // embed non-Youtube videos
-  function SetSrc() {
-    document.getElementById("myIfreme").src = document.getElementById("txtSRC").value;
-    document.getElementById("myIfreme").style.display = "inline";
-  }
-</script>
-
 <div class="my-10">
+  <form>
+    <div class="flex flex-row">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      <input type="button" class="bg-transparent" value="Back" onclick="history.back()">
+    </div>
+  </form>
   <div class="my-10">
     <h1 style="display:none;">{% block title %} Edit Page {% endblock %}</h1>
     <h1 class="md:text-4xl text-2xl" style="color:#012169"> Edit <span class="font-bold">"{{
@@ -161,4 +121,50 @@
   </form>
 </div>
 {% endblock %}
-<!-- Add Notes Section -->
+<script>
+  // embed Youtube video
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  var player;
+  function onYouTubeIframeAPIReady(link) {
+    newID = link.replace("https://youtu.be/", "")
+    if (newID) {
+      player = new YT.Player('player', {
+        height: '390',
+        width: '640',
+        videoId: newID,
+        playerVars: {
+          'playsinline': 1
+        },
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+  }
+
+  function onPlayerReady(event) {
+    event.target.playVideo();
+  }
+
+  var done = false;
+  function onPlayerStateChange(event) {
+    if (event.data == YT.PlayerState.PLAYING && !done) {
+      setTimeout(stopVideo, 6000);
+      done = true;
+    }
+  }
+
+  function stopVideo() {
+    player.stopVideo();
+  }
+
+  // embed non-Youtube videos
+  function SetSrc() {
+    document.getElementById("myIfreme").src = document.getElementById("txtSRC").value;
+    document.getElementById("myIfreme").style.display = "inline";
+  }
+</script>

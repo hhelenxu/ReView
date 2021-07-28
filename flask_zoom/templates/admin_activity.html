@@ -3,56 +3,72 @@
 {% block content %}
 <div class="my-10">
   <div>
-    <h1 class="md:text-4xl text-2xl" style="color:#012169">{% block title %}
-        Admin Page {% endblock %}
-    </h1>
+    <h1 class="order-1 text-blue-900 text-2xl md:text-3xl font-bold tracking-tight my-4">{% block title %} Activity
+      Log {%
+      endblock %}</h1>
   </div>
-<h4 class="md:text-2xl text-xl font-semibold my-4" style="color:#012169">Activity Log</h4>
-<hr class="">
-<div class="grid grid-cols-6 my-2 px-2 text-blue-900 rounded-md font-semibold">
-  <div class="col-span-1 flex flex-row">
-    <div class="bi bi-calendar-event mr-2"></div>
-    <div>DATE</div>
+  <div class="flex flex-col">
+    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="shadow-sm overflow-hidden border border-gray-200 sm:rounded-lg">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-100 text-blue-900">
+              <tr>
+                <th scope="col" class="bi bi-calendar-event px-6 py-3 text-left font-medium  uppercase tracking-wider">
+                  Date
+                </th>
+                <th scope="col" class="bi bi-person px-6 py-3 text-left font-medium uppercase tracking-wider">
+                  Name
+                </th>
+                <th scope="col" class="bi bi-at px-6 py-3 text-left font-medium uppercase tracking-wider">
+                  Email
+                </th>
+                <th scope="col" class="bi bi-type px-6 py-3 text-left font-medium uppercase tracking-wider">
+                  Title
+                </th>
+                <th scope="col" class="bi bi-hand-index-thumb px-6 py-3 text-left font-medium uppercase tracking-wider">
+                  Action
+                </th>
+                <th scope="col" class="bi bi-card-text px-6 py-3 text-left font-medium uppercase tracking-wider">
+                  Notes
+                </th>
+              </tr>
+
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              {% for activity in activities %}
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">
+                  {{activity[0]}}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-900">
+                  {{activity[1]}}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap  text-gray-900">
+                  {{activity[2]}}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap underline text-gray-900">
+                  <a href="{{ url_for('recording', recording_id=activity[3]) }}">
+                    {{activity[6]}}
+                  </a>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-900">
+                  {{activity[4]}}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-900">
+                  {{activity[5]}}
+                </td>
+
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
-    <div class="col-span-1 flex flex-row">
-      <div class="bi bi-person mr-2"></div>
-      <div>NAME</div>
-    </div>
-      <div class="col-span-1 flex flex-row">
-        <div class="bi bi-at mr-2"></div>
-        <div>EMAIL</div>
-      </div>
-      <div class="col-span-1 flex flex-row">
-        <div class="bi bi-type mr-2"></div>
-        <div>RECORDING</div>
-      </div>
-      <div class="col-span-1 flex flex-row">
-        <div class="bi bi-hand-index-thumb mr-2"></div>
-        <div>ACTION</div>
-      </div>
-      <div class="col-span-1 flex flex-row">
-        <div class="bi bi-card-text mr-2"></div>
-        <div>NOTES</div>
-      </div>
 </div>
-<hr class="">
-    {% for activity in activities %}
-    <div class="grid grid-cols-6 my-2 p-2 rounded border border-gray-800 shadow-sm hover:shadow-lg hover:bg-gray-50">
-      <div class="col-span-1">{{activity[0]}}</div>
-      <div class="col-span-1">{{activity[1]}}</div>
-      <div class="col-span-1">{{activity[2]}}</div>
-      <div class="col-span-1 font-semibold underline">
-        <button class="justify-self-end hover:text-blue-600">
-        <a href="{{ url_for('recording', recording_id=activity[3]) }}">
-          <div class="font-semibold underline">{{activity[6]}}</div>
-        </a>
-      </button>
-      </div>
-      <div class="col-span-1">{{activity[4]}}</div>  
-      <div class="col-span-1">{{activity[5]}}</div>
-    </div>
-    {% endfor %}
-</div>
-<br>
+
+
 
 {% endblock %}
