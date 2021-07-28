@@ -3,14 +3,6 @@
 {% block content %}
 
 <div class="my-10">
-  <form>
-    <div class="flex flex-row">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-      </svg>
-      <input type="button" class="bg-transparent" value="Back" onclick="history.back()">
-    </div>
-  </form>
   <div class="my-10">
     <h1 style="display:none;">{% block title %} Edit Page {% endblock %}</h1>
     <h1 class="md:text-4xl text-2xl" style="color:#012169"> Edit <span class="font-bold">"{{
@@ -25,14 +17,6 @@
       <div class="mt-1">
         <input type="text" name="title" class="form-control rounded-md" placeholder="Post Title"
           value="{{ request.form['title'] or recording[2] }}" />
-      </div>
-    </div>
-
-    <div class="form-group my-4">
-      <label for="tags" class="block text-sm font-medium text-gray-700">Tags</label>
-      <div class="mt-1">
-        <input id="tags" name="tags" value="{{ request.form['tags'] or " , ".join(recording[9]) }}"
-          data-role="tagsinput" type="text" placeholder="Add tags" class="form-control" />
       </div>
     </div>
 
@@ -53,13 +37,21 @@
       </div>
     </div>
 
+    <div class="form-group my-4">
+      <label for="tags" class="block text-sm font-medium text-gray-700">Tags</label>
+      <div class="mt-1">
+        <input id="tags" name="tags" value="{{ request.form['tags'] or " , ".join(recording[9]) }}"
+          data-role="tagsinput" type="text" placeholder="Add tags" class="form-control" />
+      </div>
+    </div>
+
     <!-- <div class="form-group py-2">
       <label for="transcription">Transcription</label>
       <textarea name="transcription" placeholder="Transcription" rows="10"
                 class="form-control">{{ request.form['transcription'] or recording[6] }}</textarea>
   </div> -->
     <br /><br />
-    
+
     <div id="vidembed" style="display:none;">
       <p style="text-decoration:underline; font-size:20px"> Embed Videos Below</p><br />
       <div class="form-group py-2">
@@ -88,7 +80,7 @@
         allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""
         style="display:none; width:640px; height: 400px;"></iframe>
     </div>
-    
+
 
     <div class="flex flex-row items-center">
       <div class="flex flex-row items-center my-4">
