@@ -89,8 +89,9 @@
             class="btn border border-2 py-2 border-blue-500 rounded-lg text-white hover:bg-blue-700 bg-blue-900 px-12">Save</button>
         </div>
         <div class="mr-4">
-          <button class=" btn border border-2 px-4 py-2 rounded-lg bg-white "><a
+          <button class="flex flex-row items-center btn border border-2 px-4 py-2 rounded-lg bg-white "><a
               href="{{ url_for('recording', recording_id=recording[0]) }}">
+              <i class="bi bi-arrow-counterclockwise"></i>
               Cancel
             </a>
           </button>
@@ -98,13 +99,21 @@
         {% if permission %}
         {% if recording[1] %}
         <div class="mr-4 ">
-          <button class="btn border border-2 hover:border-red-500 px-4 py-2 rounded-lg bg-white "><a
-              href="{{ url_for('hide', recording_id=recording[0]) }}">Hide</a></button>
+          <button
+            class="flex flex-row items-center btn border border-2 hover:border-red-500 px-4 py-2 rounded-lg bg-white "><a
+              href="{{ url_for('hide', recording_id=recording[0]) }}">
+              <i class="bi bi-eye-slash">
+
+              </i>Hide</a></button>
         </div>
         {% else %}
         <div class=" mr-4">
-          <button class="btn border border-2 hover:border-red-500 px-4 py-2 rounded-lg bg-white "><a
-              href="{{ url_for('show', recording_id=recording[0]) }}">Show</a></button>
+          <button
+            class="flex flex-row items-center btn border border-2 hover:border-red-500 px-4 py-2 rounded-lg bg-white "><a
+              href="{{ url_for('show', recording_id=recording[0]) }}">
+              <i class="bi bi-eye">
+
+              </i>Show</a></button>
         </div>
         {% endif %}
         {% endif %}

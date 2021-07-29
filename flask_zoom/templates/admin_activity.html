@@ -3,7 +3,7 @@
 {% block content %}
 <div class="my-10">
   <div>
-    <h1 class="order-1 text-blue-900 text-2xl md:text-3xl font-bold tracking-tight my-4">{% block title %} Activity
+    <h1 class="order-1 text-duke-blue text-2xl md:text-3xl font-bold tracking-tight my-4">{% block title %} Activity
       Log {%
       endblock %}</h1>
   </div>
@@ -12,7 +12,7 @@
       <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
         <div class="shadow-sm overflow-hidden border border-gray-200 sm:rounded-lg">
           <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-100 text-blue-900">
+            <thead class="bg-gray-100 text-duke-blue">
               <tr>
                 <th scope="col" class="bi bi-calendar-event px-6 py-3 text-left font-medium  uppercase tracking-wider">
                   Date
@@ -38,24 +38,24 @@
             <tbody class="bg-white divide-y divide-gray-200">
               {% for activity in activities %}
               <tr>
-                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">
+                <td class="px-6 py-4 whitespace-nowrap font-medium text-duke-darkgray">
                   {{activity[0]}}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-gray-900">
+                <td class="px-6 py-4 whitespace-nowrap text-duke-darkgray">
                   {{activity[1]}}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap  text-gray-900">
+                <td class="px-6 py-4 whitespace-nowrap  text-duke-darkgray">
                   {{activity[2]}}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap underline text-gray-900">
+                <td class="px-6 py-4 whitespace-nowrap underline text-duke-darkgray">
                   <a href="{{ url_for('recording', recording_id=activity[3]) }}">
                     {{activity[6]}}
                   </a>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-gray-900">
+                <td class="px-6 py-4 whitespace-nowrap text-duke-darkgray">
                   {{activity[4]}}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-gray-900">
+                <td class="px-6 py-4 whitespace-nowrap text-duke-darkgray">
                   {{activity[5]}}
                 </td>
 

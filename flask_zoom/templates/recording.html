@@ -25,6 +25,10 @@
         Summary:
         {% if recording[13] %} <span class="bg-green-50 py-1 px-2 text-sm rounded-full text-green-600">
           Instructor approved <i class="bi bi-check-circle-fill"></i> <br> </span>
+        {% else %}
+        <span class="bg-duke-ginger text-yellow-700 py-1 px-2 text-sm rounded-full">
+          Edits welcome! <br> </span>
+
         {% endif %}
         <!-- maybe move to right corner? -->
 
@@ -68,10 +72,10 @@
         {% else %}
         <span class="badge text-blue-400 bg-blue-100 recording-tag">{{ tag }}</span>
         {% endif %}
-        <a class="bi bi-arrow-up text-gray-400 hover:text-gray-900 voting mx-2"
+        <a class="bi bi-arrow-up text-gray-400 hover:text-duke-darkgray voting mx-2"
           href="{{ url_for('upvote_tag', id=recording[0], tag=tag) }}"></a>
         {{ value }}
-        <a class="bi bi-arrow-down text-gray-400 hover:text-gray-900 voting mx-2 pr-4"
+        <a class="bi bi-arrow-down text-gray-400 hover:text-duke-darkgray voting mx-2 pr-4"
           href="{{ url_for('downvote_tag', id=recording[0], tag=tag) }}"></a>
         <br>
         {% endfor %}

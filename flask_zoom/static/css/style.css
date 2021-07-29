@@ -49,7 +49,38 @@ th {
 .body {
     font-family: 'Open Sans', sans-serif;
 }
+.text-duke-blue {
+    color: #012169;
 
-.h1 {
-    color:#012169;
+}
+.bg-duke-blue {
+    background-color: #012169;
+
+}
+.text-duke-darkgray {
+    color: #262626;
+}
+.bg-duke-darkgray {
+    background-color: #262626;
+}
+
+.text-duke-lightblue {
+    color: #F1F1F3;
+}
+.bg-duke-lightblue {
+    background-color: #F1F1F3;
+}
+
+.text-duke-persimmon {
+    color: #E89923;
+}
+.bg-duke-persimmon {
+    background-color: #E89923;
+}
+
+.text-duke-ginger {
+    color: #FCF7E5;
+}
+.bg-duke-ginger {
+    background-color: #FCF7E5;
 }

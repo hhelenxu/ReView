@@ -4,7 +4,7 @@
 
 <div class="my-10">
   <div>
-    <h1 class="order-1 text-blue-900 text-2xl md:text-3xl font-bold tracking-tight my-4">{% block title %} Hidden
+    <h1 class="order-1 text-duke-blue text-2xl md:text-3xl font-bold tracking-tight my-4">{% block title %} Hidden
       Recordings {% endblock %}</h1>
   </div>
   <div class="flex flex-col">
@@ -12,7 +12,7 @@
       <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
         <div class="shadow-sm overflow-hidden border border-gray-200 sm:rounded-lg">
           <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-100 uppercase text-blue-900">
+            <thead class="bg-gray-100 uppercase text-duke-blue">
               <tr>
                 <th scope="col" class="bi bi-calendar-event px-6 py-3 text-left font-medium  uppercase tracking-wider">
                   Date
@@ -32,15 +32,15 @@
             <tbody class="bg-white divide-y divide-gray-200 items-start">
               {% for recording in hiddenRecordings %}
               <tr>
-                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">
+                <td class="px-6 py-4 whitespace-nowrap font-medium text-duke-darkgray">
                   {{recording[3]}}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap underline text-sm text-gray-900">
+                <td class="px-6 py-4 whitespace-nowrap underline text-sm text-duke-darkgray">
                   <a href="{{ url_for('recording', recording_id=recording[0]) }}">
                     {{recording[2]}}
                   </a>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-gray-900">
+                <td class="px-6 py-4 whitespace-nowrap text-duke-darkgray">
                   {% for tag, value in recording[9] | dictsort(false, 'value', reverse=true) %}
                   {% if recording[9][tag] <= -3 %} <a href="{{ url_for('indexTagFilter', tag=tag) }}">
                     <span class="badge text-blue-400 bg-blue-50">{{ tag }}</span></a>
