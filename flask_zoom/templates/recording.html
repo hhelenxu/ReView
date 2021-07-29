@@ -6,10 +6,9 @@
   <h1 style="display:none;">{% block title %} Recording Page {% endblock %}</h1>
   <ul class="list-group list-group-flush my-10">
     <li class="list-group-item flex justify-between md:text-4xl text-2xl" style="color:#012169"> Details for
-      {{
-      recording[2] }}
-      <button
-        class="justify-self-end hover:border bg-white hover:shadow hover:bg-blue-50 hover:border-gray-600 rounded-lg hover:border hover:border-gray-100 text-gray-400 hover:text-blue-600">
+      {{ recording[2] }}
+
+      <button class="justify-self-end rounded-lg text-gray-400 hover:text-blue-600">
         <a href="{{ url_for('edit', recording_id=recording[0]) }}">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

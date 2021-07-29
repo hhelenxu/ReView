@@ -161,10 +161,10 @@
                   </button>
 
                 </td>
-
               </tr>
               {% endfor %}
               {% if permission %}
+              {% if selected_tag == "" %}
               <tr>
                 <td class="px-6 py-4 whitespace-nowrap text-gray-600 hover:text-blue-600 bi bi-plus-circle">
                   <a href="{{ url_for('create') }}">
@@ -172,6 +172,7 @@
                   </a>
                 </td>
               </tr>
+              {% endif %}
               {% endif %}
             </tbody>
           </table>

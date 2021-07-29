@@ -111,6 +111,7 @@
               </svg>
             </a>
           </button>
+
         </div>
       </div>
 
@@ -144,11 +145,14 @@
   </div>
   {% endfor %}
   {% if permission %}
-  <div class="bi bi-plus-circle items-center hover:text-blue-600 mb-3 max-w-md place-self-center">
+  {% if selected_tag == "" %}
+  <div
+    class="card w-full h-24 bi bi-plus-circle place-content-center items-center text-gray-600 hover:text-blue-600 mb-3 max-w-md">
     <a href="{{ url_for('create') }}">
       Add recording
     </a>
   </div>
+  {% endif %}
   {% endif %}
 
 

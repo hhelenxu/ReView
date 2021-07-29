@@ -47,10 +47,12 @@
       </div>
       <ul class="nav navbar-nav navbar-right">
         <li class="nav-item dropdown">
+          {% if permission %}
           <a class="nav-link dropdown-toggle bi bi-gear-fill text-white hover:text-blue-100" href="#"
             id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Settings
           </a>
+          {% endif %}
           <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
             {% if permission %}
             <li><a class="dropdown-item" href="{{ url_for('admin_activity')}}">User Activity</a></li>
