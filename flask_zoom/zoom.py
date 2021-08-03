@@ -22,8 +22,8 @@ import json
 name = "Test User1" # "testuser1.zoom@gmail.com"
 # TOKEN stored in zoomconfig file (hidden by .gitignore)
 stop_words = set(stopwords.words('english'))
-# now = datetime.now()
 
+# Use zoom api to get users
 def get_users(conn, cur, headers):
     url = "https://api.zoom.us/v2/users"
     response = requests.get(url=url, headers=headers)
@@ -34,7 +34,7 @@ def get_users(conn, cur, headers):
         cur.execute("INSERT INTO users (name, id, email) VALUES (%s , %s, %s) ON CONFLICT (id) DO NOTHING", (u["first_name"]+" "+u["last_name"], u["id"], u["email"]))
         conn.commit()
 
-
+# Use zoom api to get recordings associated with particular user
 def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1):
     # get meetings
     url = "https://api.zoom.us/v2/users/" + user + "/recordings"
@@ -46,7 +46,7 @@ def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1
         url += "?to=" + end
     response = requests.request("GET", url, headers=headers)
     meetings = response.json()["meetings"]
-    meetings.reverse()
+    meetings.reverse() # oldest to newest
 
     # get useful info
     for meeting in meetings:
@@ -88,7 +88,7 @@ def get_meetings(conn, cur, user, headers, start=None, end=None, num_sentences=1
         cur.execute("INSERT INTO recordings(topic, start_time, video, transcript, text, tokens, tags, summary, visible, zoom_id, unformat_time, notes, summary_approved) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, TRUE, %s, %s, %s, FALSE) ON CONFLICT (zoom_id) DO NOTHING", (meeting["topic"], date, video_link, transcript_link, text, tokens, json.dumps(keywords_dict), summary, meeting["uuid"], meeting["start_time"], '{}'))
         conn.commit()
 
-
+# Format zoom transcripts
 def parse_transcripts(transcript_link):
     # get transcript text
     if transcript_link == "":
@@ -102,7 +102,7 @@ def parse_transcripts(transcript_link):
         lines.append(string.split("\r")[0])
     return " ".join(lines)
 
-
+# Format date into text to be displayed
 def format_date(date_str):
     # time originally in UTC
     utc_time = datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%SZ')
@@ -114,8 +114,7 @@ def format_date(date_str):
     time = utc_time.astimezone(to_zone)
     return time.strftime("%b %d, %Y %I:%M %p")
 
-
-# get keywords from transcript
+# Get keywords (tags) from transcript
 dict_idf = {}
 sentences = []
 def find_keywords(text, num_tags=5):
@@ -143,8 +142,7 @@ def find_keywords(text, num_tags=5):
             tfidf[:, tags==k] = tfidf[:, tags==k] * dict_idf[k]
     return list(tags[tfidf[0, :].argsort()[-1*num_tags:][::-1]])
 
-
-# summarize
+# Summarize transcripts
 def sentence_similarity(sent1, sent2):
 
     sent1 = [w.lower() for w in sent1]
@@ -168,8 +166,6 @@ def sentence_similarity(sent1, sent2):
         vector2[all_words.index(w)] += 1
 
     return 1 - cosine_distance(vector1, vector2)
-
-
 def build_similarity_matrix(sentences):
     # Create an empty similarity matrix
     similarity_matrix = np.zeros((len(sentences), len(sentences)))
@@ -181,8 +177,6 @@ def build_similarity_matrix(sentences):
             similarity_matrix[idx1][idx2] = sentence_similarity(
                 sentences[idx1], sentences[idx2])
     return similarity_matrix
-
-
 def generate_summary(text, top_n=5):
     if text == "":
         return ""
@@ -210,7 +204,7 @@ def generate_summary(text, top_n=5):
     summarized = " ".join(summarize_text)
     return summarized
 
-
+# Search for words in recordings (Postgres full text search)
 def search(conn, cur, words):
     words = words.split()
 
@@ -233,7 +227,7 @@ def search(conn, cur, words):
     cur.execute("SELECT * FROM recordings WHERE tokens @@ to_tsquery(%s)", (or_search,)) 
     return cur.fetchall()
 
-
+# Change visibility of recording (show/hide)
 def change_visibility(conn, cur, meeting_id, user, email, visible='FALSE'):
     cur.execute("UPDATE recordings SET visible=%s WHERE id=%s", (visible, meeting_id))
     conn.commit()
@@ -252,20 +246,16 @@ def change_visibility(conn, cur, meeting_id, user, email, visible='FALSE'):
     conn.commit()
 
 
-# upvote or downvote tags
+# Upvote or downvote tags
 def vote_tags(conn, cur, id, tag, vote, user, email):
-    print(tag)
-    print(id)
     # vote should either be 1 for upvote or -1 for downvote
     cur.execute("SELECT tags FROM recordings WHERE id=%s", (id,))
     tags_dict = cur.fetchone()[0]
     tags_dict[tag] = tags_dict[tag] + vote
     tags_dict = dict(sorted(tags_dict.items(), key=lambda item: item[1]))
-    # print(json.dumps(tags_dict))
+
     cur.execute("UPDATE recordings SET tags=%s WHERE id=%s", (json.dumps(tags_dict), id))
     conn.commit()
-    # cur.execute("SELECT tags FROM recordings WHERE id=%s", (id,))
-    # print(cur.fetchone())
 
     cur.execute("SELECT topic FROM recordings WHERE id=%s", (id,))
     title = cur.fetchone()[0]
@@ -281,10 +271,8 @@ def vote_tags(conn, cur, id, tag, vote, user, email):
     conn.commit()
 
 
-
 def main():
-    # print(stop_words)
-    # add additional stopwords
+    # add additional stopwords from stopwords.txt
     with open('stopwords.txt') as f:
         words = f.read().splitlines()
         for word in words:
@@ -294,7 +282,7 @@ def main():
     conn = psycopg2.connect("dbname={} user={} host='localhost' password={}".format(dbconfig.database["db"], dbconfig.database["user"], dbconfig.database["password"]))
     cur = conn.cursor()
 
-    # get users
+    # get users of zoom account
     headers = {
         'Authorization': "Bearer " + zoomconfig.TOKEN,
     }
@@ -308,8 +296,7 @@ def main():
 
     today = date.today().strftime("%Y-%m-%d")
     start_date = "2021-06-01"
-    # end_date = today
-    end_date="2021-06-17"
+    end_date = today
     num_sentences = 3
         
     # get meetings and summarize transcripts
@@ -317,7 +304,6 @@ def main():
 
     cur.close()
     conn.close()
-
     
 
 if __name__ == "__main__":

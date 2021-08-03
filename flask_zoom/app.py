@@ -2,19 +2,19 @@ from flask import Flask, render_template, request, url_for, flash, redirect, ses
 from flask_session import Session
 from werkzeug.exceptions import abort
 import jwt
-from jwt import PyJWKClient
 import psycopg2
-from zoom import *
 import databaseconfig as dbconfig
-import zoomconfig
+from zoom import *
 import vcmconfig
 from datetime import datetime
 import pytz
 
+# Connect to database specified in dbconfig
 def get_db_connection():
     conn = psycopg2.connect("dbname={} user={} password={}".format(dbconfig.database["db"], dbconfig.database["user"], dbconfig.database["password"]))
     return conn
 
+# Fetch recording with specific recording_id from recordings table in database
 def get_recording(recording_id):
     conn = get_db_connection()
     cur = conn.cursor()
@@ -25,34 +25,33 @@ def get_recording(recording_id):
         abort(404)
     return recording
 
+# Helper method to search for a tag or a keyword in the search bar
 def searchForKeyword(keyword, tag="", view="index"):
     if view == "index":
         file = 'index.html'
     else:
         file = 'card.html'
-    if keyword == "":
-        conn = get_db_connection()
-        cur = conn.cursor()
-        # get recordings
-        if tag:
-            cur.execute('SELECT * FROM recordings WHERE tags::jsonb ? %s ORDER BY unformat_time DESC',(tag,))
-        else:
-            cur.execute("SELECT * FROM recordings WHERE visible=TRUE ORDER BY unformat_time DESC")
-        recordings = cur.fetchall()
-        cur.close()
-        conn.close()
-        return render_template(file, recordings=recordings, selected_tag=tag, username=session.get('user'), permission=session.get('permission'))
+
     conn = get_db_connection()
     cur = conn.cursor()
-    recordings = search(conn, cur, keyword)
+
+    if keyword: # search for keyword
+        recordings = search(conn, cur, keyword)
+    elif tag: # search for tag
+        cur.execute('SELECT * FROM recordings WHERE tags::jsonb ? %s ORDER BY unformat_time DESC',(tag,))
+        recordings = cur.fetchall()
+    else: # display all available recordings
+        cur.execute("SELECT * FROM recordings WHERE visible=TRUE ORDER BY unformat_time DESC")
+        recordings = cur.fetchall()  
+
     cur.close()
     conn.close()
     return render_template(file, recordings=recordings, selected_tag=tag, username=session.get('user'), permission=session.get('permission'))
 
-
+# Decode JWT for authentication
 def authenticate(token):
     # jwks = "https://go.fuqua.duke.edu/auth/jwks"
-    # jwks_client = PyJWKClient(jwks)
+    # jwks_client = jwt.PyJWKClient(jwks)
     # signing_key = jwks_client.get_signing_key_from_jwt(token)
     public_key = b"-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsenb4+ybQKRQk75rCK9o\n8c9Yfd1NusBxnXeWPqL6mEoL8FOnJwC+emHxOh6G4sBFF3wADFq0tsZdm3k5E1nG\nrFe6Z6r0aYmFjXjBWNaOGACekQe0/m5wlKOn24c7QjiPxLb22vCSCHKM/P2meuf5\n0Gb4DfcXIFzmUoNYiEEbUyJ326meNeXQJBPq/UuZyBrwh4T7VmFGhCcfWOZ9i2Ho\ndldJHva5IzKjfF+VjPcNlAymbumjL7PlzOsjhTmOlyc9fEesINOuCctaNQUqE4nH\n6cPh7fO1CYlJMaxULzqvltazeHuCX4B14FM9/EJKdr677M5qFFqMPOuHQw3guzdd\nXwIDAQAB\n-----END PUBLIC KEY-----"
     data = jwt.decode(
@@ -65,10 +64,8 @@ def authenticate(token):
 
 
 app = Flask(__name__)
-# app.config['SECRET_KEY'] = 'NlcPJLmeyeXMn4KpISh0hGQ3cWQIQbbnE0WwfpeZxjiftirfP2sCNI0GA6P96kCP'  # used to secure sessions, which allow Flask to remember information from one request to another
-app.secret_key = 'NlcPJLmeyeXMn4KpISh0hGQ3cWQIQbbnE0WwfpeZxjiftirfP2sCNI0GA6P96kCP'
-# app.config['SESSION_TYPE'] = 'redis'
-# Session(app)
+app.secret_key = 'NlcPJLmeyeXMn4KpISh0hGQ3cWQIQbbnE0WwfpeZxjiftirfP2sCNI0GA6P96kCP'  # used to secure sessions, which allow Flask to remember information from one request to another
+# app.config['SECRET_KEY'] = 'NlcPJLmeyeXMn4KpISh0hGQ3cWQIQbbnE0WwfpeZxjiftirfP2sCNI0GA6P96kCP' 
 
 
 @app.route('/', methods=('GET', 'POST'))
@@ -76,29 +73,6 @@ def index():
     # authentication and determine permissions
     if not session or not request.cookies.get('_FSB_SHIB'):
         return redirect(url_for('login'))
-    # if not request.cookies.get('_FSB_SHIB'):
-    #     return redirect(url_for('auth_redirect'))
-    # login()
-    # token = request.cookies.get('_FSB_SHIB')
-    # try:
-    #     auth = authenticate(token)
-    #     print(auth)
-    # except jwt.exceptions.DecodeError as e:
-    #     print("Error decoding JWT "+token)
-    #     return redirect(url_for('auth_redirect'))
-    # except jwt.exceptions.ExpiredSignatureError as e:
-    #     return redirect(url_for('auth_redirect'))
-
-    # session['user'] = auth['cn']
-    # session['dukeid'] = auth['dukeid']
-    # session['email'] = auth['sub']
-    # if "staff@duke.edu" in auth['eduPersonScopedAffiliation'] or "faculty@duke.edu" in auth['eduPersonScopedAffiliation']:
-    #     session['permission'] = True
-    # else:
-    #     session['permission'] = False
-
-    # print(session.get('user'))
-    # print(session.get('permission'))
 
     # search
     if request.method == 'POST':
@@ -108,25 +82,48 @@ def index():
     cur = conn.cursor()
     cur_sort_order = 'date_desc'
 
-    # get recordings
+    # get recordings and order by date (default is descending)
     cur.execute("SELECT * FROM recordings WHERE visible=TRUE ORDER BY unformat_time DESC")
     recordings = cur.fetchall()
-    # print(request.args['sort'])
     if request.args and request.args['sort']=='date_asc':
-        # cur.execute("SELECT * FROM recordings WHERE visible=TRUE ORDER BY unformat_time ASC")
-        # recordings = cur.fetchall()
         recordings.reverse()
-        print("date asc")
         cur_sort_order = 'date_asc'
     elif request.args and request.args['sort']=='date_desc':
-        # cur.execute("SELECT * FROM recordings WHERE visible=TRUE ORDER BY unformat_time DESC")
-        # recordings = cur.fetchall()
         cur_sort_order = 'date_desc'
-        print("date desc")
+
     cur.close()
     conn.close()
 
     return render_template('index.html', recordings=recordings, selected_tag="", username=session.get('user'), sort_order=cur_sort_order, permission=session.get('permission'))
+
+
+@app.route('/card', methods=('GET', 'POST'))
+def card():
+    # authentication and determine permissions
+    if not session or not request.cookies.get('_FSB_SHIB'):
+        return redirect(url_for('login'))
+
+    # search
+    if request.method == 'POST':
+        return searchForKeyword(keyword=request.form['keyword'], view="card")
+
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur_sort_order = 'date_desc'
+
+    # get recordings and order by date (default is descending)
+    cur.execute("SELECT * FROM recordings WHERE visible=TRUE ORDER BY unformat_time DESC")
+    recordings = cur.fetchall()
+    if request.args and request.args['sort']=='date_asc':
+        recordings.reverse()
+        cur_sort_order = 'date_asc'
+    elif request.args and not request.args['sort']=='date_desc':
+        cur_sort_order = 'date_desc'
+    
+    cur.close()
+    conn.close()
+
+    return render_template('card.html', recordings=recordings, selected_tag="", username=session.get('user'), permission=session.get('permission'), sort_order=cur_sort_order)
 
 
 @app.route('/auth_redirect')
@@ -142,7 +139,6 @@ def login():
     token = request.cookies.get('_FSB_SHIB')
     try:
         auth = authenticate(token)
-        print(auth)
     except jwt.exceptions.DecodeError as e:
         print("Error decoding JWT "+token)
         return redirect(url_for('auth_redirect'))
@@ -206,42 +202,13 @@ def admin_hidden_recordings():
     return render_template('admin_hidden.html', hiddenRecordings=hiddenRecordings, username=session.get('user'), permission=session.get('permission'))
 
 
-@app.route('/card', methods=('GET', 'POST'))
-def card():
-    # authentication and determine permissions
-    if not session or not request.cookies.get('_FSB_SHIB'):
-        return redirect(url_for('login'))
-
-    # search
-    if request.method == 'POST':
-        return searchForKeyword(keyword=request.form['keyword'], view="card")
-
-    conn = get_db_connection()
-    cur = conn.cursor()
-    cur_sort_order = 'date_desc'
-
-    # get recordings
-    cur.execute("SELECT * FROM recordings WHERE visible=TRUE ORDER BY unformat_time DESC")
-    recordings = cur.fetchall()
-    if request.args and request.args['sort']=='date_asc':
-        recordings.reverse()
-        cur_sort_order = 'date_asc'
-    elif request.args and not request.args['sort']=='date_desc':
-        cur_sort_order = 'date_desc'
-        print("date desc")
-    
-    cur.close()
-    conn.close()
-
-    return render_template('card.html', recordings=recordings, selected_tag="", username=session.get('user'), permission=session.get('permission'), sort_order=cur_sort_order)
-
-
 @app.route('/<string:recording_id>', methods=('GET', 'POST'))
 def recording(recording_id):
     # authentication and determine permissions
     if not session or not request.cookies.get('_FSB_SHIB'):
         return redirect(url_for('login'))
 
+    # if instructor approved/unapproved summary
     if request.method == 'POST':
         conn = get_db_connection()
         cur = conn.cursor()
@@ -293,7 +260,7 @@ def edit(recording_id):
         #     conn.commit()
 
         tags = request.form['tags'].split(',')
-        # remove leading and trailing whitespaces
+        # remove leading and trailing whitespaces from tags
         for i in range(len(tags)):
             tags[i] = tags[i].strip()
 
@@ -301,7 +268,6 @@ def edit(recording_id):
         new_dict = {tag: value for (tag, value) in recording[9].items() if tag in tags}
         for tag in [x for x in recording[9] if x not in new_dict]:
             if tag!="":
-                print("Deleted tag: "+tag+" end")
                 # add to activity log if tag deleted
                 cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Deleted tag", "Deleted tag: \""+tag+"\"", recording[2], datetime.now()))
                 conn.commit()
@@ -309,36 +275,23 @@ def edit(recording_id):
         # adding new tags
         for tag in tags:
             if tag not in originalTags and tag!="":
-                print("Added tag: "+ tag+ " end")
                 new_dict[tag] = 0
                 # add to activity log if tag added
                 cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Added tag", "Added tag: \""+tag+"\"", recording[2], datetime.now()))
                 conn.commit()
-
-        # yvidurl = request.form['yvidurl']
-        # vidurl = request.form['vidurl']
-        # new_vid = recording[4]
-        # if yvidurl:
-        #     new_vid = yvidurl.replace("https://youtu.be/", "https://www.youtube.com/embed/")
-        # elif vidurl:
-        #     new_vid = vidurl
-        # # add to activity log if video link changed
-        # if new_vid!=recording[4]:
-        #     cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Changed video url", vidurl, recording[2], datetime.now()))
-        #     conn.commit()
 
         if not title:
             flash('Title is required!')
         else:
             conn = get_db_connection()
             cur = conn.cursor()
-            # cur.execute('UPDATE recordings SET topic = %s, summary = %s, tags = %s, video = %s, notes=%s where id = %s', (title, summary, json.dumps(new_dict), new_vid, vid_notes, recording_id))
             cur.execute('UPDATE recordings SET topic = %s, summary = %s, tags = %s, notes=%s where id = %s', (title, summary, json.dumps(new_dict),vid_notes, recording_id))
-            cur.close()
             conn.commit()
+            cur.close()
             conn.close()
             return redirect(url_for('.recording', recording_id=recording_id))
     return render_template('edit.html', recording=recording, permission=session.get('permission'), username=session.get('user'))
+
 
 @app.route('/create', methods=('GET', 'POST'))
 def create():
@@ -353,15 +306,22 @@ def create():
     cur = conn.cursor()
 
     if request.method == 'POST':
-        cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%b %d, %Y %I:%M %p"))
+        cur_time = str(datetime.now(pytz.timezone('America/New_York')).strftime("%b %d, %Y %I:%M %p")) # time video was added
 
+        # get user input from create page
         title = request.form['title']
         summary = request.form['summary']
+        recordingURL = request.form['recordingURL']
         transcription = request.form['transcription']
         vid_notes = request.form['notes'].splitlines()
         tags = {tag.strip(): 0 for tag in request.form['tags'].split(',')}
 
-        recordingURL = request.form['recordingURL']
+        # autogenerate summary if not manually inputted and transcript exists
+        if transcription and not summary:
+            sentences = generate_summary(transcription, 3).split(". ")
+            summary = ". ".join([word.capitalize() for word in sentences])
+
+        # reformat YouTube link for embedding if applicable
         if "https://youtu.be/" in recordingURL:
             recordingURL = recordingURL.replace("https://youtu.be/", "https://www.youtube.com/embed/")        
 
@@ -371,9 +331,11 @@ def create():
             conn = get_db_connection()
             cur = conn.cursor()
 
+            # insert new recording into recordings table in the database
             cur.execute("INSERT INTO recordings(topic, start_time, video, transcript, text, tags, summary, visible, unformat_time, notes, summary_approved) VALUES (%s, %s, %s, %s, %s, %s, %s, TRUE, %s, %s, FALSE)", (title, cur_time, recordingURL, "", transcription, json.dumps(tags), summary, cur_time, vid_notes))
             conn.commit()
 
+            # add action to activity log
             cur.execute("SELECT id FROM recordings WHERE topic=%s and start_time=%s", (title, cur_time))
             recording_id = cur.fetchone()[0]
             cur.execute("INSERT INTO activity(time, name, email, recording_id, action, notes, recording_title, unformat_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (cur_time, session.get('user'), session.get('email'), recording_id, "Created recording", "", title, datetime.now()))
@@ -394,6 +356,8 @@ def hide(recording_id):
     conn = get_db_connection()
     cur = conn.cursor()
     recording = get_recording(recording_id)
+
+    # change recording's visibility to false (hides recording from list)
     change_visibility(conn, cur, recording_id, session.get('user'), session.get('email'))
     conn.commit()
     cur.close()
@@ -411,6 +375,8 @@ def show(recording_id):
     conn = get_db_connection()
     cur = conn.cursor()
     recording = get_recording(recording_id)
+
+    # changes recording's visibility to true (shows recording in list)
     change_visibility(conn, cur, recording_id, session.get('user'), session.get('email'), visible='TRUE')
     conn.commit()
     cur.close()
@@ -428,10 +394,11 @@ def indexTagFilter(tag):
     # search
     if request.method == 'POST':
         return searchForKeyword(request.form['keyword'], tag)
+
     conn = get_db_connection()
     cur = conn.cursor()
 
-    # get recordings
+    # get recordings containing that tag (in list view)
     cur.execute('SELECT * FROM recordings WHERE tags::jsonb ? %s ORDER BY unformat_time DESC',(tag,))
     recordings = cur.fetchall()
     cur.close()
@@ -445,13 +412,14 @@ def cardTagFilter(tag):
     if not session or not request.cookies.get('_FSB_SHIB'):
         return redirect(url_for('login'))
     
+    # search
     if request.method == 'POST':
         return searchForKeyword(keyword=request.form['keyword'], tag=tag, view="card")
 
     conn = get_db_connection()
     cur = conn.cursor()
 
-    # get recordings
+    # get recordings containing that tag (in card view)
     cur.execute('SELECT * FROM recordings WHERE tags::jsonb ? %s ORDER BY unformat_time DESC',(tag,))
     recordings = cur.fetchall()
     cur.close()
@@ -467,6 +435,8 @@ def upvote_tag(id, tag):
 
     conn = get_db_connection()
     cur = conn.cursor()
+
+    # increase tag's vote by 1 in the database
     vote_tags(conn, cur, id, tag, 1, session.get('user'), session.get('email'))
     cur.close()
     conn.close()
@@ -483,6 +453,8 @@ def downvote_tag(id, tag):
 
     conn = get_db_connection()
     cur = conn.cursor()
+
+    # decrease tag's vote by 1 in the database
     vote_tags(conn, cur, id, tag, -1, session.get('user'), session.get('email'))
     cur.close()
     conn.close()
@@ -497,6 +469,7 @@ def logout():
     if not session or not request.cookies.get('_FSB_SHIB'):
         return redirect(url_for('login'))
     
+    # delete '_FSB_SHIB' and 'session' cookies to logout
     resp = make_response(render_template('index.html'))
     resp.delete_cookie('_FSB_SHIB')
     resp.delete_cookie('session')

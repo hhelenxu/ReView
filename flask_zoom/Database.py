@@ -1,7 +1,7 @@
 import psycopg2
 import databaseconfig as dbconfig
 
-# connect to zoom_app database
+# connect to database
 try:
     conn = psycopg2.connect("dbname={} user={} password={}".format(dbconfig.database["db"], dbconfig.database["user"], dbconfig.database["password"]))
     print("Connected to the database.")
@@ -24,9 +24,8 @@ try:
 except:
     print("Failed to create users table.")
 
-# create zoom recordings table
+# create recordings table
 try:
-    # text type
     cur.execute("""
     CREATE TABLE IF NOT EXISTS recordings (
         id SERIAL,
